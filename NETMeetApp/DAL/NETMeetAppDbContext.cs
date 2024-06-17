@@ -16,14 +16,8 @@ namespace NETMeetApp.DAL
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<User>()
-                .ToTable("Users");
-
-            modelBuilder.Entity<Teacher>()
-                .ToTable("Teachers");
-
-            modelBuilder.Entity<Student>()
-                .ToTable("Students");
+            modelBuilder.Entity<Teacher>().ToTable("Teachers");
+            modelBuilder.Entity<Student>().ToTable("Students");
 
             base.OnModelCreating(modelBuilder);
         }
