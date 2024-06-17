@@ -1,6 +1,12 @@
-﻿namespace NETMeetApp.DAL
+﻿using Microsoft.EntityFrameworkCore;
+
+namespace NETMeetApp.DAL
 {
-    public class NETMeetAppDbContext
+    public class NETMeetAppDbContext : DbContext
     {
+        public NETMeetAppDbContext(DbContextOptions options) : base(options)
+        {
+
+        }
     }
 }
