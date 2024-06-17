@@ -5,7 +5,13 @@ namespace NETMeetApp.DAL
 {
     public class NETMeetAppDbContext : DbContext
     {
+        public NETMeetAppDbContext(DbContextOptions options) : base(options)
+        {
+
+        }
+
         public DbSet<User> Users { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
