@@ -10,15 +10,20 @@ namespace NETMeetApp.DAL
 
         }
 
-        public DbSet<User> Users { get; set; }
 
+        public DbSet<Teacher> Teachers { get; set; }
+        public DbSet<Student> Students { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<User>()
-                .HasDiscriminator<string>("UserType")
-                .HasValue<Teacher>("Teacher")
-                .HasValue<Student>("Student");
+                .ToTable("Users");
+
+            modelBuilder.Entity<Teacher>()
+                .ToTable("Teachers");
+
+            modelBuilder.Entity<Student>()
+                .ToTable("Students");
 
             base.OnModelCreating(modelBuilder);
         }
