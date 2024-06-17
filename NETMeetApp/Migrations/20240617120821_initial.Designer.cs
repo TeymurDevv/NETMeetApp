@@ -11,8 +11,8 @@ using NETMeetApp.DAL;
 namespace NETMeetApp.Migrations
 {
     [DbContext(typeof(NETMeetAppDbContext))]
-    [Migration("20240617120535_initia")]
-    partial class initia
+    [Migration("20240617120821_initial")]
+    partial class initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
