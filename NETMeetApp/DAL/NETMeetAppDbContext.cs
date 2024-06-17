@@ -1,16 +1,20 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using NETMeetApp.Models;
-using NETMeetApp.Models.Common;
 
 namespace NETMeetApp.DAL
 {
     public class NETMeetAppDbContext : DbContext
     {
-        public DbSet<Student> Students { get; set; }
-        public DbSet<Teacher> Teachers { get; set; }
-        public NETMeetAppDbContext(DbContextOptions options) : base(options)
-        {
+        public DbSet<User> Users { get; set; }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<User>()
+                .HasDiscriminator<string>("UserType")
+                .HasValue<Teacher>("Teacher")
+                .HasValue<Student>("Student");
+
+            base.OnModelCreating(modelBuilder);
         }
     }
 }
