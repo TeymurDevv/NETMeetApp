@@ -1,4 +1,5 @@
-﻿@{
+﻿<!-- Views/Meet/Index.cshtml -->
+@{
     ViewData["Title"] = "Meeting";
     var meetingId = ViewData["MeetingId"];
 }
@@ -8,10 +9,8 @@
 <ul id="messagesList"></ul>
 <input type="text" id="userInput" placeholder="User name" />
 <input type="text" id="messageInput" placeholder="Message" />
+<input type="hidden" id="meetingId" value="@meetingId" />
 <button id="sendButton">Send</button>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/5.0.11/signalr.min.js"></script>
-<script>
-    const meetingId = "@meetingId";
-</script>
 <script src="~/js/meeting.js"></script>

@@ -2,8 +2,13 @@
 
 namespace NETMeetApp.Hubs
 {
-    public class MeetHub : Hub
+    public class MeetingHub : Hub
     {
+        public async Task SendMessage(string user, string message)
+        {
+            await Clients.All.SendAsync("ReceiveMessage", user, message);
+        }
+
         public async Task JoinMeeting(string meetingId)
         {
             await Groups.AddToGroupAsync(Context.ConnectionId, meetingId);

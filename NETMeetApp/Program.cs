@@ -28,7 +28,7 @@ app.UseEndpoints(endpoints =>
         name: "default",
         pattern: "{controller=Home}/{action=Index}/{id?}");
 
-    endpoints.MapHub<MeetHub>("/meet");
+    endpoints.MapHub<MeetingHub>("/meet");
     endpoints.MapControllerRoute(
         name: "meet",
         pattern: "meet/{meetId}",
