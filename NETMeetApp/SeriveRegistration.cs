@@ -11,6 +11,7 @@ namespace NETMeetApp
             services.AddDbContext<NETMeetAppDbContext>(options =>
                 options.UseSqlServer(configuration.GetConnectionString("AppConnectionString"))
             );
+            services.AddSignalR();
         }
     }
 }
