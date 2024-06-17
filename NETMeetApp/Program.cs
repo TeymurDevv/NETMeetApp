@@ -1,7 +1,12 @@
+using NETMeetApp;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+var config = builder.Configuration;
+builder.Services.Register(config);
 
 var app = builder.Build();
 
