@@ -1,4 +1,5 @@
 using NETMeetApp;
+using NETMeetApp.Hubs;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,8 +22,14 @@ app.UseRouting();
 
 app.UseAuthorization();
 
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllerRoute(
+        name: "default",
+        pattern: "{controller=Home}/{action=Index}/{id?}");
+
+    endpoints.MapHub<MeetHub>("/meet");
+});
+
 
 app.Run();
