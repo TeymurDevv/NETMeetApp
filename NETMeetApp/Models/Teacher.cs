@@ -1,6 +1,7 @@
 ﻿namespace NETMeetApp.Models
 {
-    public class Teacher
+    public class Teacher : User
     {
+        public string Subject { get; set; }
     }
 }
