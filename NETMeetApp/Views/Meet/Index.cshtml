@@ -1,5 +1,4 @@
-﻿<!-- Views/Meet/Index.cshtml -->
-@{
+﻿@{
     ViewData["Title"] = "Meeting";
     var meetingId = ViewData["MeetingId"];
 }
@@ -11,6 +10,16 @@
 <input type="text" id="messageInput" placeholder="Message" />
 <input type="hidden" id="meetingId" value="@meetingId" />
 <button id="sendButton">Send</button>
+
+<video id="localVideo" autoplay playsinline></video>
+<video id="remoteVideo" autoplay playsinline></video>
+
+<button id="startMicButton">Start Microphone</button>
+<button id="stopMicButton">Stop Microphone</button>
+<button id="startCamButton">Start Camera</button>
+<button id="stopCamButton">Stop Camera</button>
+<button id="startScreenButton">Start Screen Sharing</button>
+<button id="stopScreenButton">Stop Screen Sharing</button>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/5.0.11/signalr.min.js"></script>
 <script src="~/js/meeting.js"></script>
