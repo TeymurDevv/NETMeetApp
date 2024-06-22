@@ -11,8 +11,10 @@
 <input type="hidden" id="meetingId" value="@meetingId" />
 <button id="sendButton">Send</button>
 
-<video id="localVideo" autoplay playsinline></video>
-<video id="remoteVideo" autoplay playsinline></video>
+<div id="videoContainer">
+    <video id="localVideo" autoplay playsinline></video>
+    <video id="remoteVideo" autoplay playsinline></video>
+</div>
 
 <button id="startMicButton">Start Microphone</button>
 <button id="stopMicButton">Stop Microphone</button>
@@ -23,3 +25,22 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/5.0.11/signalr.min.js"></script>
 <script src="~/js/meeting.js"></script>
+
+<style>
+    #videoContainer {
+        display: flex;
+        flex-direction: column;
+    }
+
+    video {
+        width: 100%;
+        max-width: 600px;
+        margin-bottom: 10px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+    }
+
+    button {
+        margin: 5px;
+    }
+</style>
