@@ -20,20 +20,14 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseCors("CorsPolicy");
 app.UseAuthorization();
 
-app.UseEndpoints(endpoints =>
-{
-    endpoints.MapControllerRoute(
-        name: "default",
-        pattern: "{controller=Home}/{action=Index}/{id?}");
+app.MapDefaultControllerRoute();
 
-    endpoints.MapHub<MeetingHub>("/meet");
-    endpoints.MapControllerRoute(
-        name: "meet",
-        pattern: "meet/{meetId}",
-        defaults: new { controller = "Meet", action = "Index" });
-});
+app.MapHub<ChatHub>("/chatHub");
+app.MapHub<VideoHub>("/videoHub");
+
 
 
 app.Run();

@@ -12,6 +12,15 @@ namespace NETMeetApp
                 options.UseSqlServer(configuration.GetConnectionString("AppConnectionString"))
             );
             services.AddSignalR();
+            services.AddCors(options => options.AddPolicy("CorsPolicy",
+                builder =>
+                {
+                    builder
+                        .AllowAnyMethod()
+                        .AllowAnyHeader()
+                        .SetIsOriginAllowed((host) => true)
+                        .AllowCredentials();
+                }));
         }
     }
 }
