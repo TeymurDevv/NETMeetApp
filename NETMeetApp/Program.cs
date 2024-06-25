@@ -22,6 +22,7 @@ app.UseRouting();
 
 app.UseCors("CorsPolicy");
 app.UseAuthorization();
+app.UseAuthentication();
 app.MapControllerRoute(
            name: "areas",
            pattern: "{area:exists}/{controller=DashBoard}/{action=Index}/{id?}"
