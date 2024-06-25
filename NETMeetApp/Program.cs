@@ -22,7 +22,10 @@ app.UseRouting();
 
 app.UseCors("CorsPolicy");
 app.UseAuthorization();
-
+app.MapControllerRoute(
+           name: "areas",
+           pattern: "{area:exists}/{controller=DashBoard}/{action=Index}/{id?}"
+         );
 app.MapDefaultControllerRoute();
 
 app.MapHub<ChatHub>("/chatHub");

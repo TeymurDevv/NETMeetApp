@@ -1373,7 +1373,7 @@ BLOG SINGLE
 #footer {
   padding-bottom: 60px;
   position: relative;
-  background: url("../images/bg/2.png");
+  background: url("../images/bg/2.png") !important;
   border-top: 1px solid #eee;
 }
 

@@ -5,6 +5,7 @@
         public string Subject { get; set; }
         public string CVUrl { get; set; }
         public bool IsApproved { get; set; }
+        public List<Group> Groups { get; set; }
 
     }
 }
