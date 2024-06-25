@@ -8,5 +8,11 @@ namespace NETMeetApp.Controllers
         {
             return View();
         }
+
+        [HttpPost]
+        public IActionResult Register()
+        {
+            return View();
+        }
     }
 }
