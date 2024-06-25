@@ -1,6 +1,6 @@
 ﻿namespace NETMeetApp.ViewModels.Account
 {
-    public class RegisterVm
+    public class RegisterVM
     {
     }
 }

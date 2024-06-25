@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using NETMeetApp.ViewModels.Account;
 
 namespace NETMeetApp.Controllers
 {
@@ -10,7 +11,7 @@ namespace NETMeetApp.Controllers
         }
 
         [HttpPost]
-        public IActionResult Register()
+        public IActionResult Register(RegisterVM registerVM)
         {
             return View();
         }
