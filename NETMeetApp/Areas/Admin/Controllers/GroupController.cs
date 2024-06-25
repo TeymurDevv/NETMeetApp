@@ -3,7 +3,7 @@
 namespace NETMeetApp.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    public class StudentController : Controller
+    public class GroupController : Controller
     {
         public IActionResult Index()
         {

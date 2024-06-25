@@ -12,9 +12,8 @@ namespace NETMeetApp.Models
         public string Image { get; set; }
 
         public List<Student> Students { get; set; }
-        public Teacher Teacher { get; set; }
         [ForeignKey("TeacherId")]
-
+        public Teacher Teacher { get; set; }
         public int  TeacherId { get; set; }
 
     }
