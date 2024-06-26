@@ -13,6 +13,7 @@
     <!-- plugin css for this page -->
     <link rel="stylesheet" href="~/admin/vendors/datatables.net-bs4/dataTables.bootstrap4.css">
     <!-- End plugin css for this page -->
+    <link rel="stylesheet" href="https://unpkg.com/table.js/dist/table.min.css">
     <!-- inject:css -->
     <link rel="stylesheet" href="~/admin/css/style.css">
     <!-- endinject -->
@@ -215,7 +216,7 @@
             <!-- partial -->
             <div class="main-panel">
                 <div class="content-wrapper">
-@RenderBody();
+@RenderBody()
                 </div>
                 <!-- content-wrapper ends -->
                 <!-- partial:partials/_footer.html -->
@@ -232,11 +233,14 @@
         <!-- page-body-wrapper ends -->
     </div>
     <!-- container-scroller -->
+    <script src="https://unpkg.com/table.js/dist/table.min.js"></script>
+
     <!-- plugins:js -->
     <script src="~/admin/vendors/base/vendor.bundle.base.js"></script>
     <!-- endinject -->
     <!-- Plugin js for this page-->
     <script src="~/admin/js/chart.js"></script>
+   
     <script src="~/admin/vendors/datatables.net/jquery.dataTables.js"></script>
     <script src="~/admin/vendors/datatables.net-bs4/dataTables.bootstrap4.js"></script>
     <!-- End plugin js for this page-->
@@ -251,6 +255,8 @@
     <script src="~/admin/js/jquery.dataTables.js"></script>
     <script src="~/admin/js/dataTables.bootstrap4.js"></script>
     <!-- End custom js for this page-->
+    <!-- Add these to your head section or include in your bundle -->
+    
 
     <script src="~/admin/js/jquery.cookie.js" type="text/javascript"></script>
 </body>
