@@ -90,9 +90,12 @@
                         {
                             <a class="nav-link smoth-scroll" asp-action="index" asp-controller="Profile"><i class="fa-solid fa-user"></i> Login</a>
                         }
-                    <li class="nav-item">
-                        <a class="nav-link smoth-scroll" asp-action="Account" asp-controller="Register">Register</a>
-                    </li>
+                        @if (!User.Identity.IsAuthenticated)
+                        {
+                        <li class="nav-item">
+                            <a class="nav-link smoth-scroll" asp-action="Account" asp-controller="Register">Register</a>
+                        </li>
+                        }
 
                 </ul>
             </div>
