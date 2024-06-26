@@ -44,5 +44,10 @@ namespace NETMeetApp.Controllers
             await _signInManager.SignInAsync(user, isPersistent: false);
             return RedirectToAction("Index", "Home");
         }
+        public async Task<IActionResult> Logout()
+        {
+            await _signInManager.SignOutAsync();
+            return RedirectToAction("Index", "Home");
+        }
     }
 }
