@@ -54,9 +54,37 @@ namespace NETMeetApp.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult Login(LoginVM loginVM)
+        public async Task<IActionResult> Login(LoginVM loginVM)
         {
-            return View();
+            if (!ModelState.IsValid) return View();
+            var user = await _userManager.FindByNameAsync(loginVM.UserNameOrEmail);
+            if (user is null) 
+            {
+                user = await _userManager.FindByEmailAsync(loginVM.UserNameOrEmail);
+                if (user is null) 
+                {
+                    ModelState.AddModelError("", "User with this credentials not found.");
+                    return View(loginVM);
+                }
+            }
+
+            var result = await _signInManager.PasswordSignInAsync(user,loginVM.Password,loginVM.RememberMe,true);
+
+            if (result.IsLockedOut)
+            {
+                ModelState.AddModelError("", "Your account is blocked.");
+                return View(loginVM);
+            }
+
+            if (result.Succeeded) 
+            {
+                ModelState.AddModelError("", "Something went wrong.");
+                return View(loginVM);
+            }
+
+            await _signInManager.SignInAsync(user, loginVM.RememberMe);
+
+            return RedirectToAction("Index", "Home");
         }
     }
 }
