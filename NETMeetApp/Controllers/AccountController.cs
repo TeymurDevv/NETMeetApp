@@ -49,7 +49,7 @@ namespace NETMeetApp.Controllers
             await _signInManager.SignOutAsync();
             return RedirectToAction("Index", "Home");
         }
-        public async Task<IActionResult> Login()
+        public IActionResult Login()
         {
             return View();
         }
