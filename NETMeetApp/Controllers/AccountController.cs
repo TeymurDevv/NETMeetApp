@@ -76,7 +76,7 @@ namespace NETMeetApp.Controllers
                 return View(loginVM);
             }
 
-            if (result.Succeeded) 
+            if (!result.Succeeded) 
             {
                 ModelState.AddModelError("", "Something went wrong.");
                 return View(loginVM);
