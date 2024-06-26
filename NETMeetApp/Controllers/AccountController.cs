@@ -11,6 +11,7 @@ namespace NETMeetApp.Controllers
         }
 
         [HttpPost]
+        [AutoValidateAntiforgeryToken]
         public IActionResult Register(RegisterVM registerVM)
         {
             return View();
