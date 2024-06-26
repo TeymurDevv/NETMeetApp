@@ -8,6 +8,17 @@
       "files": [
         "jquery.min.js"
       ]
+    },
+    {
+      "library": "jQuery-Validation-Engine@2.6.4",
+      "destination": "wwwroot/js/jQuery-Validation-Engine/",
+      "files": [
+        "jquery.validationEngine.min.js"
+      ]
+    },
+    {
+      "library": "jquery-validation-unobtrusive@4.0.0",
+      "destination": "wwwroot/js/jquery-validation-unobtrusive/"
     }
   ]
 }
