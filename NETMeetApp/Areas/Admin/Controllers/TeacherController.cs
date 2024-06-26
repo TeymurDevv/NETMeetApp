@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using NETMeetApp.Models;
 
 namespace NETMeetApp.Areas.Admin.Controllers
 {
@@ -8,6 +9,22 @@ namespace NETMeetApp.Areas.Admin.Controllers
         public IActionResult Index()
         {
             return View();
+        }
+        public async  Task<IActionResult> detail(int? id)
+        {
+            if (id == null) return BadRequest();
+            return View();
+
+        }
+        public IActionResult Create()
+        {
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> Create(Teacher teacher)
+        {
+            return View(teacher);
+
         }
     }
 }
