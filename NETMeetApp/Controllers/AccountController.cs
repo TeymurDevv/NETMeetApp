@@ -41,6 +41,7 @@ namespace NETMeetApp.Controllers
                 }
                 return View(registerVM);
             }
+            await _signInManager.SignInAsync(user, isPersistent: false);
             return RedirectToAction("Index", "Home");
         }
     }
