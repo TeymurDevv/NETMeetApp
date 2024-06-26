@@ -53,5 +53,10 @@ namespace NETMeetApp.Controllers
         {
             return View();
         }
+        [HttpPost]
+        public IActionResult Login(LoginVM loginVM)
+        {
+            return View();
+        }
     }
 }
