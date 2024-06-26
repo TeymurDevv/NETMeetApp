@@ -29,6 +29,7 @@ namespace NETMeetApp.Controllers
             user.FullName = registerVM.FullName;
             user.UserName = registerVM.UserName;
 
+
             IdentityResult result = await _userManager.CreateAsync(user, registerVM.Password);
             if (!result.Succeeded)
             {

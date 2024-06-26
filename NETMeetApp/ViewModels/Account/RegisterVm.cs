@@ -14,7 +14,8 @@ namespace NETMeetApp.ViewModels.Account
         public string Password { get; set; }
         [Required, DataType(DataType.Password), Compare(nameof(Password))]
         public string RepeatPassword { get; set; }
-        [Required]
+        [Required(ErrorMessage = "You must accept the terms and conditions to register.")]
+        [Range(typeof(bool), "true", "true", ErrorMessage = "You must accept the terms and conditions to register.")] 
         public bool IsTermsAccepted { get; set; }
 
     }
