@@ -9,5 +9,11 @@ namespace NETMeetApp.Areas.Admin.Controllers
         {
             return View();
         }
+        public IActionResult Detail(int? id)
+        {
+            if(id == null) return BadRequest();
+
+            return View();
+        }
     }
 }
