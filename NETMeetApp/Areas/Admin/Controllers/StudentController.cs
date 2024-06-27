@@ -12,7 +12,7 @@ namespace NETMeetApp.Areas.Admin.Controllers
         }
         public async Task<IActionResult> Detail(int? id)
         {
-            if(id == null) return BadRequest();
+            if (id == null) return BadRequest();
 
             return View();
         }
@@ -22,17 +22,17 @@ namespace NETMeetApp.Areas.Admin.Controllers
         }
         [HttpPost]
         [AutoValidateAntiforgeryToken]
-        public async Task<IActionResult> Create(Student student)
+        public async Task<IActionResult> Create(StudentAppUser student)
         {
-                return View(student);
+            return View(student);
         }
 
         public async Task<IActionResult> Delete(int? id)
         {
-            if(id == null) return BadRequest();
+            if (id == null) return BadRequest();
             return View();
         }
-        
-         
+
+
     }
 }

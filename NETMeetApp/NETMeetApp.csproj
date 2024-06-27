@@ -7,6 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Areas\TeacherArea\**" />
+    <Content Remove="Areas\TeacherArea\**" />
+    <EmbeddedResource Remove="Areas\TeacherArea\**" />
+    <None Remove="Areas\TeacherArea\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Include="wwwroot\admin\documentation\.DS_Store" />
     <None Include="wwwroot\admin\fonts\.DS_Store" />
     <None Include="wwwroot\admin\fonts\Roboto\.DS_Store" />
@@ -46,10 +53,6 @@
 
   <ItemGroup>
     <Folder Include="Areas\Admin\Models\" />
-    <Folder Include="Areas\TeacherArea\Controllers\" />
-    <Folder Include="Areas\TeacherArea\Data\" />
-    <Folder Include="Areas\TeacherArea\Models\" />
-    <Folder Include="Areas\TeacherArea\Views\" />
   </ItemGroup>
 
 </Project>

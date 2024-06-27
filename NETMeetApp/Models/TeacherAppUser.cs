@@ -2,8 +2,9 @@
 
 namespace NETMeetApp.Models
 {
-    public class AppUser : IdentityUser
+    public class TeacherAppUser : IdentityUser
     {
+        public string CvUrl { get; set; }
         public string FullName { get; set; }
         public string imageUrl { get; set; }
         public string Country { get; set; }
