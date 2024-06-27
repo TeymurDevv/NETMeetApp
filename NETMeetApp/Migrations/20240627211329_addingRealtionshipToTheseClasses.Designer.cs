@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NETMeetApp.DAL;
 
@@ -11,9 +12,11 @@ using NETMeetApp.DAL;
 namespace NETMeetApp.Migrations
 {
     [DbContext(typeof(NetMeetAppStudentDbContext))]
-    partial class NetMeetAppStudentDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240627211329_addingRealtionshipToTheseClasses")]
+    partial class addingRealtionshipToTheseClasses
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -76,9 +79,9 @@ namespace NETMeetApp.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType<Guid>("int");
+                        .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
@@ -220,7 +223,10 @@ namespace NETMeetApp.Migrations
                     b.Property<int>("Grade")
                         .HasColumnType("int");
 
-                    b.Property<Guid>("GroupId")
+                    b.Property<int>("GroupId")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("GroupId1")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<bool>("LockoutEnabled")
@@ -262,7 +268,7 @@ namespace NETMeetApp.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("GroupId");
+                    b.HasIndex("GroupId1");
 
                     b.HasIndex("NormalizedEmail")
                         .HasDatabaseName("EmailIndex");
@@ -330,7 +336,7 @@ namespace NETMeetApp.Migrations
                 {
                     b.HasOne("NETMeetApp.Models.Group", "Group")
                         .WithMany("StudentAppUsers")
-                        .HasForeignKey("GroupId")
+                        .HasForeignKey("GroupId1")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
