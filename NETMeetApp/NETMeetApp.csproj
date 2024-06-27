@@ -46,6 +46,10 @@
 
   <ItemGroup>
     <Folder Include="Areas\Admin\Models\" />
+    <Folder Include="Areas\TeacherArea\Controllers\" />
+    <Folder Include="Areas\TeacherArea\Data\" />
+    <Folder Include="Areas\TeacherArea\Models\" />
+    <Folder Include="Areas\TeacherArea\Views\" />
   </ItemGroup>
 
 </Project>
