@@ -17,12 +17,13 @@
     <link rel="stylesheet" href="~/plugins/bootstrap/bootstrap.min.css">
     <!-- fontawesome css -->
     <link rel="stylesheet" href="~/plugins/fontawesome/css/all.css">
+
     <!-- Icofont -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet" />
     <!-- Main Stylesheet -->
     <link rel="stylesheet" href="~/css/style.css">
-    <link rel="stylesheet" href="~/css/chat.css">
-    <link rel="stylesheet" href="~/css/profile.css">
+
+
 
 
     @RenderSection("PageSpecificStyles", required: false)
@@ -93,7 +94,7 @@
                         @if (!User.Identity.IsAuthenticated)
                         {
                         <li class="nav-item me-3">
-                            <a class="nav-link smoth-scroll" asp-action="Account" asp-controller="Register">Register</a>
+                            <a class="nav-link smoth-scroll" asp-action="Register" asp-controller="Account">Register</a>
                         </li>
                         }
 
