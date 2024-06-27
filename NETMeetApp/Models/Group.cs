@@ -8,5 +8,7 @@ namespace NETMeetApp.Models
         public string Description { get; set; }
         public int Capacity { get; set; }
         public List<StudentAppUser> StudentAppUsers { get; set; }
+        public TeacherAppUser TeacherAppUser { get; set; }
+        public int TeacherAppUserId { get; set; }
     }
 }

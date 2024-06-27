@@ -11,5 +11,6 @@ namespace NETMeetApp.Models
         public string BioGraphy { get; set; }
         public int Age { get; set; }
         public enum Gender { Male, Female }
+        public List<Group> Groups { get; set; }
     }
 }
