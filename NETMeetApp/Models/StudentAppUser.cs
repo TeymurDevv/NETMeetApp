@@ -11,9 +11,9 @@ namespace NETMeetApp.Models
         public string BioGraphy { get; set; }
         public int Age { get; set; }
         public enum Gender { Male, Female }
-        public bool IsPassed => Grade >=60? true:false;
+        public bool IsPassed => Grade >= 60 ? true : false;
         public Group Group { get; set; }
-        public Guid GroupId { get; set; }
-      
+        public int GroupId { get; set; }
+
     }
 }

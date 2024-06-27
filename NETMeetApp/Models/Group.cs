@@ -2,7 +2,7 @@
 
 namespace NETMeetApp.Models
 {
-    public class Group:BaseEntity
+    public class Group : BaseEntity
     {
         public string Name { get; set; }
         public string Description { get; set; }

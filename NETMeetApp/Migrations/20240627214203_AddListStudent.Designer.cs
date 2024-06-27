@@ -12,8 +12,8 @@ using NETMeetApp.DAL;
 namespace NETMeetApp.Migrations
 {
     [DbContext(typeof(NetMeetAppStudentDbContext))]
-    [Migration("20240627211454_addingRealtionshipToTheseClasses2")]
-    partial class addingRealtionshipToTheseClasses2
+    [Migration("20240627214203_AddListStudent")]
+    partial class AddListStudent
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -160,9 +160,11 @@ namespace NETMeetApp.Migrations
 
             modelBuilder.Entity("NETMeetApp.Models.Group", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("Capacity")
                         .HasColumnType("int");
@@ -183,7 +185,7 @@ namespace NETMeetApp.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Group");
+                    b.ToTable("Groups");
                 });
 
             modelBuilder.Entity("NETMeetApp.Models.StudentAppUser", b =>
@@ -223,8 +225,8 @@ namespace NETMeetApp.Migrations
                     b.Property<int>("Grade")
                         .HasColumnType("int");
 
-                    b.Property<Guid>("GroupId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int>("GroupId")
+                        .HasColumnType("int");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
