@@ -7,10 +7,10 @@ namespace NETMeetApp.Controllers
 {
     public class AccountController : Controller
     {
-        private readonly UserManager<AppUser> _userManager;
-        private readonly SignInManager<AppUser> _signInManager;
+        private readonly UserManager<StudentAppUser> _userManager;
+        private readonly SignInManager<StudentAppUser> _signInManager;
 
-        public AccountController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager)
+        public AccountController(UserManager<StudentAppUser> userManager, SignInManager<StudentAppUser> signInManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -26,7 +26,7 @@ namespace NETMeetApp.Controllers
         public async Task<IActionResult> Register(RegisterVM registerVM)
         {
             if (!ModelState.IsValid) return View();
-            AppUser user = new();
+            StudentAppUser user = new();
             user.Email = registerVM.Email;
             user.FullName = registerVM.FullName;
             user.UserName = registerVM.UserName;
