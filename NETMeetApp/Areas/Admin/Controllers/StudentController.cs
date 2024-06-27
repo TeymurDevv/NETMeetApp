@@ -21,9 +21,18 @@ namespace NETMeetApp.Areas.Admin.Controllers
             return View();
         }
         [HttpPost]
+        [AutoValidateAntiforgeryToken]
         public async Task<IActionResult> Create(Student student)
         {
                 return View(student);
         }
+
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if(id == null) return BadRequest();
+            return View();
+        }
+        
+         
     }
 }
