@@ -1,0 +1,193 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <!-- ** Basic Page Needs ** -->
+    <meta charset="utf-8">
+    <title>Promodise - Startup Business Bootstrap Template</title>
+
+    <!-- ** Mobile Specific Metas ** -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="Business Bootstrap Template">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <meta name="author" content="Themefisher">
+    <meta name="generator" content="Themefisher Promodise Template v1.0">
+
+    <!-- bootstrap.min css -->
+    <link rel="stylesheet" href="~/plugins/bootstrap/bootstrap.min.css">
+    <!-- fontawesome css -->
+    <link rel="stylesheet" href="~/plugins/fontawesome/css/all.css">
+
+    <!-- Icofont -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet" />
+    <!-- Main Stylesheet -->
+    <link rel="stylesheet" href="~/css/style.css">
+
+
+
+
+    @RenderSection("PageSpecificStyles", required: false)
+    @RenderSection("PageSpecificStyles2", required: false)
+
+    <!--Favicon-->
+    <link rel="icon" href="~/images/favicon.png" type="image/x-icon">
+
+</head>
+<body data-spy="scroll" data-target="#mainNav">
+     <style>
+        .net {
+            font-weight: bold;
+            color: white;
+        }
+      
+    </style>
+    <nav class="navbar navbar-expand-lg fixed-top trans-navigation">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <span class="net">NETMeetingApp</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainNav" aria-controls="mainNav"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon">
+                    <i class="fa fa-bars"></i>
+                </span>
+            </button>
+
+            <div class="collapse navbar-collapse justify-content-end" id="mainNav">
+                <ul class="navbar-nav ">
+                    <li class="nav-item">
+                        <a class="nav-link smoth-scroll" asp-action="Index" asp-controller="Home">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link smoth-scroll" asp-action="Index" asp-controller="About">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link smoth-scroll" asp-action="Index" asp-controller="Service">Service</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link smoth-scroll" asp-action="Index" asp-controller="Pricing">Pricing</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link smoth-scroll" asp-action="Index" asp-controller="Blog">Blog</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link smoth-scroll" asp-action="Index" asp-controller="Contact">Contact</a>
+                    </li>
+                    <li class="nav-item me-3">
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fa-solid fa-user"></i> @User.Identity.Name
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" asp-action="Index" asp-controller="Profile">Profile</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" asp-action="Logout" asp-controller="Account">Log Out</a></li>
+                            </ul>
+                        </li>
+                        }
+                        else
+                        {
+                            <a class="nav-link smoth-scroll" asp-action="Login" asp-controller="Account"><i class="fa-solid fa-user"></i> Login</a>
+                        }
+                        @if (!User.Identity.IsAuthenticated)
+                        {
+                        <li class="nav-item me-3">
+                            <a class="nav-link smoth-scroll" asp-action="Register" asp-controller="Account">Register</a>
+                        </li>
+                        }
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+    @RenderBody()
+
+    <section id="footer" class="section-padding">
+        <div class="container">
+            <div class="row justify-content-around">
+                <div class="col-lg-4">
+                    <div class="footer-widget footer-link">
+                        <h4>We concern about you<br> to grow business rapidly.</h4>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore ipsam hic non sunt recusandae atque unde saepe nihil earum voluptatibus aliquid optio suscipit nobis quia vel quod, iure quae.</p>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-4 col-6">
+                    <div class="footer-widget footer-link">
+                        <h4>About</h4>
+                        <ul>
+                            <li><a href="about.html">About</a></li>
+                            <li><a href="service.html">Service</a></li>
+                            <li><a href="pricing.html">Pricing</a></li>
+                            <li><a href="#!">Team</a></li>
+                            <li><a href="#!">Testimonials</a></li>
+                            <li><a href="blog.html">Blog</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-lg-2 col-md-4 col-6">
+                    <div class="footer-widget footer-link">
+                        <h4>Quick Links</h4>
+                        <ul>
+                            <li><a href="#!">How it Works</a></li>
+                            <li><a href="#!">Support</a></li>
+                            <li><a href="#!">Privacy Policy</a></li>
+                            <li><a href="#!">Report Bug</a></li>
+                            <li><a href="#!">License</a></li>
+                            <li><a href="#!">Terms & Condition</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-4 col-sm-12">
+                    <div class="footer-widget footer-text">
+                        <h4>Our location</h4>
+                        <p class="mail"><span>Mail:</span> promdise@gmail.com</p>
+                        <p><span>Phone :</span>+202-277-3894</p>
+                        <p><span>Location:</span> 455 West Orchard Street Kings Mountain, NC 28086,NOC building</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <div class="footer-copy">
+                        Copyright &copy; 2021, Designed &amp; Developed by <a href="https://themefisher.com/">Themefisher</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--  FOOTER AREA END  -->
+    <!--
+    Essential Scripts
+    =====================================-->
+    <!-- Main jQuery -->
+    <script src="~/plugins/jquery/jquery.min.js"></script>
+    <!-- Bootstrap js -->
+    <script src="~/plugins/bootstrap/bootstrap.min.js"></script>
+
+    <!-- Google Map -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCcABaamniA6OL5YvYSpB3pFMNrXwXnLwU"></script>
+    <script src="~/plugins/google-map/map.js"></script>
+    <script src="~/admin/vendors/base/vendor.bundle.base.js"></script>
+    <!-- endinject -->
+    <!-- Plugin js for this page-->
+    <script src="~/admin/vendors/chart.js/Chart.min.js"></script>
+    <!-- End plugin js for this page-->
+    <!-- inject:js -->
+    <script src="~/admin/js/off-canvas.js"></script>
+    <script src="~/admin/js/hoverable-collapse.js"></script>
+    <script src="~/admin/js/template.js"></script>
+    <!-- endinject -->
+    <!-- Custom js for this page-->
+    <script src="~/admin/js/chart.js"></script>
+    <!-- main script -->
+    <script src="~/admin/js/script.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>

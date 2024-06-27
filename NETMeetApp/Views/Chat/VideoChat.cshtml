@@ -1,0 +1,218 @@
+﻿<style>
+    body {
+        font-family: Arial, sans-serif;
+    }
+
+    .chat-container {
+        width: 100%;
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+    }
+
+    .messages {
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        padding: 10px;
+        height: 150px;
+        overflow-y: scroll;
+    }
+
+    .message {
+        margin-bottom: 10px;
+    }
+
+        .message span {
+            font-weight: bold;
+        }
+
+    .controls {
+        margin-top: 10px;
+    }
+
+        .controls input, .controls button {
+            margin-right: 5px;
+        }
+
+    .video-container {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 20px;
+    }
+
+    video {
+        width: 48%;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+    }
+</style>
+
+    <div class="chat-container">
+        <h2>Video Chat</h2>
+        <div class="messages" id="messagesList"></div>
+        <div class="controls">
+            <input type="text" id="userInput" placeholder="Your name" />
+            <input type="text" id="messageInput" placeholder="Your message" />
+            <button onclick="sendMessage()">Send</button>
+            <button onclick="startVideoSession()">Start Session</button>
+            <button onclick="stopVideoSession()">Stop Session</button>
+            <button onclick="joinVideoSession()">Join Session</button>
+            <button onclick="leaveVideoSession()">Leave Session</button>
+        </div>
+        <div class="video-container">
+            <div id="localVideo"></div>
+            <div id="remoteVideo"></div>
+        </div>
+    </div>
+
+    <!-- Include Twilio Video library -->
+    <!-- Include SignalR library -->
+      <script src="//media.twiliocdn.com/sdk/js/video/releases/2.0.0/twilio-video.min.js"></script>
+
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/3.1.18/signalr.min.js"></script>
+
+    <script>
+        const connection = new signalR.HubConnectionBuilder()
+            .withUrl("/videoHub")
+            .build();
+
+        connection.on("ReceiveMessage", (user, message) => {
+            const msg = document.createElement("div");
+            msg.classList.add("message");
+            msg.innerHTML = `<span>${user}</span>: ${message}`;
+            document.getElementById("messagesList").appendChild(msg);
+        });
+
+        connection.on("UserJoined", (user) => {
+            const msg = document.createElement("div");
+            msg.classList.add("message");
+            msg.innerHTML = `<span>${user}</span> joined the video session.`;
+            document.getElementById("messagesList").appendChild(msg);
+        });
+
+        connection.on("UserLeft", (user) => {
+            const msg = document.createElement("div");
+            msg.classList.add("message");
+            msg.innerHTML = `<span>${user}</span> left the video session.`;
+            document.getElementById("messagesList").appendChild(msg);
+        });
+
+        connection.on("VideoSessionStarted", (user) => {
+            const msg = document.createElement("div");
+            msg.classList.add("message");
+            msg.innerHTML = `<span>${user}</span> started the video session.`;
+            document.getElementById("messagesList").appendChild(msg);
+        });
+
+        connection.on("VideoSessionStopped", (user) => {
+            const msg = document.createElement("div");
+            msg.classList.add("message");
+            msg.innerHTML = `<span>${user}</span> stopped the video session.`;
+            document.getElementById("messagesList").appendChild(msg);
+        });
+
+        connection.start().catch(err => console.error(err.toString()));
+
+        function sendMessage() {
+            const user = document.getElementById("userInput").value;
+            const message = document.getElementById("messageInput").value;
+            connection.invoke("SendMessage", user, message).catch(err => console.error(err.toString()));
+        }
+
+        let room;
+
+        async function startVideoSession() {
+            const user = document.getElementById("userInput").value;
+            connection.invoke("StartVideoSession", user).catch(err => console.error(err.toString()));
+
+            // Fetch a token from your server
+            const response = await fetch('/video-token', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ identity: user })
+            });
+
+            const { token } = await response.json();
+
+            console.log("Connecting to Twilio Video with token:", token);
+
+            Twilio.Video.connect(token, { video: { width: 640 }, audio: true }).then(roomInstance => {
+                room = roomInstance;
+                console.log("Connected to Twilio Video room:", room);
+
+                room.localParticipant.videoTracks.forEach(track => {
+                    console.log("Local video track:", track);
+                    document.getElementById('localVideo').appendChild(track.track.attach());
+                });
+
+                room.on('participantConnected', participant => {
+                    console.log("Participant connected:", participant);
+                    participant.tracks.forEach(track => {
+                        if (track.isSubscribed) {
+                            console.log("Remote video track:", track);
+                            document.getElementById('remoteVideo').appendChild(track.track.attach());
+                        }
+                    });
+
+                    participant.on('trackSubscribed', track => {
+                        console.log("Track subscribed:", track);
+                        document.getElementById('remoteVideo').appendChild(track.attach());
+                    });
+                });
+
+                room.on('participantDisconnected', participant => {
+                    console.log("Participant disconnected:", participant);
+                    participant.tracks.forEach(track => {
+                        if (track.isSubscribed) {
+                            const attachedElements = track.track.detach();
+                            attachedElements.forEach(element => element.remove());
+                        }
+                    });
+                });
+            }).catch(error => {
+                console.error("Error connecting to Twilio Video:", error);
+            });
+        }
+
+        function stopVideoSession() {
+            const user = document.getElementById("userInput").value;
+            connection.invoke("StopVideoSession", user).catch(err => console.error(err.toString()));
+            if (room) {
+                room.disconnect();
+                room = null;
+                console.log("Disconnected from Twilio Video room.");
+            }
+        }
+
+        function joinVideoSession() {
+            const user = document.getElementById("userInput").value;
+            connection.invoke("JoinVideoSession", user).catch(err => console.error(err.toString()));
+            startVideoSession();
+        }
+
+        function leaveVideoSession() {
+            const user = document.getElementById("userInput").value;
+            connection.invoke("LeaveVideoSession", user).catch(err => console.error(err.toString()));
+            if (room) {
+                room.disconnect();
+                room = null;
+                console.log("Left Twilio Video room.");
+            }
+        }
+
+        // Start capturing video from the webcam
+        async function startLocalVideo() {
+            // Local video is managed by Twilio Video
+        }
+
+        // Stop capturing video from the webcam
+        function stopLocalVideo() {
+            // Local video is managed by Twilio Video
+        }
+    </script>
