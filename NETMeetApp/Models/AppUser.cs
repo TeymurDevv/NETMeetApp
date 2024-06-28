@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using NETMeetApp.Enums;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace NETMeetApp.Models
 {
@@ -14,5 +15,8 @@ namespace NETMeetApp.Models
         public int? GroupId { get; set; }
         public Group? Group { get; set; }
         public UserType UserType { get; set; }
+        [NotMapped]
+        public string ShortBioGraphy => BioGraphy.Length >= 30 ? BioGraphy.Substring(0, 30) : BioGraphy;
+
     }
 }

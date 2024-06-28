@@ -1,1 +1,59 @@
 ﻿@model AppUser
+<div class="container">
+    <button type="button" class="btn btn-success mb-3"><a class="text-black text-decoration-none" asp-action="Create"> Create</a></button>
+
+    <div class="row">
+        <div class="col-md-12 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">@Model.FullName</h4>
+                    <p class="card-description">
+                        @Model.UserType
+                    </p>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <address>
+                                <p class="font-weight-bold">Country</p>
+                                <p>
+                                  @Model.Country
+                                </p>
+                                
+                            </address>
+                        </div>
+                        <div class="col-md-6">
+                            <address class="text-primary">
+                                <p class="font-weight-bold">
+                                    E-mail
+                                </p>
+                                <p class="mb-2">
+                                 @Model.Email
+                                </p>
+                                <p class="font-weight-bold">
+                                    Grade
+                                </p>
+                                <p>
+                                   @Model.Grade
+                                </p>
+                                <p class="font-weight-bold">
+                                    Age
+                                </p>
+                                <p class="font-weight-bold">
+                                    @Model.Age
+                                </p>
+                            </address>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <h4 class="card-title">Lead</h4>
+                    <p class="card-description">
+                        Use class <code>.lead</code>
+                    </p>
+                    <p class="lead">
+                       @Model.BioGraphy
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

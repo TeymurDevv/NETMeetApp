@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using NETMeetApp.Enums;
 using NETMeetApp.Models;
 
 namespace NETMeetApp.Areas.Admin.Controllers
@@ -6,15 +8,22 @@ namespace NETMeetApp.Areas.Admin.Controllers
     [Area("Admin")]
     public class StudentController : Controller
     {
-        public IActionResult Index()
+        private readonly UserManager<AppUser> _userManager;
+        public StudentController(UserManager<AppUser> userManager)
         {
-            return View();
+            _userManager = userManager;
         }
-        public async Task<IActionResult> Detail(int? id)
+        public   IActionResult Index()
+        {
+            var students = _userManager.Users.Where(s => s.UserType == UserType.Student).ToList();
+            return View(students);
+        }
+        public async Task<IActionResult> Detail(string? id)
         {
             if (id == null) return BadRequest();
-
-            return View();
+            var student = await _userManager.FindByIdAsync(id);
+            if (student == null) return NotFound();
+            return View(student);
         }
         public IActionResult Create()
         {
