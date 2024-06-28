@@ -29,5 +29,14 @@ namespace NETMeetApp.Controllers
 
 
         }
+        public IActionResult Update()
+        {
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> Update(AppUser appUser)
+        {
+            return View();
+        }
     }
 }
