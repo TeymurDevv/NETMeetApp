@@ -6,8 +6,7 @@ namespace NETMeetApp.DAL
 {
     public class NetMeetAppDbContext : IdentityDbContext<AppUser>
     {
-        public DbSet<Group> Groups; 
-
+       
         public NetMeetAppDbContext(DbContextOptions options) : base(options)
         {
         }

@@ -54,7 +54,6 @@ namespace NETMeetApp.Controllers
             user.BioGraphy = appUser.BioGraphy;
             user.Age = appUser.Age;
             user.FullName = appUser.FullName;
-            user.GroupId = appUser.GroupId;
 
             var result = await _userManager.UpdateAsync(user);
 
