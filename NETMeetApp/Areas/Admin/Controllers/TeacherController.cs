@@ -22,7 +22,7 @@ namespace NETMeetApp.Areas.Admin.Controllers
         }
         [HttpPost]
         [AutoValidateAntiforgeryToken]
-        public async Task<IActionResult> Create(TeacherAppUser teacher)
+        public async Task<IActionResult> Create(AppUser teacher)
         {
             return View(teacher);
 

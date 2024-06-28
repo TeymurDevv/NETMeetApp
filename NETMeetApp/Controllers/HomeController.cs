@@ -7,10 +7,10 @@ namespace NETMeetApp.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly NetMeetAppStudentDbContext _context;
-        private readonly UserManager<StudentAppUser> _userManager;
+        private readonly NetMeetAppDbContext _context;
+        private readonly UserManager<AppUser> _userManager;
 
-        public HomeController(NetMeetAppStudentDbContext context, UserManager<StudentAppUser> userManager)
+        public HomeController(NetMeetAppDbContext context, UserManager<AppUser> userManager)
         {
             _context = context;
             _userManager = userManager;
@@ -23,18 +23,7 @@ namespace NETMeetApp.Controllers
 
         public async Task<IActionResult> Test()
         {
-            var student = new StudentAppUser
-            {
-                Country = "YARRRAK",
-                FullName = "YRAKKKRASKDAD",
-                imageUrl = "yasojdsaoijd",
-                UserName = "student@example.com",
-                Email = "student@example.com",
-                Grade = 10,
-                BioGraphy = "AISODJASOIJD",
-            };
 
-            var result = await _userManager.CreateAsync(student, "Password123!");
             return Content("OK");
         }
     }

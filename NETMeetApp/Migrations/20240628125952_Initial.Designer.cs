@@ -9,10 +9,10 @@ using NETMeetApp.DAL;
 
 #nullable disable
 
-namespace NETMeetApp.Migrations.NetMeetAppTeacherDb
+namespace NETMeetApp.Migrations
 {
-    [DbContext(typeof(NetMeetAppTeacherDbContext))]
-    [Migration("20240627214019_Initial")]
+    [DbContext(typeof(NetMeetAppDbContext))]
+    [Migration("20240628125952_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -49,7 +49,7 @@ namespace NETMeetApp.Migrations.NetMeetAppTeacherDb
                         .HasDatabaseName("RoleNameIndex")
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
-                    b.ToTable("TeacherAspNetRoles", (string)null);
+                    b.ToTable("AspNetRoles", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -74,7 +74,7 @@ namespace NETMeetApp.Migrations.NetMeetAppTeacherDb
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("TeacherAspNetRoleClaims", (string)null);
+                    b.ToTable("AspNetRoleClaims", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -99,7 +99,7 @@ namespace NETMeetApp.Migrations.NetMeetAppTeacherDb
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("TeacherAspNetUserClaims", (string)null);
+                    b.ToTable("AspNetUserClaims", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
@@ -121,7 +121,7 @@ namespace NETMeetApp.Migrations.NetMeetAppTeacherDb
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("TeacherAspNetUserLogins", (string)null);
+                    b.ToTable("AspNetUserLogins", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
@@ -136,7 +136,7 @@ namespace NETMeetApp.Migrations.NetMeetAppTeacherDb
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("TeacherAspNetUserRoles", (string)null);
+                    b.ToTable("AspNetUserRoles", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
@@ -155,10 +155,10 @@ namespace NETMeetApp.Migrations.NetMeetAppTeacherDb
 
                     b.HasKey("UserId", "LoginProvider", "Name");
 
-                    b.ToTable("TeacherAspNetUserTokens", (string)null);
+                    b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("NETMeetApp.Models.TeacherAppUser", b =>
+            modelBuilder.Entity("NETMeetApp.Models.AppUser", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -166,23 +166,8 @@ namespace NETMeetApp.Migrations.NetMeetAppTeacherDb
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
 
-                    b.Property<int>("Age")
-                        .HasColumnType("int");
-
-                    b.Property<string>("BioGraphy")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Country")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("CvUrl")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
@@ -229,10 +214,6 @@ namespace NETMeetApp.Migrations.NetMeetAppTeacherDb
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
-                    b.Property<string>("imageUrl")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("Id");
 
                     b.HasIndex("NormalizedEmail")
@@ -243,7 +224,7 @@ namespace NETMeetApp.Migrations.NetMeetAppTeacherDb
                         .HasDatabaseName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
-                    b.ToTable("TeacherAspNetUsers", (string)null);
+                    b.ToTable("AspNetUsers", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -257,7 +238,7 @@ namespace NETMeetApp.Migrations.NetMeetAppTeacherDb
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("NETMeetApp.Models.TeacherAppUser", null)
+                    b.HasOne("NETMeetApp.Models.AppUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -266,7 +247,7 @@ namespace NETMeetApp.Migrations.NetMeetAppTeacherDb
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("NETMeetApp.Models.TeacherAppUser", null)
+                    b.HasOne("NETMeetApp.Models.AppUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -281,7 +262,7 @@ namespace NETMeetApp.Migrations.NetMeetAppTeacherDb
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("NETMeetApp.Models.TeacherAppUser", null)
+                    b.HasOne("NETMeetApp.Models.AppUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -290,7 +271,7 @@ namespace NETMeetApp.Migrations.NetMeetAppTeacherDb
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("NETMeetApp.Models.TeacherAppUser", null)
+                    b.HasOne("NETMeetApp.Models.AppUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)

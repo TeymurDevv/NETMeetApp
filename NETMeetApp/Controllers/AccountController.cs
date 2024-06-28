@@ -7,10 +7,10 @@ namespace NETMeetApp.Controllers
 {
     public class AccountController : Controller
     {
-        private readonly UserManager<StudentAppUser> _userManager;
-        private readonly SignInManager<StudentAppUser> _signInManager;
+        private readonly UserManager<AppUser> _userManager;
+        private readonly SignInManager<AppUser> _signInManager;
 
-        public AccountController(UserManager<StudentAppUser> userManager, SignInManager<StudentAppUser> signInManager)
+        public AccountController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -26,10 +26,11 @@ namespace NETMeetApp.Controllers
         public async Task<IActionResult> Register(RegisterVM registerVM)
         {
             if (!ModelState.IsValid) return View();
-            StudentAppUser user = new();
+            AppUser user = new();
             user.Email = registerVM.Email;
             user.FullName = registerVM.FullName;
             user.UserName = registerVM.UserName;
+
 
 
             IdentityResult result = await _userManager.CreateAsync(user, registerVM.Password);
@@ -58,17 +59,17 @@ namespace NETMeetApp.Controllers
         {
             if (!ModelState.IsValid) return View();
             var user = await _userManager.FindByNameAsync(loginVM.UserNameOrEmail);
-            if (user is null) 
+            if (user is null)
             {
                 user = await _userManager.FindByEmailAsync(loginVM.UserNameOrEmail);
-                if (user is null) 
+                if (user is null)
                 {
                     ModelState.AddModelError("", "User with this credentials not found.");
                     return View(loginVM);
                 }
             }
 
-            var result = await _signInManager.PasswordSignInAsync(user,loginVM.Password,loginVM.RememberMe,true);
+            var result = await _signInManager.PasswordSignInAsync(user, loginVM.Password, loginVM.RememberMe, true);
 
             if (result.IsLockedOut)
             {
@@ -76,7 +77,7 @@ namespace NETMeetApp.Controllers
                 return View(loginVM);
             }
 
-            if (!result.Succeeded) 
+            if (!result.Succeeded)
             {
                 ModelState.AddModelError("", "Something went wrong.");
                 return View(loginVM);

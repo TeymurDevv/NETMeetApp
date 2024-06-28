@@ -3,7 +3,6 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NETMeetApp.DAL;
 
@@ -11,12 +10,10 @@ using NETMeetApp.DAL;
 
 namespace NETMeetApp.Migrations
 {
-    [DbContext(typeof(NetMeetAppStudentDbContext))]
-    [Migration("20240627214203_AddListStudent")]
-    partial class AddListStudent
+    [DbContext(typeof(NetMeetAppDbContext))]
+    partial class NetMeetAppDbContextModelSnapshot : ModelSnapshot
     {
-        /// <inheritdoc />
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -158,37 +155,7 @@ namespace NETMeetApp.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("NETMeetApp.Models.Group", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("Capacity")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("CreatedTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("UpdatedTime")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Groups");
-                });
-
-            modelBuilder.Entity("NETMeetApp.Models.StudentAppUser", b =>
+            modelBuilder.Entity("NETMeetApp.Models.AppUser", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -200,7 +167,6 @@ namespace NETMeetApp.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("BioGraphy")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ConcurrencyStamp")
@@ -208,7 +174,6 @@ namespace NETMeetApp.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Country")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
@@ -222,10 +187,7 @@ namespace NETMeetApp.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Grade")
-                        .HasColumnType("int");
-
-                    b.Property<int>("GroupId")
+                    b.Property<int?>("Grade")
                         .HasColumnType("int");
 
                     b.Property<bool>("LockoutEnabled")
@@ -261,13 +223,13 @@ namespace NETMeetApp.Migrations
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
+                    b.Property<int>("UserType")
+                        .HasColumnType("int");
+
                     b.Property<string>("imageUrl")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("GroupId");
 
                     b.HasIndex("NormalizedEmail")
                         .HasDatabaseName("EmailIndex");
@@ -291,7 +253,7 @@ namespace NETMeetApp.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("NETMeetApp.Models.StudentAppUser", null)
+                    b.HasOne("NETMeetApp.Models.AppUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -300,7 +262,7 @@ namespace NETMeetApp.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("NETMeetApp.Models.StudentAppUser", null)
+                    b.HasOne("NETMeetApp.Models.AppUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -315,7 +277,7 @@ namespace NETMeetApp.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("NETMeetApp.Models.StudentAppUser", null)
+                    b.HasOne("NETMeetApp.Models.AppUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -324,27 +286,11 @@ namespace NETMeetApp.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("NETMeetApp.Models.StudentAppUser", null)
+                    b.HasOne("NETMeetApp.Models.AppUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("NETMeetApp.Models.StudentAppUser", b =>
-                {
-                    b.HasOne("NETMeetApp.Models.Group", "Group")
-                        .WithMany("StudentAppUsers")
-                        .HasForeignKey("GroupId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Group");
-                });
-
-            modelBuilder.Entity("NETMeetApp.Models.Group", b =>
-                {
-                    b.Navigation("StudentAppUsers");
                 });
 #pragma warning restore 612, 618
         }
