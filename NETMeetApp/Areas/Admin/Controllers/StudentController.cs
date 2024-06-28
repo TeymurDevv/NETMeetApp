@@ -66,8 +66,22 @@ namespace NETMeetApp.Areas.Admin.Controllers
         public async Task<IActionResult> Delete(string? id)
         {
             if (id == null) return BadRequest();
-            return View();
+            var student=await _userManager.FindByIdAsync(id);
+            if (student == null) return NotFound();
+            var result = await _userManager.DeleteAsync(student);
+            if (result.Succeeded)
+            {
+                TempData["Success"] = "User deleted successfully!";
+                return RedirectToAction(nameof(Index));
+            }
+            foreach (var error in result.Errors)
+            {
+                ModelState.AddModelError(string.Empty, error.Description);
+            }
+
+            return RedirectToAction(nameof(Index));
         }
+
     }
 
 

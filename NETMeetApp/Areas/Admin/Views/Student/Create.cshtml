@@ -1,7 +1,17 @@
 ﻿@model AppUserCreateVm
 
 <div class="container mt-5">
-    
+    @if (TempData["Success"] != null)
+    {
+        <script>
+            Swal.fire({
+                icon: 'success',
+                title: 'Success!',
+                text: '@TempData["Success"]',
+                confirmButtonText: 'OK'
+            });
+        </script>
+    }
     <div class="row">
         <div class="col-md-12 grid-margin stretch-card">
             <div class="card">
