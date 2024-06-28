@@ -81,6 +81,38 @@ namespace NETMeetApp.Areas.Admin.Controllers
 
             return RedirectToAction(nameof(Index));
         }
+        public async Task<IActionResult> Update(string id, AppUserCreateVm user)
+        {
+            if (ModelState.IsValid)
+            {
+                var existingUser = await _userManager.FindByIdAsync(id);
+                if (existingUser == null)
+                {
+                    return NotFound();
+                }
+
+                existingUser.UserName = user.UserName;
+                existingUser.Email = user.Email;
+                existingUser.FullName = user.FullName;
+
+                // Handle image upload if any
+
+                IdentityResult result = await _userManager.UpdateAsync(existingUser);
+
+                if (result.Succeeded)
+                {
+                    return RedirectToAction(nameof(Index));
+                }
+
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError(string.Empty, error.Description);
+                }
+            }
+
+            return View(user);
+        }
+
 
     }
 
