@@ -12,7 +12,7 @@ namespace NETMeetApp.Models
         public string? BioGraphy { get; set; }
         public int? Age { get; set; }
         public string FullName { get; set; }
-        public string GroupName { get; set; }
+        public string? GroupName { get; set; }
      
         public UserType UserType { get; set; }
         [NotMapped]
