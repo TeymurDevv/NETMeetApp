@@ -81,6 +81,26 @@ namespace NETMeetApp.Areas.Admin.Controllers
 
             return RedirectToAction(nameof(Index));
         }
+        public async Task<IActionResult> Update(string id)
+        {
+            var existingUser = await _userManager.FindByIdAsync(id);
+            if (existingUser == null)
+            {
+                return NotFound();
+            }
+
+            var userVm = new AppUserCreateVm
+            {
+                UserName = existingUser.UserName,
+                Email = existingUser.Email,
+                FullName = existingUser.FullName,
+             
+            };
+
+            return View(userVm);
+        }
+
+        [HttpPost]
         public async Task<IActionResult> Update(string id, AppUserCreateVm user)
         {
             if (ModelState.IsValid)
@@ -94,6 +114,7 @@ namespace NETMeetApp.Areas.Admin.Controllers
                 existingUser.UserName = user.UserName;
                 existingUser.Email = user.Email;
                 existingUser.FullName = user.FullName;
+               
 
                 // Handle image upload if any
 
@@ -101,6 +122,7 @@ namespace NETMeetApp.Areas.Admin.Controllers
 
                 if (result.Succeeded)
                 {
+                    TempData["Success"] = "User updated successfully!";
                     return RedirectToAction(nameof(Index));
                 }
 
@@ -112,6 +134,7 @@ namespace NETMeetApp.Areas.Admin.Controllers
 
             return View(user);
         }
+
 
 
     }
