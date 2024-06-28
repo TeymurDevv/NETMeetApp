@@ -3,24 +3,21 @@
         <div class="col-md-12 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">Default form</h4>
-                    <p class="card-description">
-                        Basic form layout
-                    </p>
-                    <form asp-action="update" class="forms-sample" method="post">
+                    <h4 class="card-title">Profile Update Form</h4>
+                    <p class="card-description">Update your profile details</p>
+                    <form asp-action="Update" class="forms-sample" method="post">
                         <div class="form-group">
-                            <label for="exampleInputUsername1">UserName</label>
-                            <input type="text" name="UserName" class="form-control" id="exampleInputUsername1" placeholder="Username">
+                            <label for="FullName">Full Name</label>
+                            <input type="text" name="FullName" class="form-control" id="FullName" placeholder="Full Name">
                         </div>
                         <div class="form-group">
-                            <label for="exampleInputEmail1">Email</label>
-                            <input type="email" name="Email" class="form-control" id="exampleInputEmail1" placeholder="Email">
+                            <label for="Email">Email</label>
+                            <input type="email" name="Email" class="form-control" id="Email" placeholder="Email" readonly>
                         </div>
                         <div class="form-group">
-                            <label for="exampleInputPassword1">Country</label>
-                            <label for="country">Country</label><span style="color: red !important; display: inline; float: none;">*</span>
-
-                            <select id="country" name="country" class="form-control">
+                            <label for="Country">Country</label>
+                            <select id="Country" name="Country" class="form-control">
+                                <!-- Insert country options here -->
                                 <option value="Afghanistan">Afghanistan</option>
                                 <option value="Åland Islands">Åland Islands</option>
                                 <option value="Albania">Albania</option>
@@ -268,26 +265,31 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="exampleInputPassword1">Grade</label>
-                            <input type="number" min="0" name="Grade" class="form-control" id="exampleInputPassword1" placeholder="Grade">
+                            <label for="Grade">Grade</label>
+                            <input type="number" min="0" name="Grade" class="form-control" id="Grade" placeholder="Grade">
                         </div>
                         <div class="form-group">
-                            <label for="exampleInputPassword1">imageUrl</label>
-                            <input type="file" accept="image/png, image/gif, image/jpeg" name="imageUrl" class="form-control" id="exampleInputPassword1" placeholder="imageUrl">
+                            <label for="imageUrl">Profile Image</label>
+                            <input type="file" accept="image/png, image/gif, image/jpeg" name="imageUrl" class="form-control" id="imageUrl">
                         </div>
                         <div class="form-group">
-                            <label for="exampleInputPassword1">Age</label>
-                            <input type="number" name="Age" class="form-control" id="exampleInputPassword1" placeholder="Age">
+                            <label for="Age">Age</label>
+                            <input type="number" name="Age" class="form-control" id="Age" placeholder="Age">
                         </div>
                         <div class="form-group">
-                            <label for="exampleInputPassword1">Gender</label>
-                            <select id="Gender" name="Gender" class="form-control">
-                                <option value="Male">Male</option>
-                                <option value="Female">Female</option>
+                            <label for="BioGraphy">Biography</label>
+                            <textarea name="BioGraphy" class="form-control" id="BioGraphy" placeholder="Tell us about yourself"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="UserType">User Type</label>
+                            <select id="UserType" name="UserType" class="form-control">
+                                <option value="Student">Student</option>
+                                <option value="Tutor">Tutor</option>
+                                <option value="Admin">Admin</option>
                             </select>
                         </div>
                         <button type="submit" class="btn btn-primary me-2">Submit</button>
-                        <button asp-action="index" class="btn btn-light">Cancel</button>
+                        <a asp-action="Index" class="btn btn-light">Cancel</a>
                     </form>
                 </div>
             </div>

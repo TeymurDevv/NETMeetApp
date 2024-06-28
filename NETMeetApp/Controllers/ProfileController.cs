@@ -7,10 +7,12 @@ namespace NETMeetApp.Controllers
     public class ProfileController : Controller
     {
         private readonly UserManager<AppUser> _userManager;
+        private readonly SignInManager<AppUser> _signInManager;
 
-        public ProfileController(UserManager<AppUser> userManager)
+        public ProfileController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager)
         {
             _userManager = userManager;
+            _signInManager = signInManager;
         }
 
         public async Task<IActionResult> Index()
@@ -29,14 +31,43 @@ namespace NETMeetApp.Controllers
 
 
         }
-        public IActionResult Update()
+        public async Task<IActionResult> Update()
         {
-            return View();
+            var user = await _userManager.GetUserAsync(User);
+            if (user is null) return RedirectToAction("Index", "Home");
+            return View(user);
         }
         [HttpPost]
         public async Task<IActionResult> Update(AppUser appUser)
         {
-            return View();
+            var user = await _userManager.GetUserAsync(User);
+            if (user is null) return RedirectToAction("Index", "Home");
+
+            // Updating the properties
+            user.Grade = appUser.Grade;
+            user.imageUrl = appUser.imageUrl;
+            user.Country = appUser.Country;
+            user.BioGraphy = appUser.BioGraphy;
+            user.Age = appUser.Age;
+            user.FullName = appUser.FullName;
+            user.GroupId = appUser.GroupId;
+            user.UserType = appUser.UserType;
+
+            var result = await _userManager.UpdateAsync(user);
+
+            if (result.Succeeded)
+            {
+                // Refresh the sign-in cookies to reflect changes
+                await _signInManager.RefreshSignInAsync(user);
+                return RedirectToAction("Index");
+            }
+
+            foreach (var error in result.Errors)
+            {
+                ModelState.AddModelError(string.Empty, error.Description);
+            }
+
+            return View(user);
         }
     }
 }
