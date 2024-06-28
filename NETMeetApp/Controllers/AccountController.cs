@@ -30,6 +30,9 @@ namespace NETMeetApp.Controllers
             user.Email = registerVM.Email;
             user.FullName = registerVM.FullName;
             user.UserName = registerVM.UserName;
+            user.UserType = Enums.UserType.Student;
+            user.Age = null;
+            user.Grade = null;
 
 
 
