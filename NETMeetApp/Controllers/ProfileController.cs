@@ -40,6 +40,10 @@ namespace NETMeetApp.Controllers
         [HttpPost]
         public async Task<IActionResult> Update(AppUser appUser)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(appUser);
+            }
             var user = await _userManager.GetUserAsync(User);
             if (user is null) return RedirectToAction("Index", "Home");
 
@@ -51,7 +55,6 @@ namespace NETMeetApp.Controllers
             user.Age = appUser.Age;
             user.FullName = appUser.FullName;
             user.GroupId = appUser.GroupId;
-            user.UserType = appUser.UserType;
 
             var result = await _userManager.UpdateAsync(user);
 

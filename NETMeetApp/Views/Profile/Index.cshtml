@@ -39,7 +39,7 @@
                     <h3><span>User info</span></h3>
                     @if (User.Identity.IsAuthenticated)
                     {
-                        <a href="#" class="btn btn-primary edit-profile">
+                        <a asp-action="Update" class="btn btn-primary edit-profile">
                             <i class="fa fa-pencil-square fa-lg"></i> Edit profile
                         </a>
                     }
