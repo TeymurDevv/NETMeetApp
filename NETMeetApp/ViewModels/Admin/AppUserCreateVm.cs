@@ -16,6 +16,7 @@ namespace NETMeetApp.ViewModels.Admin
         public string RepeatPassword { get; set; }
         [Required, DataType(DataType.EmailAddress)]
         public string Email { get; set; }
+        public IFormFile Photo { get; set; }
      
       
 
