@@ -59,9 +59,10 @@ namespace NETMeetApp.Controllers
                 ModelState.AddModelError("ProfileImage", "Image can not be empty.");
                 return View(profileUpdateVM);
             }
-            if (!file.ContentType.Contains("images/"))
+            if (!file.ContentType.Contains("image/"))
             {
                 ModelState.AddModelError("ProfileImage", "The extension must be an image extension only.");
+                return View(profileUpdateVM);
             }
             if (file.Length / 1024 > 500)
             {
@@ -71,10 +72,10 @@ namespace NETMeetApp.Controllers
             var user = await _userManager.GetUserAsync(User);
             if (user is null) return RedirectToAction("Index", "Home");
 
-            string fileName = file.Name;
-            string path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "img", fileName);
+            string fileName = Guid.NewGuid().ToString() + file.FileName;
+            string path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", fileName);
 
-            using (FileStream fileStream = new FileStream(path, FileMode.Create, FileAccess.Write))
+            using (FileStream fileStream = new FileStream(path, FileMode.Create))
             {
                 file.CopyTo(fileStream);
             }
