@@ -9,16 +9,17 @@ namespace NETMeetApp.Areas.Admin.Controllers
     [Area("Admin")]
     public class GroupController : Controller
     {
-        private readonly UserManager<AppUser> userManager;
+        private readonly UserManager<AppUser> _userManager;
 
         public GroupController(UserManager<AppUser> userManager)
         {
-            this.userManager = userManager;
+            _userManager = userManager;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-
+            var existUser = await _userManager.GetUserAsync(User);
+            ViewBag.User = existUser;
             return View();
         }
         public async Task<IActionResult> detail(int? id)
