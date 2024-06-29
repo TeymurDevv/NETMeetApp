@@ -1,6 +1,41 @@
 ﻿@model IEnumerable<NETMeetApp.Models.AppUser>
 
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<style>
+    .fixed-height {
+        position: relative;
+        height: 400px;
+    }
+
+        .fixed-height canvas {
+            display: block;
+            width: 100% !important;
+            height: 100% !important;
+        }
+</style>
+
 <div class="row">
+    <div class="col-md-6 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <p class="card-title">AppUser's All Roles</p>
+                <h4>Student Count: @ViewBag.StudentsCount</h4>
+                <h4>Teacher Count: @ViewBag.TeachersCount</h4>
+                <h4>Admin Count: @ViewBag.AdminCount</h4>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body fixed-height">
+                <h4 class="card-title">User Roles Percentage</h4>
+                <canvas id="pieChart"></canvas>
+            </div>
+        </div>
+    </div>
     <div class="col-lg-12 grid-margin stretch-card">
         <div class="card" id="studentTable">
             <div class="card-body">
@@ -56,6 +91,70 @@
             </div>
         </div>
     </div>
-
+    <!-- Remaining HTML for the user table -->
 </div>
 
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        $(function () {
+            'use strict';
+
+            var ctx = document.getElementById('pieChart').getContext('2d');
+
+            // Ensure ViewBag values are correctly serialized to JSON
+            var studentsCount = @Html.Raw(Json.Serialize(ViewBag.StudentsCount));
+            var teachersCount = @Html.Raw(Json.Serialize(ViewBag.TeachersCount));
+            var adminCount = @Html.Raw(Json.Serialize(ViewBag.AdminCount));
+
+            // Set up the data for the chart
+            var data = {
+                labels: ['Students', 'Teachers', 'Admins'],
+                datasets: [{
+                    data: [studentsCount, teachersCount, adminCount],
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.5)',
+                        'rgba(54, 162, 235, 0.5)',
+                        'rgba(255, 206, 86, 0.5)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            };
+
+            // Set up the options for the chart
+            var options = {
+                responsive: true,
+                maintainAspectRatio: false,
+                legend: {
+                    position: 'bottom'
+                },
+                tooltips: {
+                    callbacks: {
+                        label: function (tooltipItem, data) {
+                            var dataset = data.datasets[tooltipItem.datasetIndex];
+                            var total = dataset.data.reduce(function (previousValue, currentValue) {
+                                return previousValue + currentValue;
+                            });
+                            var currentValue = dataset.data[tooltipItem.index];
+                            var percentage = Math.floor(((currentValue / total) * 100) + 0.5);
+                            return data.labels[tooltipItem.index] + ': ' + percentage + '%';
+                        }
+                    }
+                }
+            };
+
+            // Initialize the chart
+            var pieChart = new Chart(ctx, {
+                type: 'pie',
+                data: data,
+                options: options
+            });
+        });
+    </script>
+}

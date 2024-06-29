@@ -17,6 +17,11 @@ namespace NETMeetApp.Areas.Admin.Controllers
 
         public async Task<IActionResult> Index()
         {
+            ViewBag.StudentsCount=_userManager.Users.Where(s=>s.UserType==Enums.UserType.Student).Count();
+            ViewBag.TeachersCount = _userManager.Users.Where(s => s.UserType == Enums.UserType.Teacher).Count();
+            ViewBag.AdminCount = _userManager.Users.Where(s => s.UserType == Enums.UserType.Admin).Count();
+
+
             var users = _userManager.Users.ToList();
             return View(users);
 

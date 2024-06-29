@@ -185,6 +185,7 @@
             </div>
         </nav>
         <!-- partial -->
+        @RenderSection("Scripts", required: false)
         <div class="container-fluid page-body-wrapper">
             <!-- partial:partials/_sidebar.html -->
             <nav class="sidebar sidebar-offcanvas" id="sidebar">
@@ -216,6 +217,7 @@
                 </ul>
             </nav>
             <!-- partial -->
+      
             <div class="main-panel">
                 <div class="content-wrapper">
 @RenderBody()
@@ -253,7 +255,8 @@
     <!-- endinject -->
     <!-- Custom js for this page-->
     <script src="~/admin/js/dashboard.js"></script>
-    <script src="~/admin/js/chart.js</script>
+  
+   
     <script src="~/admin/js/data-table.js"></script>
     <script src="~/admin/js/jquery.dataTables.js"></script>
     <script src="~/admin/js/dataTables.bootstrap4.js"></script>
