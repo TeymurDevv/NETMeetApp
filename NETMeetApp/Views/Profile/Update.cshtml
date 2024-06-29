@@ -6,18 +6,14 @@
                 <div class="card-body">
                     <h4 class="card-title">Profile Update Form</h4>
                     <p class="card-description">Update your profile details</p>
-                    <form asp-action="Update" class="forms-sample" method="post">
+                    <form asp-action="Update" class="forms-sample" enctype="multipart/form-data" method="post">
                         <div class="form-group">
-                            <label for="FullName">Full Name</label>
-                            <input type="text" name="FullName" required data-val="true" data-val-required="Full Name is required." class="form-control" id="FullName" placeholder="Full Name">
+                            <label asp-for="FullName"></label>
+                            <input asp-for="FullName"  class="form-control" placeholder="Full Name">
                         </div>
                         <div class="form-group">
-                            <label for="Email">Email</label>
-                            <input type="email" name="Email" required data-val="true" data-val-required="Email is required." class="form-control" id="Email" placeholder="Email" readonly>
-                        </div>
-                        <div class="form-group">
-                            <label for="Country">Country</label>
-                            <select id="Country" name="Country" class="form-control" required data-val="true" data-val-required="Country is required.">
+                            <label asp-for="Country"></label>
+                            <select asp-for="Country" class="form-control">
                                 <!-- Insert country options here -->
                                 <option value="Afghanistan">Afghanistan</option>
                                 <option value="Åland Islands">Åland Islands</option>
@@ -274,12 +270,12 @@
                             <input asp-for="ProfileImage" class="form-control">
                         </div>
                         <div class="form-group">
-                            <label for="Age">Age</label>
-                            <input type="number" name="Age" class="form-control" id="Age" placeholder="Age" required data-val="true" data-val-required="Age  is required.">
+                            <label asp-for="Age"></label>
+                            <input asp-for="Age" class="form-control" placeholder="Age">
                         </div>
                         <div class="form-group">
-                            <label for="BioGraphy">Biography</label>
-                            <textarea name="BioGraphy" class="form-control" id="BioGraphy" placeholder="Tell us about yourself" required data-val="true" data-val-required="BioGraphy  is required."></textarea>
+                            <label asp-for="Biography"></label>
+                            <textarea asp-for="Biography" class="form-control" placeholder="Tell us about yourself"></textarea>
                         </div>
                       
                         <button type="submit" class="btn btn-primary me-2">Submit</button>
