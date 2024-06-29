@@ -1,15 +1,16 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using NETMeetApp.Models;
+using NETMeetApp.ViewModels.Profile;
 
 namespace NETMeetApp.Controllers
 {
     public class ProfileController : Controller
     {
-        private readonly UserManager<AppUserUpdateVM> _userManager;
-        private readonly SignInManager<AppUserUpdateVM> _signInManager;
+        private readonly UserManager<AppUser> _userManager;
+        private readonly SignInManager<AppUser> _signInManager;
 
-        public ProfileController(UserManager<AppUserUpdateVM> userManager, SignInManager<AppUserUpdateVM> signInManager)
+        public ProfileController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -35,25 +36,56 @@ namespace NETMeetApp.Controllers
         {
             var user = await _userManager.GetUserAsync(User);
             if (user is null) return RedirectToAction("Index", "Home");
-            return View(user);
+            ProfileUpdateVM profileUpdateVM = new();
+
+            profileUpdateVM.FullName = user.FullName;
+            profileUpdateVM.Grade = user.Grade;
+            profileUpdateVM.Country = user.Country;
+            profileUpdateVM.Biography = user.BioGraphy;
+            profileUpdateVM.Age = user.Age;
+
+            return View(profileUpdateVM);
         }
         [HttpPost]
-        public async Task<IActionResult> Update(AppUserUpdateVM appUser)
+        public async Task<IActionResult> Update(ProfileUpdateVM profileUpdateVM)
         {
             if (!ModelState.IsValid)
             {
-                return View(appUser);
+                return View(profileUpdateVM);
+            }
+            var file = profileUpdateVM.ProfileImage;
+            if (file is null)
+            {
+                ModelState.AddModelError("ProfileImage", "Image can not be empty.");
+                return View(profileUpdateVM);
+            }
+            if (!file.ContentType.Contains("images/"))
+            {
+                ModelState.AddModelError("ProfileImage", "The extension must be an image extension only.");
+            }
+            if (file.Length / 1024 > 500)
+            {
+                ModelState.AddModelError("ProfileImage", "The image's size is too long.");
+                return View(profileUpdateVM);
             }
             var user = await _userManager.GetUserAsync(User);
             if (user is null) return RedirectToAction("Index", "Home");
 
+            string fileName = file.Name;
+            string path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "img", fileName);
+
+            using (FileStream fileStream = new FileStream(path, FileMode.Create, FileAccess.Write))
+            {
+                file.CopyTo(fileStream);
+            }
+
             // Updating the properties
-            user.Grade = appUser.Grade;
-            user.imageUrl = appUser.imageUrl;
-            user.Country = appUser.Country;
-            user.BioGraphy = appUser.BioGraphy;
-            user.Age = appUser.Age;
-            user.FullName = appUser.FullName;
+            user.Grade = profileUpdateVM.Grade;
+            user.Country = profileUpdateVM.Country;
+            user.BioGraphy = profileUpdateVM.Biography;
+            user.Age = profileUpdateVM.Age;
+            user.FullName = profileUpdateVM.FullName;
+            user.imageUrl = fileName;
 
             var result = await _userManager.UpdateAsync(user);
 

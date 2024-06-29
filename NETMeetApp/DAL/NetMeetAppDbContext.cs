@@ -4,7 +4,7 @@ using NETMeetApp.Models;
 
 namespace NETMeetApp.DAL
 {
-    public class NetMeetAppDbContext : IdentityDbContext<AppUserUpdateVM>
+    public class NetMeetAppDbContext : IdentityDbContext<AppUser>
     {
        
         public NetMeetAppDbContext(DbContextOptions options) : base(options)

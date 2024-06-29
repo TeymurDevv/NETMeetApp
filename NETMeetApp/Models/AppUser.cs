@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace NETMeetApp.Models
 {
-    public class AppUserUpdateVM : IdentityUser
+    public class AppUser : IdentityUser
     {
         public int? Grade { get; set; }
         public string? imageUrl { get; set; }

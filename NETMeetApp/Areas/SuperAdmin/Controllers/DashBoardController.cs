@@ -9,9 +9,9 @@ namespace NETMeetApp.Areas.SuperAdmin.Controllers
 {
     public class DashBoardController : Controller
     {
-        private readonly UserManager<AppUserUpdateVM> _userManager;
+        private readonly UserManager<AppUser> _userManager;
 
-        public DashBoardController(UserManager<AppUserUpdateVM> userManager)
+        public DashBoardController(UserManager<AppUser> userManager)
         {
             _userManager = userManager;
         }
@@ -33,7 +33,7 @@ namespace NETMeetApp.Areas.SuperAdmin.Controllers
         {
             if (ModelState.IsValid)
             {
-                var newUser = new AppUserUpdateVM
+                var newUser = new AppUser
                 {
                     UserType = UserType.Admin,
                     UserName = user.UserName,

@@ -7,14 +7,14 @@ namespace NETMeetApp.ViewModels.Profile
         [Required]
         public string FullName { get; set; }
         [Required]
-        public string Country { get; set; }
+        public string? Country { get; set; }
         [Required]
-        public int Grade { get; set; }
+        public int? Grade { get; set; }
         [Required]
-        public IFormFile ProfileImage { get; set; }
+        public IFormFile? ProfileImage { get; set; }
         [Required]
-        public int Age { get; set; }
+        public int? Age { get; set; }
         [Required]
-        public string Biography { get; set; }
+        public string? Biography { get; set; }
     }
 }
