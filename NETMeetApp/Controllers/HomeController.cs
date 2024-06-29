@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using NETMeetApp.DAL;
+using NETMeetApp.Enums;
 using NETMeetApp.Models;
 
 namespace NETMeetApp.Controllers
@@ -9,11 +10,14 @@ namespace NETMeetApp.Controllers
     {
         private readonly NetMeetAppDbContext _context;
         private readonly UserManager<AppUser> _userManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
 
-        public HomeController(NetMeetAppDbContext context, UserManager<AppUser> userManager)
+        public HomeController(NetMeetAppDbContext context, UserManager<AppUser> userManager, RoleManager<IdentityRole> roleManager)
         {
             _context = context;
             _userManager = userManager;
+            _roleManager = roleManager;
+
         }
 
         public async Task<IActionResult> Index()
@@ -24,6 +28,14 @@ namespace NETMeetApp.Controllers
         public async Task<IActionResult> Test()
         {
 
+            return Content("OK");
+        }
+        public async Task<IActionResult> SeedData()
+        {
+            foreach (var item in Enum.GetValues(typeof(UserType)))
+            {
+                await _roleManager.CreateAsync(new IdentityRole { Name = item.ToString() });
+            }
             return Content("OK");
         }
     }
