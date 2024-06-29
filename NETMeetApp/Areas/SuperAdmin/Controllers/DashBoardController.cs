@@ -67,7 +67,83 @@ namespace NETMeetApp.Areas.SuperAdmin.Controllers
             if (teacher == null) return NotFound();
             return View(teacher);
         }
+        public IActionResult Delete()
+        {
+            return View();
+        }
+        [HttpGet]
+        public async Task<IActionResult> Delete(string? id)
+        {
+            if (id is null) return BadRequest();
+            var admin = await _userManager.FindByIdAsync(id);
+            if (admin is null) return NotFound();
+            var result = await _userManager.DeleteAsync(admin);
+            if (result.Succeeded)
+            {
+                TempData["Success"] = "admin deleted successfully!";
+                return RedirectToAction(nameof(Index));
+            }
+            foreach (var error in result.Errors)
+            {
+                ModelState.AddModelError(string.Empty, error.Description);
+            }
 
+            return RedirectToAction(nameof(Index));
+        }
+
+        public async Task<IActionResult> Update(string id)
+        {
+            var existedUser = await _userManager.FindByIdAsync(id);
+            if (existedUser is null)
+            {
+                return NotFound();
+            }
+
+            var userVm = new AppUserCreateVm
+            {
+                UserName = existedUser.UserName,
+                Email = existedUser.Email,
+                FullName = existedUser.FullName,
+
+            };
+
+            return View(userVm);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Update(string id, AppUserCreateVm user)
+        {
+            if (ModelState.IsValid)
+            {
+                var existedUser = await _userManager.FindByIdAsync(id);
+                if (existedUser is null)
+                {
+                    return NotFound();
+                }
+
+                existedUser.UserName = user.UserName;
+                existedUser.Email = user.Email;
+                existedUser.FullName = user.FullName;
+
+
+                // Handle image upload if any
+
+                IdentityResult result = await _userManager.UpdateAsync(existedUser);
+
+                if (result.Succeeded)
+                {
+                    TempData["Success"] = "Admin updated successfully!";
+                    return RedirectToAction(nameof(Index));
+                }
+
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError(string.Empty, error.Description);
+                }
+            }
+
+            return View(user);
+        }
 
     }
 }
