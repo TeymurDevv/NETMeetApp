@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using NETMeetApp.Models;
 
 namespace NETMeetApp.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "SuperAdmin,Admin")]
     [Area("Admin")]
     public class DashBoardController : Controller
     {
