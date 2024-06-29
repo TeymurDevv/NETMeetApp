@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using NETMeetApp.Enums;
 using NETMeetApp.Models;
@@ -6,6 +7,7 @@ using NETMeetApp.ViewModels.Admin;
 
 namespace NETMeetApp.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "SuperAdmin,Admin")]
     [Area("Admin")]
     public class StudentController : Controller
     {
@@ -42,12 +44,12 @@ namespace NETMeetApp.Areas.Admin.Controllers
                     UserName = user.UserName,
                     Email = user.Email,
                     FullName = user.FullName,
-                    Age =null,
-                    Grade=null
+                    Age = null,
+                    Grade = null
 
                 };
                 // Handle image upload
-                
+
                 IdentityResult result = await _userManager.CreateAsync(newUser, user.Password);
 
                 if (result.Succeeded)
@@ -66,7 +68,7 @@ namespace NETMeetApp.Areas.Admin.Controllers
         public async Task<IActionResult> Delete(string? id)
         {
             if (id is null) return BadRequest();
-            var student=await _userManager.FindByIdAsync(id);
+            var student = await _userManager.FindByIdAsync(id);
             if (student is null) return NotFound();
             var result = await _userManager.DeleteAsync(student);
             if (result.Succeeded)
@@ -94,7 +96,7 @@ namespace NETMeetApp.Areas.Admin.Controllers
                 UserName = existingUser.UserName,
                 Email = existingUser.Email,
                 FullName = existingUser.FullName,
-             
+
             };
 
             return View(userVm);
@@ -114,7 +116,7 @@ namespace NETMeetApp.Areas.Admin.Controllers
                 existingUser.UserName = user.UserName;
                 existingUser.Email = user.Email;
                 existingUser.FullName = user.FullName;
-               
+
 
                 // Handle image upload if any
 
