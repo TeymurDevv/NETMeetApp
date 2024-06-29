@@ -16,14 +16,14 @@ namespace NETMeetApp.Areas.Admin.Controllers
         }
         public IActionResult Index()
         {
-            var students = _userManager.Users.Where(s => s.UserType == UserType.Student).ToList();
+            ICollection<AppUser> students = _userManager.Users.Where(s => s.UserType == UserType.Student).ToList();
             return View(students);
         }
         public async Task<IActionResult> Detail(string? id)
         {
-            if (id == null) return BadRequest();
-            var student = await _userManager.FindByIdAsync(id);
-            if (student == null) return NotFound();
+            if (id is null) return BadRequest();
+            AppUser? student = await _userManager.FindByIdAsync(id);
+            if (student is null) return NotFound();
             return View(student);
         }
         public IActionResult Create()
@@ -65,9 +65,9 @@ namespace NETMeetApp.Areas.Admin.Controllers
         }
         public async Task<IActionResult> Delete(string? id)
         {
-            if (id == null) return BadRequest();
+            if (id is null) return BadRequest();
             var student=await _userManager.FindByIdAsync(id);
-            if (student == null) return NotFound();
+            if (student is null) return NotFound();
             var result = await _userManager.DeleteAsync(student);
             if (result.Succeeded)
             {
@@ -84,7 +84,7 @@ namespace NETMeetApp.Areas.Admin.Controllers
         public async Task<IActionResult> Update(string id)
         {
             var existingUser = await _userManager.FindByIdAsync(id);
-            if (existingUser == null)
+            if (existingUser is null)
             {
                 return NotFound();
             }
@@ -106,7 +106,7 @@ namespace NETMeetApp.Areas.Admin.Controllers
             if (ModelState.IsValid)
             {
                 var existingUser = await _userManager.FindByIdAsync(id);
-                if (existingUser == null)
+                if (existingUser is null)
                 {
                     return NotFound();
                 }
