@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using NETMeetApp.Models;
 
 namespace NETMeetApp.Areas.Admin.Controllers
 {
@@ -7,9 +9,16 @@ namespace NETMeetApp.Areas.Admin.Controllers
     [Area("Admin")]
     public class GroupController : Controller
     {
+        private readonly UserManager<AppUser> userManager;
+
+        public GroupController(UserManager<AppUser> userManager)
+        {
+            this.userManager = userManager;
+        }
 
         public IActionResult Index()
         {
+
             return View();
         }
         public async Task<IActionResult> detail(int? id)
