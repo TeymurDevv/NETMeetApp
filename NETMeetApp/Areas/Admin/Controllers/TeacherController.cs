@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using NETMeetApp.Enums;
 using NETMeetApp.Models;
@@ -6,6 +7,7 @@ using NETMeetApp.ViewModels.Admin;
 
 namespace NETMeetApp.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "SuperAdmin,Admin")]
     [Area("Admin")]
     public class TeacherController : Controller
     {
