@@ -1,4 +1,5 @@
-﻿<div class="container">
+﻿@model ProfileUpdateVM
+<div class="container">
     <div class="row">
         <div class="col-md-12 grid-margin stretch-card">
             <div class="card">
@@ -265,12 +266,12 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="Grade">Grade</label>
-                            <input type="number" min="0" name="Grade" class="form-control" id="Grade" placeholder="Grade" required data-val="true" data-val-required="Grade  is required.">
+                            <label asp-for="Grade"></label>
+                            <input min="0" class="form-control" placeholder="Grade">
                         </div>
                         <div class="form-group">
-                            <label for="imageUrl">Profile Image</label>
-                            <input type="file" accept="image/png, image/gif, image/jpeg" name="imageUrl" class="form-control" id="imageUrl" required data-val="true" data-val-required="imageUrl  is required.">
+                            <label asp-for="ProfileImage"></label>
+                            <input asp-for="ProfileImage" class="form-control">
                         </div>
                         <div class="form-group">
                             <label for="Age">Age</label>
