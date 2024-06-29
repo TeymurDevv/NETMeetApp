@@ -9,8 +9,8 @@ namespace NETMeetApp.Areas.Admin.Controllers
     [Area("Admin")]
     public class TeacherController : Controller
     {
-        private readonly UserManager<AppUser> _userManager;
-        public TeacherController(UserManager<AppUser> userManager)
+        private readonly UserManager<AppUserUpdateVM> _userManager;
+        public TeacherController(UserManager<AppUserUpdateVM> userManager)
         {
             _userManager = userManager;
         }
@@ -36,7 +36,7 @@ namespace NETMeetApp.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                var newUser = new AppUser
+                var newUser = new AppUserUpdateVM
                 {
                     UserType = UserType.Teacher,
                     UserName = user.UserName,

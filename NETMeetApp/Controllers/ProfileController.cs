@@ -6,10 +6,10 @@ namespace NETMeetApp.Controllers
 {
     public class ProfileController : Controller
     {
-        private readonly UserManager<AppUser> _userManager;
-        private readonly SignInManager<AppUser> _signInManager;
+        private readonly UserManager<AppUserUpdateVM> _userManager;
+        private readonly SignInManager<AppUserUpdateVM> _signInManager;
 
-        public ProfileController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager)
+        public ProfileController(UserManager<AppUserUpdateVM> userManager, SignInManager<AppUserUpdateVM> signInManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -38,7 +38,7 @@ namespace NETMeetApp.Controllers
             return View(user);
         }
         [HttpPost]
-        public async Task<IActionResult> Update(AppUser appUser)
+        public async Task<IActionResult> Update(AppUserUpdateVM appUser)
         {
             if (!ModelState.IsValid)
             {

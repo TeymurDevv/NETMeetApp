@@ -26,7 +26,7 @@ namespace NETMeetApp
                         .SetIsOriginAllowed((host) => true)
                         .AllowCredentials();
                 }));
-            services.AddIdentity<AppUser, IdentityRole>(options =>
+            services.AddIdentity<AppUserUpdateVM, IdentityRole>(options =>
             {
                 options.Password.RequiredLength = 8;
                 options.Password.RequireUppercase = true;

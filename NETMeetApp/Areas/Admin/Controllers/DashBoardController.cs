@@ -8,9 +8,9 @@ namespace NETMeetApp.Areas.Admin.Controllers
     [Area("Admin")]
     public class DashBoardController : Controller
     {
-        private readonly UserManager<AppUser> _userManager;
+        private readonly UserManager<AppUserUpdateVM> _userManager;
 
-        public DashBoardController(UserManager<AppUser> userManager)
+        public DashBoardController(UserManager<AppUserUpdateVM> userManager)
         {
             _userManager = userManager;
         }

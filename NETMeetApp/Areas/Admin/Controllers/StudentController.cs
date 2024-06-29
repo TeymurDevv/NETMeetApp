@@ -9,20 +9,20 @@ namespace NETMeetApp.Areas.Admin.Controllers
     [Area("Admin")]
     public class StudentController : Controller
     {
-        private readonly UserManager<AppUser> _userManager;
-        public StudentController(UserManager<AppUser> userManager)
+        private readonly UserManager<AppUserUpdateVM> _userManager;
+        public StudentController(UserManager<AppUserUpdateVM> userManager)
         {
             _userManager = userManager;
         }
         public IActionResult Index()
         {
-            ICollection<AppUser> students = _userManager.Users.Where(s => s.UserType == UserType.Student).ToList();
+            ICollection<AppUserUpdateVM> students = _userManager.Users.Where(s => s.UserType == UserType.Student).ToList();
             return View(students);
         }
         public async Task<IActionResult> Detail(string? id)
         {
             if (id is null) return BadRequest();
-            AppUser? student = await _userManager.FindByIdAsync(id);
+            AppUserUpdateVM? student = await _userManager.FindByIdAsync(id);
             if (student is null) return NotFound();
             return View(student);
         }
@@ -36,7 +36,7 @@ namespace NETMeetApp.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                var newUser = new AppUser
+                var newUser = new AppUserUpdateVM
                 {
                     UserType = UserType.Student,
                     UserName = user.UserName,

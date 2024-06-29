@@ -8,9 +8,9 @@ namespace NETMeetApp.Controllers
     public class HomeController : Controller
     {
         private readonly NetMeetAppDbContext _context;
-        private readonly UserManager<AppUser> _userManager;
+        private readonly UserManager<AppUserUpdateVM> _userManager;
 
-        public HomeController(NetMeetAppDbContext context, UserManager<AppUser> userManager)
+        public HomeController(NetMeetAppDbContext context, UserManager<AppUserUpdateVM> userManager)
         {
             _context = context;
             _userManager = userManager;
