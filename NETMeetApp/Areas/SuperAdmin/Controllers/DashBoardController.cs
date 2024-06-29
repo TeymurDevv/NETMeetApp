@@ -22,7 +22,7 @@ namespace NETMeetApp.Areas.SuperAdmin.Controllers
             var students = _userManager.Users.Where(s => s.UserType == UserType.Admin).ToList();
             return View(students);
         }
-       
+
         public IActionResult Create()
         {
             return View();

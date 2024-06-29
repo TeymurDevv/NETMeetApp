@@ -23,7 +23,7 @@ namespace NETMeetApp.Controllers
             return View(user);
         }
 
-        public async Task<IActionResult> UserName(string? username)
+        public async Task<IActionResult> UserProfile(string? username)
         {
             if (username is null) return RedirectToAction("Index", "Home");
             var user = await _userManager.FindByNameAsync(username);
