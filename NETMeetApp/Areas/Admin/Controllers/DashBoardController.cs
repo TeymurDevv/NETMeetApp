@@ -31,6 +31,8 @@ namespace NETMeetApp.Areas.Admin.Controllers
         }
         public async Task<IActionResult> Detail(string? id)
         {
+            var existUser = await _userManager.GetUserAsync(User);
+            ViewBag.User = existUser;
             if (id == null) return BadRequest();
             var student = await _userManager.FindByIdAsync(id);
             if (student == null) return NotFound();
