@@ -22,8 +22,10 @@ namespace NETMeetApp.Areas.Admin.Controllers
             ViewBag.User = existUser;
             return View();
         }
-        public async Task<IActionResult> detail(int? id)
+        public async Task<IActionResult> Detail(int? id)
         {
+            var existUser = await _userManager.GetUserAsync(User);
+            ViewBag.User = existUser;
             if (id == null) return BadRequest();
             return View();
 
