@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using NETMeetApp.Enums;
+using NETMeetApp.Extensions;
 using NETMeetApp.Models;
 using NETMeetApp.ViewModels.Admin;
 
@@ -46,12 +47,31 @@ namespace NETMeetApp.Areas.Admin.Controllers
             ViewBag.User = existUser;
             if (ModelState.IsValid)
             {
+                if (!ModelState.IsValid) return View(user);
+
+                var file = user.ProfileImage;
+                if (file == null)
+                {
+                    ModelState.AddModelError("ProfileImage", "Image cannot be null.");
+                    return View(user);
+                }
+                if (!file.CheckContentType())
+                {
+                    ModelState.AddModelError("ProfileImage", "Only image files are allowed.");
+                    return View(user);
+                }
+                if (!file.CheckSize(500))
+                {
+                    ModelState.AddModelError("ProfileImage", "The image size is too large. Maximum allowed size is 500KB.");
+                    return View(user);
+                }
                 var newUser = new AppUser
                 {
                     UserType = UserType.Teacher,
                     UserName = user.UserName,
                     Email = user.Email,
                     FullName = user.FullName,
+                    imageUrl = await file.SaveFile(),
                     Age = null,
                     Grade = null
                 };
@@ -79,6 +99,7 @@ namespace NETMeetApp.Areas.Admin.Controllers
             var teacher = await _userManager.FindByIdAsync(id);
             if (teacher == null) return NotFound();
             var result = await _userManager.DeleteAsync(teacher);
+            teacher.imageUrl?.DeleteFile();
             if (result.Succeeded)
             {
                 TempData["Success"] = "User deleted successfully!";

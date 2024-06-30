@@ -33,12 +33,12 @@
                                         <td>@student.Age</td>
                                         <td>@student.ShortBioGraphy</td>
                                         <td>
-                                            <img src="@student.imageUrl" alt="Profile Image" class="img-thumbnail" style="width: 50px; height: 50px;" />
+                                            <img src="~/admin/images/@student.imageUrl" alt="Profile Image" class="img-thumbnail" style="width: 50px; height: 50px;" />
                                         </td>
                                         <td>
-                                            <a asp-action="Detail" asp-route-id="@student.Id" class="btn btn-info">Details</a>
-                                            <a asp-action="Update" asp-route-id="@student.Id" class="btn btn-primary">Update</a>
-                                            <a asp-action="Delete" asp-route-id="@student.Id" class="btn btn-danger">Delete</a>
+                                            <a asp-action="Detail" asp-route-id="@student.Id" class="btn btn-info" style="    padding: 10px;">Details</a>
+                                            <a asp-action="Update" asp-route-id="@student.Id" class="btn btn-primary" style="    padding: 10px;">Update</a>
+                                            <a asp-action="Delete" asp-route-id="@student.Id" class="btn btn-danger" style="    padding: 10px;">Delete</a>
                                         </td>
                                     </tr>
                                 }

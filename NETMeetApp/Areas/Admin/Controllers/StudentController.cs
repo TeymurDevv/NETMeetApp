@@ -2,8 +2,10 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using NETMeetApp.Enums;
+using NETMeetApp.Extensions;
 using NETMeetApp.Models;
 using NETMeetApp.ViewModels.Admin;
+using NETMeetApp.ViewModels.Profile;
 
 namespace NETMeetApp.Areas.Admin.Controllers
 {
@@ -45,13 +47,36 @@ namespace NETMeetApp.Areas.Admin.Controllers
             var existUser = await _userManager.GetUserAsync(User);
             ViewBag.User = existUser;
             if (!ModelState.IsValid) return View(appUserStudentVM);
-            AppUser newUser = new();
-            newUser.UserName = appUserStudentVM.UserName;
-            newUser.Email = appUserStudentVM.Email;
-            newUser.FullName = appUserStudentVM.FullName;
-            newUser.UserType = UserType.Student;
 
-            IdentityResult result = await _userManager.CreateAsync(newUser,appUserStudentVM.Password);
+            var file = appUserStudentVM.ProfileImage;
+            if (file == null)
+            {
+                ModelState.AddModelError("ProfileImage", "Image cannot be null.");
+                return View(appUserStudentVM);
+            }
+            if (!file.CheckContentType())
+            {
+                ModelState.AddModelError("ProfileImage", "Only image files are allowed.");
+                return View(appUserStudentVM);
+            }
+            if (!file.CheckSize(500))
+            {
+                ModelState.AddModelError("ProfileImage", "The image size is too large. Maximum allowed size is 500KB.");
+                return View(appUserStudentVM);
+            }
+
+
+
+            AppUser newUser = new AppUser
+            {
+                UserName = appUserStudentVM.UserName,
+                Email = appUserStudentVM.Email,
+                FullName = appUserStudentVM.FullName,
+                UserType = UserType.Student,
+                imageUrl = await file.SaveFile()   // Update with the saved file name
+            }; 
+
+            IdentityResult result = await _userManager.CreateAsync(newUser, appUserStudentVM.Password);
             if (!result.Succeeded)
             {
                 foreach (var error in result.Errors)
@@ -60,9 +85,11 @@ namespace NETMeetApp.Areas.Admin.Controllers
                 }
                 return View(appUserStudentVM);
             }
+
             await _userManager.AddToRoleAsync(newUser, "Student");
             return RedirectToAction(nameof(Index));
         }
+
         public async Task<IActionResult> Delete(string? id)
         {
             var existUser = await _userManager.GetUserAsync(User);
@@ -71,6 +98,8 @@ namespace NETMeetApp.Areas.Admin.Controllers
             var student = await _userManager.FindByIdAsync(id);
             if (student is null) return NotFound();
             var result = await _userManager.DeleteAsync(student);
+            // Delete the user's profile image
+            student.imageUrl?.DeleteFile();
             if (result.Succeeded)
             {
                 TempData["Success"] = "User deleted successfully!";
@@ -103,12 +132,13 @@ namespace NETMeetApp.Areas.Admin.Controllers
               
 
             };
+     
 
             return View(userVm);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Update(string id, AppUserStudentUpdateVM user)
+        public async Task<IActionResult> Update(string id, AppUserStudentUpdateVM user, IFormFile newProfileImage)
         {
             var existUser = await _userManager.GetUserAsync(User);
             ViewBag.User = existUser;
@@ -125,9 +155,25 @@ namespace NETMeetApp.Areas.Admin.Controllers
                 existingUser.FullName = user.FullName;
                 existingUser.GroupName = user.GroupName;
 
+                if (newProfileImage != null)
+                {
+                    if (!newProfileImage.CheckContentType())
+                    {
+                        ModelState.AddModelError("ProfileImage", "Only image files are allowed.");
+                        return View(existingUser);
+                    }
+                    if (!newProfileImage.CheckSize(500))
+                    {
+                        ModelState.AddModelError("ProfileImage", "The image size is too large. Maximum allowed size is 500KB.");
+                        return View(existingUser);
+                    }
 
+                    // Delete the old image file
+                    existingUser.imageUrl?.DeleteFile();
 
-                // Handle image upload if any
+                    // Save the new image file
+                    existingUser.imageUrl = await newProfileImage.SaveFile();
+                }
 
                 IdentityResult result = await _userManager.UpdateAsync(existingUser);
 

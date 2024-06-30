@@ -18,7 +18,7 @@
                 <div class="card-body">
                     <h4 class="card-title">Create User</h4>
                     <p class="card-description">Basic form layout</p>
-                    <form  method="post">
+                    <form method="post" enctype="multipart/form-data">
                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                         <div class="form-group">
                             <label asp-for="UserName"></label>
@@ -32,7 +32,7 @@
                         </div>
                         <div class="form-group">
                             <label asp-for="GroupName"></label>
-                            <input asp-for="GroupName" class="form-control" placeholder="FullName" required>
+                            <input asp-for="GroupName" class="form-control" placeholder="GroupName" required>
                             <span asp-validation-for="GroupName" class="text-danger"></span>
                         </div>
                         <div class="form-group">
@@ -47,16 +47,19 @@
                         </div>
                         <div class="form-group">
                             <label asp-for="RepeatPassword"></label>
-                            <input asp-for="RepeatPassword" class="form-control" placeholder="Password" required>
+                            <input asp-for="RepeatPassword" class="form-control" placeholder="Repeat Password" required>
                             <span asp-validation-for="RepeatPassword" class="text-danger"></span>
                         </div>
-
-
-
+                        <div class="form-group">
+                            <label asp-for="ProfileImage"></label>
+                            <input asp-for="ProfileImage" type="file" class="form-control">
+                            <span asp-validation-for="ProfileImage" class="text-danger"></span>
+                        </div>
 
                         <button type="submit" class="btn btn-primary me-2">Submit</button>
                         <a asp-action="Index" class="btn btn-light">Cancel</a>
                     </form>
+
                 </div>
             </div>
         </div>
