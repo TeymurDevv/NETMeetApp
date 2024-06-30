@@ -16,8 +16,10 @@ namespace NETMeetApp.Areas.Admin.Controllers
         {
             _userManager = userManager;
         }
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
+            var existUser = await _userManager.GetUserAsync(User);
+            ViewBag.User = existUser;
             ICollection<AppUser> students = _userManager.Users.Where(s => s.UserType == UserType.Student).ToList();
             return View(students);
         }
