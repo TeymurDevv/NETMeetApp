@@ -17,6 +17,7 @@ namespace NETMeetApp.ViewModels.Admin
         [Required, DataType(DataType.EmailAddress)]
         public string Email { get; set; }
         public IFormFile Photo { get; set; }
+        public string? GroupName { get; set; }
      
       
 

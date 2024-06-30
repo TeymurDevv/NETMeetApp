@@ -52,6 +52,7 @@ namespace NETMeetApp.Areas.Admin.Controllers
                     UserName = user.UserName,
                     Email = user.Email,
                     FullName = user.FullName,
+                    GroupName = user.GroupName,
                     Age = null,
                     Grade = null
 
