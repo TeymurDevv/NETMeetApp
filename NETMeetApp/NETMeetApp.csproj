@@ -10,30 +10,22 @@
     <Compile Remove="Areas\Admin\Models\**" />
     <Compile Remove="Areas\SuperAdmin\Data\**" />
     <Compile Remove="Areas\SuperAdmin\Models\**" />
-    <Compile Remove="Areas\SuperAdmin\Views\**" />
     <Compile Remove="Areas\TeacherArea\**" />
     <Content Remove="Areas\Admin\Models\**" />
     <Content Remove="Areas\SuperAdmin\Data\**" />
     <Content Remove="Areas\SuperAdmin\Models\**" />
-    <Content Remove="Areas\SuperAdmin\Views\**" />
     <Content Remove="Areas\TeacherArea\**" />
     <EmbeddedResource Remove="Areas\Admin\Models\**" />
     <EmbeddedResource Remove="Areas\SuperAdmin\Data\**" />
     <EmbeddedResource Remove="Areas\SuperAdmin\Models\**" />
-    <EmbeddedResource Remove="Areas\SuperAdmin\Views\**" />
     <EmbeddedResource Remove="Areas\TeacherArea\**" />
     <None Remove="Areas\Admin\Models\**" />
     <None Remove="Areas\SuperAdmin\Data\**" />
     <None Remove="Areas\SuperAdmin\Models\**" />
-    <None Remove="Areas\SuperAdmin\Views\**" />
     <None Remove="Areas\TeacherArea\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="Areas\SuperAdmin\Views\DashBoard\Create.cshtml" />
-    <None Include="Areas\SuperAdmin\Views\DashBoard\Detail.cshtml" />
-    <None Include="Areas\SuperAdmin\Views\DashBoard\Index.cshtml" />
-    <None Include="Areas\SuperAdmin\Views\DashBoard\Update.cshtml" />
     <None Include="wwwroot\admin\documentation\.DS_Store" />
     <None Include="wwwroot\admin\fonts\.DS_Store" />
     <None Include="wwwroot\admin\fonts\Roboto\.DS_Store" />

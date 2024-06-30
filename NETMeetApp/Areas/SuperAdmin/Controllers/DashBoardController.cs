@@ -19,8 +19,8 @@ namespace NETMeetApp.Areas.SuperAdmin.Controllers
         [Area("SuperAdmin")]
         public IActionResult Index()
         {
-            var students = _userManager.Users.Where(s => s.UserType == UserType.Admin).ToList();
-            return View(students);
+            var Admins = _userManager.Users.Where(s => s.UserType == UserType.Admin).ToList();
+            return View(Admins);
         }
 
         public IActionResult Create()
