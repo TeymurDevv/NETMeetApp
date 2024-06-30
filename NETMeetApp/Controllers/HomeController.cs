@@ -35,6 +35,7 @@ namespace NETMeetApp.Controllers
             foreach (var item in Enum.GetValues(typeof(UserType)))
             {
                 await _roleManager.CreateAsync(new IdentityRole { Name = item.ToString() });
+
             }
             return Content("OK");
         }
