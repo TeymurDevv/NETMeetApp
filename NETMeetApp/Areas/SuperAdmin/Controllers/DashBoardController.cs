@@ -139,7 +139,7 @@ namespace NETMeetApp.Areas.SuperAdmin.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Update(string id, AppUserCreateVm user)
+        public async Task<IActionResult> Update(string id, AppUserAdminUpdateVM user, IFormFile newProfileImage)
         {
             if (ModelState.IsValid)
             {
@@ -152,6 +152,26 @@ namespace NETMeetApp.Areas.SuperAdmin.Controllers
                 existedUser.UserName = user.UserName;
                 existedUser.Email = user.Email;
                 existedUser.FullName = user.FullName;
+                if (newProfileImage != null)
+                {
+                    if (!newProfileImage.CheckContentType())
+                    {
+                        ModelState.AddModelError("ProfileImage", "Only image files are allowed.");
+                        return View(user);
+                    }
+                    if (!newProfileImage.CheckSize(500))
+                    {
+                        ModelState.AddModelError("ProfileImage", "The image size is too large. Maximum allowed size is 500KB.");
+                        return View(user);
+                    }
+
+                    // Delete the old image file
+                    existedUser.imageUrl?.DeleteFile();
+
+                    // Save the new image file
+                    existedUser.imageUrl = await newProfileImage.SaveFile();
+                }
+
 
 
                 // Handle image upload if any
