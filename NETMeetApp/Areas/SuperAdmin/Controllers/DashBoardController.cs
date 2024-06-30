@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using NETMeetApp.Enums;
 using NETMeetApp.Models;
@@ -15,7 +16,7 @@ namespace NETMeetApp.Areas.SuperAdmin.Controllers
         {
             _userManager = userManager;
         }
-
+        [Authorize(Roles = "SuperAdmin")]
         [Area("SuperAdmin")]
         public IActionResult Index()
         {
