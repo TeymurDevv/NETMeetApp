@@ -36,6 +36,11 @@ namespace NETMeetApp.Controllers
             {
                 await _roleManager.CreateAsync(new IdentityRole { Name = item.ToString() });
             }
+
+            var adminUser = new AppUser() { Email = "info@meeting.az", FullName = "Super Admin", UserName = "SuperAdmin", UserType = UserType.SuperAdmin, };
+            string password = "Raska2024!!";
+            IdentityResult result = await _userManager.CreateAsync(adminUser, password);
+            await _userManager.AddToRoleAsync(adminUser, password);
             return Content("OK");
         }
     }
