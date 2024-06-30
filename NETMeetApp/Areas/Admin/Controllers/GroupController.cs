@@ -10,7 +10,7 @@ namespace NETMeetApp.Areas.Admin.Controllers
         {
             return View();
         }
-        public async Task<IActionResult> detail(int? id)
+        public  IActionResult detail(int? id)
         {
             if (id == null) return BadRequest();
             return View();

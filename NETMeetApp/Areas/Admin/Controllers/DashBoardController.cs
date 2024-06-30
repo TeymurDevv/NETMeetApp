@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using NETMeetApp.Models;
 using System.Threading.Tasks;
 
@@ -22,7 +23,7 @@ namespace NETMeetApp.Areas.Admin.Controllers
             ViewBag.AdminCount = _userManager.Users.Where(s => s.UserType == Enums.UserType.Admin).Count();
 
 
-            var users = _userManager.Users.ToList();
+            var users = await _userManager.Users.ToListAsync();
             return View(users);
 
         }

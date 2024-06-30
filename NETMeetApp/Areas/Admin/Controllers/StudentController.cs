@@ -47,6 +47,7 @@ namespace NETMeetApp.Areas.Admin.Controllers
 
                 };
                 // Handle image upload
+
                 
                 IdentityResult result = await _userManager.CreateAsync(newUser, user.Password);
 
