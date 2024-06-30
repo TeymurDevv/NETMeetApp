@@ -72,6 +72,7 @@ namespace NETMeetApp.Areas.Admin.Controllers
                 UserName = appUserStudentVM.UserName,
                 Email = appUserStudentVM.Email,
                 FullName = appUserStudentVM.FullName,
+                GroupName = appUserStudentVM.GroupName,
                 UserType = UserType.Student,
                 imageUrl = await file.SaveFile()   // Update with the saved file name
             }; 
@@ -127,18 +128,14 @@ namespace NETMeetApp.Areas.Admin.Controllers
                 UserName = existingUser.UserName,
                 Email = existingUser.Email,
                 FullName = existingUser.FullName,
-                GroupName=existingUser.GroupName
-              
-              
-
+                GroupName = existingUser.GroupName
             };
-     
 
             return View(userVm);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Update(string id, AppUserStudentUpdateVM user, IFormFile newProfileImage)
+        public async Task<IActionResult> Update(string id, AppUserStudentUpdateVM user, IFormFile? newProfileImage)
         {
             var existUser = await _userManager.GetUserAsync(User);
             ViewBag.User = existUser;
@@ -160,12 +157,12 @@ namespace NETMeetApp.Areas.Admin.Controllers
                     if (!newProfileImage.CheckContentType())
                     {
                         ModelState.AddModelError("ProfileImage", "Only image files are allowed.");
-                        return View(existingUser);
+                        return View(user);
                     }
                     if (!newProfileImage.CheckSize(500))
                     {
                         ModelState.AddModelError("ProfileImage", "The image size is too large. Maximum allowed size is 500KB.");
-                        return View(existingUser);
+                        return View(user);
                     }
 
                     // Delete the old image file
@@ -191,7 +188,6 @@ namespace NETMeetApp.Areas.Admin.Controllers
 
             return View(user);
         }
-
 
 
     }

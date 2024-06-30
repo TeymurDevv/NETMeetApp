@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using NETMeetApp.Enums;
 using NETMeetApp.Models;
 
 namespace NETMeetApp.Areas.Admin.Controllers
@@ -20,37 +21,40 @@ namespace NETMeetApp.Areas.Admin.Controllers
         {
             var existUser = await _userManager.GetUserAsync(User);
             ViewBag.User = existUser;
-            return View();
+
+            // Retrieve all unique group names
+            var groupNames = _userManager.Users
+                .Where(u => u.GroupName != null)
+                .Select(u => u.GroupName)
+                .Distinct()
+                .ToList();
+
+            return View(groupNames);
         }
 
-        public async Task<IActionResult> Detail(int? id)
+        public async Task<IActionResult> Detail(string groupName)
         {
             var existUser = await _userManager.GetUserAsync(User);
             ViewBag.User = existUser;
-            if (id == null) return BadRequest();
-            return View();
 
+            if (string.IsNullOrEmpty(groupName))
+            {
+                return BadRequest();
+            }
+
+            // Retrieve students with the specified group name
+            var students = _userManager.Users
+                .Where(u => u.GroupName == groupName && u.UserType == UserType.Student)
+                .ToList();
+
+            if (students.Count == 0)
+            {
+                return NotFound();
+            }
+
+            ViewBag.GroupName = groupName;
+            return View(students);
         }
-        public async Task<IActionResult> Create()
-        {
-            var existUser = await _userManager.GetUserAsync(User);
-            ViewBag.User = existUser;
-            return View();
-        }
-        [HttpPost]
-        [AutoValidateAntiforgeryToken]
-        public async Task<IActionResult> Create(int id)
-        {
-            var existUser = await _userManager.GetUserAsync(User);
-            ViewBag.User = existUser;
-            return View();
-        }
-        public async Task<IActionResult> Delete(int? id)
-        {
-            var existUser = await _userManager.GetUserAsync(User);
-            ViewBag.User = existUser;
-            if (id == null) return BadRequest();
-            return View();
-        }
+       
     }
 }

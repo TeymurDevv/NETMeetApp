@@ -1,4 +1,4 @@
-﻿@model AppUserStudentUpdateVM
+﻿@model NETMeetApp.ViewModels.Admin.AppUserStudentUpdateVM
 
 <div class="container mt-5">
     @if (TempData["Success"] != null)
@@ -16,7 +16,7 @@
         <div class="col-md-12 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">Create User</h4>
+                    <h4 class="card-title">Update User</h4>
                     <p class="card-description">Basic form layout</p>
                     <form method="post" enctype="multipart/form-data">
                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -41,16 +41,6 @@
                             <span asp-validation-for="Email" class="text-danger"></span>
                         </div>
                         <div class="form-group">
-                            <label asp-for="Password"></label>
-                            <input asp-for="Password" class="form-control" placeholder="Password" required>
-                            <span asp-validation-for="Password" class="text-danger"></span>
-                        </div>
-                        <div class="form-group">
-                            <label asp-for="RepeatPassword"></label>
-                            <input asp-for="RepeatPassword" class="form-control" placeholder="Repeat Password" required>
-                            <span asp-validation-for="RepeatPassword" class="text-danger"></span>
-                        </div>
-                        <div class="form-group">
                             <label asp-for="ProfileImage"></label>
                             <input asp-for="ProfileImage" type="file" class="form-control">
                             <span asp-validation-for="ProfileImage" class="text-danger"></span>
@@ -59,7 +49,6 @@
                         <button type="submit" class="btn btn-primary me-2">Submit</button>
                         <a asp-action="Index" class="btn btn-light">Cancel</a>
                     </form>
-
                 </div>
             </div>
         </div>

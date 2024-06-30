@@ -126,14 +126,14 @@ namespace NETMeetApp.Areas.Admin.Controllers
             {
                 UserName = existingUser.UserName,
                 Email = existingUser.Email,
-                FullName = existingUser.FullName
+                FullName = existingUser.FullName,
             };
 
             return View(userVm);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Update(string id, AppUserUpdateTeacher user)
+        public async Task<IActionResult> Update(string id, AppUserUpdateTeacher user, IFormFile? newProfileImage)
         {
             var existUser = await _userManager.GetUserAsync(User);
             ViewBag.User = existUser;
@@ -148,6 +148,27 @@ namespace NETMeetApp.Areas.Admin.Controllers
                 existingUser.UserName = user.UserName;
                 existingUser.Email = user.Email;
                 existingUser.FullName = user.FullName;
+               
+                if (newProfileImage != null)
+                {
+                    if (!newProfileImage.CheckContentType())
+                    {
+                        ModelState.AddModelError("ProfileImage", "Only image files are allowed.");
+                        return View(user);
+                    }
+                    if (!newProfileImage.CheckSize(500))
+                    {
+                        ModelState.AddModelError("ProfileImage", "The image size is too large. Maximum allowed size is 500KB.");
+                        return View(user);
+                    }
+
+                    // Delete the old image file
+                    existingUser.imageUrl?.DeleteFile();
+
+                    // Save the new image file
+                    existingUser.imageUrl = await newProfileImage.SaveFile();
+                }
+
 
                 IdentityResult result = await _userManager.UpdateAsync(existingUser);
 

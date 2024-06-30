@@ -2,9 +2,11 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using NETMeetApp.Enums;
+using NETMeetApp.Extensions;
 using NETMeetApp.Models;
 using NETMeetApp.ViewModels.Admin;
 using NETMeetApp.ViewModels.SuperAdmin;
+using NuGet.DependencyResolver;
 
 namespace NETMeetApp.Areas.SuperAdmin.Controllers
 {
@@ -35,12 +37,31 @@ namespace NETMeetApp.Areas.SuperAdmin.Controllers
         {
             if (ModelState.IsValid)
             {
+                var file = user.ProfileImage;
+                if (file == null)
+                {
+                    ModelState.AddModelError("ProfileImage", "Image cannot be null.");
+                    return View(user);
+                }
+                if (!file.CheckContentType())
+                {
+                    ModelState.AddModelError("ProfileImage", "Only image files are allowed.");
+                    return View(user);
+                }
+                if (!file.CheckSize(500))
+                {
+                    ModelState.AddModelError("ProfileImage", "The image size is too large. Maximum allowed size is 500KB.");
+                    return View(user);
+                }
+
+
                 var newUser = new AppUser
                 {
                     UserType = UserType.Admin,
                     UserName = user.UserName,
                     Email = user.Email,
                     FullName = user.FullName,
+                    imageUrl = await file.SaveFile(),
                     Age = null,
                     Grade = null
 
@@ -67,6 +88,7 @@ namespace NETMeetApp.Areas.SuperAdmin.Controllers
             if (id == null) return BadRequest();
             var teacher = await _userManager.FindByIdAsync(id);
             if (teacher == null) return NotFound();
+
             return View(teacher);
         }
         public IActionResult Delete()
@@ -80,6 +102,8 @@ namespace NETMeetApp.Areas.SuperAdmin.Controllers
             var admin = await _userManager.FindByIdAsync(id);
             if (admin is null) return NotFound();
             var result = await _userManager.DeleteAsync(admin);
+            admin.imageUrl?.DeleteFile();
+
             if (result.Succeeded)
             {
                 TempData["Success"] = "admin deleted successfully!";
