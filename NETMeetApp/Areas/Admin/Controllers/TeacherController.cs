@@ -40,7 +40,7 @@ namespace NETMeetApp.Areas.Admin.Controllers
         }
         [HttpPost]
         [AutoValidateAntiforgeryToken]
-        public async Task<IActionResult> Create(AppUserCreateVm user)
+        public async Task<IActionResult> Create(AppUserCreateTeacherVM user)
         {
             var existUser = await _userManager.GetUserAsync(User);
             ViewBag.User = existUser;
@@ -101,7 +101,7 @@ namespace NETMeetApp.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var userVm = new AppUserCreateVm
+            var userVm = new AppUserUpdateTeacher
             {
                 UserName = existingUser.UserName,
                 Email = existingUser.Email,
@@ -112,7 +112,7 @@ namespace NETMeetApp.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Update(string id, AppUserCreateVm user)
+        public async Task<IActionResult> Update(string id, AppUserUpdateTeacher user)
         {
             var existUser = await _userManager.GetUserAsync(User);
             ViewBag.User = existUser;

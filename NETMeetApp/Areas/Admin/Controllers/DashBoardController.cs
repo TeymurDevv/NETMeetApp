@@ -24,6 +24,8 @@ namespace NETMeetApp.Areas.Admin.Controllers
             ViewBag.StudentsCount = _userManager.Users.Where(s => s.UserType == Enums.UserType.Student).Count();
             ViewBag.TeachersCount = _userManager.Users.Where(s => s.UserType == Enums.UserType.Teacher).Count();
             ViewBag.AdminCount = _userManager.Users.Where(s => s.UserType == Enums.UserType.Admin).Count();
+            ViewBag.SuperAdminCount=_userManager.Users.Where(s=>s.UserType==Enums.UserType.SuperAdmin).Count();
+
 
 
             var users = await _userManager.Users.ToListAsync();

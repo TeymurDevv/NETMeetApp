@@ -7,7 +7,7 @@
 <style>
     .fixed-height {
         position: relative;
-        height: 400px;
+        height: 300px;
     }
 
         .fixed-height canvas {
@@ -25,6 +25,7 @@
                 <h4>Student Count: @ViewBag.StudentsCount</h4>
                 <h4>Teacher Count: @ViewBag.TeachersCount</h4>
                 <h4>Admin Count: @ViewBag.AdminCount</h4>
+                <h4>SuperAdmin Count: @ViewBag.SuperAdminCount</h4>
             </div>
         </div>
     </div>
@@ -107,21 +108,23 @@
             var studentsCount = @Html.Raw(Json.Serialize(ViewBag.StudentsCount));
             var teachersCount = @Html.Raw(Json.Serialize(ViewBag.TeachersCount));
             var adminCount = @Html.Raw(Json.Serialize(ViewBag.AdminCount));
-
+            var SuperAdminCount = @Html.Raw(Json.Serialize(ViewBag.SuperAdminCount));
             // Set up the data for the chart
             var data = {
-                labels: ['Students', 'Teachers', 'Admins'],
+                labels: ['Students', 'Teachers', 'Admins', 'SuperAdminCount'],
                 datasets: [{
-                    data: [studentsCount, teachersCount, adminCount],
+                    data: [studentsCount, teachersCount, adminCount, SuperAdminCount],
                     backgroundColor: [
                         'rgba(255, 99, 132, 0.5)',
                         'rgba(54, 162, 235, 0.5)',
-                        'rgba(255, 206, 86, 0.5)'
+                        'rgba(255, 206, 86, 0.5)',
+                        'rgba(75, 192, 192, 0.5)' // Added a new background color for SuperAdminCount
                     ],
                     borderColor: [
                         'rgba(255, 99, 132, 1)',
                         'rgba(54, 162, 235, 1)',
-                        'rgba(255, 206, 86, 1)'
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)' // Added a new border color for SuperAdminCount
                     ],
                     borderWidth: 1
                 }]

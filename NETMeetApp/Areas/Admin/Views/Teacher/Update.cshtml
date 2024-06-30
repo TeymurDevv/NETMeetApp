@@ -1,5 +1,4 @@
-﻿@model AppUserStudentVM
-
+﻿@model AppUserUpdateTeacher
 <div class="container mt-5">
     @if (TempData["Success"] != null)
     {
@@ -18,7 +17,7 @@
                 <div class="card-body">
                     <h4 class="card-title">Create User</h4>
                     <p class="card-description">Basic form layout</p>
-                    <form asp-action="Create" method="post">
+                    <form method="post">
                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                         <div class="form-group">
                             <label asp-for="UserName"></label>
@@ -27,8 +26,8 @@
                         </div>
                         <div class="form-group">
                             <label asp-for="FullName"></label>
-                            <input asp-for="FullName" class="form-control"  placeholder="FullName" required>
-                            <span asp-validation-for="FullName"   class="text-danger"></span>
+                            <input asp-for="FullName" class="form-control" placeholder="FullName" required>
+                            <span asp-validation-for="FullName" class="text-danger"></span>
                         </div>
                         <div class="form-group">
                             <label asp-for="Email"></label>
@@ -36,25 +35,19 @@
                             <span asp-validation-for="Email" class="text-danger"></span>
                         </div>
                         <div class="form-group">
-                            <label asp-for="GroupName"></label>
-                            <input asp-for="GroupName" class="form-control" placeholder="GroupName" required>
-                            <span asp-validation-for="GroupName" class="text-danger"></span>
-                        </div>
-                        <div class="form-group">
                             <label asp-for="Password"></label>
                             <input asp-for="Password" class="form-control" placeholder="Password" required>
                             <span asp-validation-for="Password" class="text-danger"></span>
                         </div>
-
                         <div class="form-group">
                             <label asp-for="RepeatPassword"></label>
                             <input asp-for="RepeatPassword" class="form-control" placeholder="Password" required>
                             <span asp-validation-for="RepeatPassword" class="text-danger"></span>
                         </div>
-                       
 
-                       
-                       
+
+
+
                         <button type="submit" class="btn btn-primary me-2">Submit</button>
                         <a asp-action="Index" class="btn btn-light">Cancel</a>
                     </form>

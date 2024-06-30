@@ -40,39 +40,28 @@ namespace NETMeetApp.Areas.Admin.Controllers
         }
         [HttpPost]
         [AutoValidateAntiforgeryToken]
-        public async Task<IActionResult> Create(AppUserCreateVm user)
+        public async Task<IActionResult> Create(AppUserStudentVM appUserStudentVM)
         {
             var existUser = await _userManager.GetUserAsync(User);
             ViewBag.User = existUser;
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid) return View(appUserStudentVM);
+            AppUser newUser = new();
+            newUser.UserName = appUserStudentVM.UserName;
+            newUser.Email = appUserStudentVM.Email;
+            newUser.FullName = appUserStudentVM.FullName;
+            newUser.UserType = UserType.Student;
+
+            IdentityResult result = await _userManager.CreateAsync(newUser,appUserStudentVM.Password);
+            if (!result.Succeeded)
             {
-                var newUser = new AppUser
-                {
-                    UserType = UserType.Student,
-                    UserName = user.UserName,
-                    Email = user.Email,
-                    FullName = user.FullName,
-                    GroupName = user.GroupName,
-                    Age = null,
-                    Grade = null
-
-                };
-                // Handle image upload
-                IdentityResult result = await _userManager.CreateAsync(newUser, user.Password);
-                await _userManager.AddToRoleAsync(newUser,"Student");
-
-                if (result.Succeeded)
-                {
-                    return RedirectToAction(nameof(Index));
-                }
-
                 foreach (var error in result.Errors)
                 {
                     ModelState.AddModelError(string.Empty, error.Description);
                 }
+                return View(appUserStudentVM);
             }
-
-            return View(user);
+            await _userManager.AddToRoleAsync(newUser, "Student");
+            return RedirectToAction(nameof(Index));
         }
         public async Task<IActionResult> Delete(string? id)
         {
@@ -104,11 +93,14 @@ namespace NETMeetApp.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var userVm = new AppUserCreateVm
+            var userVm = new AppUserStudentUpdateVM
             {
                 UserName = existingUser.UserName,
                 Email = existingUser.Email,
                 FullName = existingUser.FullName,
+                GroupName=existingUser.GroupName
+              
+              
 
             };
 
@@ -116,7 +108,7 @@ namespace NETMeetApp.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Update(string id, AppUserCreateVm user)
+        public async Task<IActionResult> Update(string id, AppUserStudentUpdateVM user)
         {
             var existUser = await _userManager.GetUserAsync(User);
             ViewBag.User = existUser;
@@ -131,6 +123,8 @@ namespace NETMeetApp.Areas.Admin.Controllers
                 existingUser.UserName = user.UserName;
                 existingUser.Email = user.Email;
                 existingUser.FullName = user.FullName;
+                existingUser.GroupName = user.GroupName;
+
 
 
                 // Handle image upload if any
