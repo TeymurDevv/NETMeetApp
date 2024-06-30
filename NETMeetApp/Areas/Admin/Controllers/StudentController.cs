@@ -42,6 +42,8 @@ namespace NETMeetApp.Areas.Admin.Controllers
         [AutoValidateAntiforgeryToken]
         public async Task<IActionResult> Create(AppUserCreateVm user)
         {
+            var existUser = await _userManager.GetUserAsync(User);
+            ViewBag.User = existUser;
             if (ModelState.IsValid)
             {
                 var newUser = new AppUser
