@@ -35,7 +35,6 @@ namespace NETMeetApp.Controllers
             foreach (var item in Enum.GetValues(typeof(UserType)))
             {
                 await _roleManager.CreateAsync(new IdentityRole { Name = item.ToString() });
-
             }
 
             var adminUser = new AppUser() { Email = "info@meeting.az", FullName = "Super Admin", UserName = "SuperAdmin", UserType = UserType.SuperAdmin, };
