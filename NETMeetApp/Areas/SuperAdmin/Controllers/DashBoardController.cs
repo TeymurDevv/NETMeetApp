@@ -26,7 +26,7 @@ namespace NETMeetApp.Areas.SuperAdmin.Controllers
             var Admins = _userManager.Users.Where(s => s.UserType == UserType.Admin).ToList();
             return View(Admins);
         }
-       
+
         public IActionResult Create()
         {
             return View();
@@ -70,8 +70,10 @@ namespace NETMeetApp.Areas.SuperAdmin.Controllers
 
                 IdentityResult result = await _userManager.CreateAsync(newUser, user.Password);
 
+
                 if (result.Succeeded)
                 {
+                    await _userManager.AddToRoleAsync(newUser, "Admin");
                     return RedirectToAction(nameof(Index));
                 }
 
