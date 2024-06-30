@@ -40,6 +40,8 @@ namespace NETMeetApp.Areas.Admin.Controllers
         [AutoValidateAntiforgeryToken]
         public async Task<IActionResult> Create(int id)
         {
+            var existUser = await _userManager.GetUserAsync(User);
+            ViewBag.User = existUser;
             return View();
         }
         public async Task<IActionResult> Delete(int? id)
