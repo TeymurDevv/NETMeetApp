@@ -1,11 +1,12 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using NETMeetApp.Models;
-using System.Threading.Tasks;
 
 namespace NETMeetApp.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "SuperAdmin,Admin")]
     [Area("Admin")]
     public class DashBoardController : Controller
     {
@@ -18,7 +19,9 @@ namespace NETMeetApp.Areas.Admin.Controllers
 
         public async Task<IActionResult> Index()
         {
-            ViewBag.StudentsCount=_userManager.Users.Where(s=>s.UserType==Enums.UserType.Student).Count();
+            var existUser = await _userManager.GetUserAsync(User);
+            ViewBag.User = existUser;
+            ViewBag.StudentsCount = _userManager.Users.Where(s => s.UserType == Enums.UserType.Student).Count();
             ViewBag.TeachersCount = _userManager.Users.Where(s => s.UserType == Enums.UserType.Teacher).Count();
             ViewBag.AdminCount = _userManager.Users.Where(s => s.UserType == Enums.UserType.Admin).Count();
 
@@ -29,6 +32,8 @@ namespace NETMeetApp.Areas.Admin.Controllers
         }
         public async Task<IActionResult> Detail(string? id)
         {
+            var existUser = await _userManager.GetUserAsync(User);
+            ViewBag.User = existUser;
             if (id == null) return BadRequest();
             var student = await _userManager.FindByIdAsync(id);
             if (student == null) return NotFound();

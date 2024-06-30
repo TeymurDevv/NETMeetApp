@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using NETMeetApp.Enums;
 using NETMeetApp.Models;
@@ -6,6 +7,7 @@ using NETMeetApp.ViewModels.Admin;
 
 namespace NETMeetApp.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "SuperAdmin,Admin")]
     [Area("Admin")]
     public class TeacherController : Controller
     {
@@ -14,26 +16,34 @@ namespace NETMeetApp.Areas.Admin.Controllers
         {
             _userManager = userManager;
         }
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
+            var existUser = await _userManager.GetUserAsync(User);
+            ViewBag.User = existUser;
             var teachers = _userManager.Users.Where(t => t.UserType == UserType.Teacher).ToList();
             return View(teachers);
         }
         public async Task<IActionResult> Detail(string? id)
         {
+            var existUser = await _userManager.GetUserAsync(User);
+            ViewBag.User = existUser;
             if (id == null) return BadRequest();
             var teacher = await _userManager.FindByIdAsync(id);
             if (teacher == null) return NotFound();
             return View(teacher);
         }
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
+            var existUser = await _userManager.GetUserAsync(User);
+            ViewBag.User = existUser;
             return View();
         }
         [HttpPost]
         [AutoValidateAntiforgeryToken]
         public async Task<IActionResult> Create(AppUserCreateVm user)
         {
+            var existUser = await _userManager.GetUserAsync(User);
+            ViewBag.User = existUser;
             if (ModelState.IsValid)
             {
                 var newUser = new AppUser
@@ -63,6 +73,8 @@ namespace NETMeetApp.Areas.Admin.Controllers
         }
         public async Task<IActionResult> Delete(string? id)
         {
+            var existUser = await _userManager.GetUserAsync(User);
+            ViewBag.User = existUser;
             if (id == null) return BadRequest();
             var teacher = await _userManager.FindByIdAsync(id);
             if (teacher == null) return NotFound();
@@ -81,6 +93,8 @@ namespace NETMeetApp.Areas.Admin.Controllers
         }
         public async Task<IActionResult> Update(string id)
         {
+            var existUser = await _userManager.GetUserAsync(User);
+            ViewBag.User = existUser;
             var existingUser = await _userManager.FindByIdAsync(id);
             if (existingUser == null)
             {
@@ -100,6 +114,8 @@ namespace NETMeetApp.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> Update(string id, AppUserCreateVm user)
         {
+            var existUser = await _userManager.GetUserAsync(User);
+            ViewBag.User = existUser;
             if (ModelState.IsValid)
             {
                 var existingUser = await _userManager.FindByIdAsync(id);

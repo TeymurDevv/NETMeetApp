@@ -1,33 +1,57 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using NETMeetApp.Models;
 
 namespace NETMeetApp.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "SuperAdmin,Admin")]
     [Area("Admin")]
     public class GroupController : Controller
     {
+        private readonly UserManager<AppUser> _userManager;
 
-        public IActionResult Index()
+        public GroupController(UserManager<AppUser> userManager)
         {
+            _userManager = userManager;
+        }
+
+        public async Task<IActionResult> Index()
+        {
+            var existUser = await _userManager.GetUserAsync(User);
+            ViewBag.User = existUser;
             return View();
         }
+<<<<<<< HEAD
         public  IActionResult detail(int? id)
+=======
+        public async Task<IActionResult> Detail(int? id)
+>>>>>>> 2bbc643b195dfd8b60a331d851506d19d5b80bd9
         {
+            var existUser = await _userManager.GetUserAsync(User);
+            ViewBag.User = existUser;
             if (id == null) return BadRequest();
             return View();
 
         }
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
+            var existUser = await _userManager.GetUserAsync(User);
+            ViewBag.User = existUser;
             return View();
         }
         [HttpPost]
         [AutoValidateAntiforgeryToken]
         public async Task<IActionResult> Create(int id)
         {
+            var existUser = await _userManager.GetUserAsync(User);
+            ViewBag.User = existUser;
             return View();
         }
         public async Task<IActionResult> Delete(int? id)
         {
+            var existUser = await _userManager.GetUserAsync(User);
+            ViewBag.User = existUser;
             if (id == null) return BadRequest();
             return View();
         }
