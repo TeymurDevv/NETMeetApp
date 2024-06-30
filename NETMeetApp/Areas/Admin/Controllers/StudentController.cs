@@ -32,8 +32,10 @@ namespace NETMeetApp.Areas.Admin.Controllers
             if (student is null) return NotFound();
             return View(student);
         }
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
+            var existUser = await _userManager.GetUserAsync(User);
+            ViewBag.User = existUser;
             return View();
         }
         [HttpPost]
