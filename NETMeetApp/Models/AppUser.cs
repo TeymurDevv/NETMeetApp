@@ -13,10 +13,11 @@ namespace NETMeetApp.Models
         public int? Age { get; set; }
         public string FullName { get; set; }
         public string? GroupName { get; set; }
-     
+
         public UserType UserType { get; set; }
         [NotMapped]
         public string? ShortBioGraphy => BioGraphy?.Length >= 30 ? BioGraphy?.Substring(0, 30) : BioGraphy;
+        public string? Connectionid { get; set; }
 
     }
 }
