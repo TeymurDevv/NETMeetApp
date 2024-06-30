@@ -75,6 +75,8 @@ namespace NETMeetApp.Areas.Admin.Controllers
         }
         public async Task<IActionResult> Delete(string? id)
         {
+            var existUser = await _userManager.GetUserAsync(User);
+            ViewBag.User = existUser;
             if (id is null) return BadRequest();
             var student = await _userManager.FindByIdAsync(id);
             if (student is null) return NotFound();
