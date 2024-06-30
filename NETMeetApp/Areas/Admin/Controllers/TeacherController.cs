@@ -93,6 +93,8 @@ namespace NETMeetApp.Areas.Admin.Controllers
         }
         public async Task<IActionResult> Update(string id)
         {
+            var existUser = await _userManager.GetUserAsync(User);
+            ViewBag.User = existUser;
             var existingUser = await _userManager.FindByIdAsync(id);
             if (existingUser == null)
             {
