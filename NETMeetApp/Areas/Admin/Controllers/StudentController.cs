@@ -117,6 +117,8 @@ namespace NETMeetApp.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> Update(string id, AppUserCreateVm user)
         {
+            var existUser = await _userManager.GetUserAsync(User);
+            ViewBag.User = existUser;
             if (ModelState.IsValid)
             {
                 var existingUser = await _userManager.FindByIdAsync(id);
