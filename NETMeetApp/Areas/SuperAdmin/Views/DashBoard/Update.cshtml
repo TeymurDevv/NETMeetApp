@@ -1,5 +1,6 @@
-﻿@using NETMeetApp.ViewModels.SuperAdmin;
-@model AppUserAdminCreateVM
+﻿@using NETMeetApp.ViewModels.Admin
+@using NETMeetApp.ViewModels.SuperAdmin;
+@model AppUserCreateVm
 
 
 <div class="container mt-5">
@@ -20,7 +21,7 @@
                 <div class="card-body">
                     <h4 class="card-title">Create User</h4>
                     <p class="card-description">Basic form layout</p>
-                    <form asp-action="Create" method="post">
+                    <form  method="post">
                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                         <div class="form-group">
                             <label asp-for="UserName"></label>

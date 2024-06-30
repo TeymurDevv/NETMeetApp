@@ -8,6 +8,8 @@ using NETMeetApp.ViewModels.SuperAdmin;
 
 namespace NETMeetApp.Areas.SuperAdmin.Controllers
 {
+    [Authorize(Roles = "SuperAdmin")]
+    [Area("SuperAdmin")]
     public class DashBoardController : Controller
     {
         private readonly UserManager<AppUser> _userManager;
@@ -16,14 +18,13 @@ namespace NETMeetApp.Areas.SuperAdmin.Controllers
         {
             _userManager = userManager;
         }
-        [Authorize(Roles = "SuperAdmin")]
-        [Area("SuperAdmin")]
+
         public IActionResult Index()
         {
             var Admins = _userManager.Users.Where(s => s.UserType == UserType.Admin).ToList();
             return View(Admins);
         }
-
+       
         public IActionResult Create()
         {
             return View();
