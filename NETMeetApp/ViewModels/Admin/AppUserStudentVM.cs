@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using NuGet.ProjectModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace NETMeetApp.ViewModels.Admin
 {
@@ -16,7 +17,8 @@ namespace NETMeetApp.ViewModels.Admin
         public string Email { get; set; }
         [Required]
         public string GroupName { get; set; }
-     
+        public IFormFile? ProfileImage { get; set; }
 
-    }
+
+}
 }
