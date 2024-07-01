@@ -1,10 +1,13 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using NETMeetApp.Enums;
 using NETMeetApp.Models;
 
 namespace NETMeetApp.Areas.Teacher.Controllers
 {
+    [Authorize(Roles = "SuperAdmin,Admin")]
+    [Area("Teacher")]
     public class GroupController : Controller
     {
         private readonly UserManager<AppUser> _userManager;
