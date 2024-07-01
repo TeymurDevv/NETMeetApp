@@ -116,7 +116,7 @@ namespace NETMeetApp.Areas.SuperAdmin.Controllers
 
             return RedirectToAction(nameof(Index));
         }
-
+        [Area("SuperAdmin")]
         public async Task<IActionResult> Update(string id)
         {
             var existedUser = await _userManager.FindByIdAsync(id);
@@ -125,7 +125,7 @@ namespace NETMeetApp.Areas.SuperAdmin.Controllers
                 return NotFound();
             }
 
-            var userVm = new AppUserCreateVm
+            var userVm = new AppUserAdminUpdateVM
             {
                 UserName = existedUser.UserName,
                 Email = existedUser.Email,
@@ -137,6 +137,7 @@ namespace NETMeetApp.Areas.SuperAdmin.Controllers
         }
 
         [HttpPost]
+        [Area("SuperAdmin")]
         public async Task<IActionResult> Update(string id, AppUserAdminUpdateVM user )
         {
             if (ModelState.IsValid)
