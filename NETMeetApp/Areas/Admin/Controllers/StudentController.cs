@@ -135,7 +135,7 @@ namespace NETMeetApp.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Update(string id, AppUserStudentUpdateVM user, IFormFile? newProfileImage)
+        public async Task<IActionResult> Update(string id, AppUserStudentUpdateVM user)
         {
             var existUser = await _userManager.GetUserAsync(User);
             ViewBag.User = existUser;
@@ -151,6 +151,7 @@ namespace NETMeetApp.Areas.Admin.Controllers
                 existingUser.Email = user.Email;
                 existingUser.FullName = user.FullName;
                 existingUser.GroupName = user.GroupName;
+                var newProfileImage = user.ProfileImage;
 
                 if (newProfileImage != null)
                 {
@@ -165,8 +166,11 @@ namespace NETMeetApp.Areas.Admin.Controllers
                         return View(user);
                     }
 
-                    // Delete the old image file
-                    existingUser.imageUrl?.DeleteFile();
+                    // Delete the old image file if it exists
+                    if (!string.IsNullOrEmpty(existingUser.imageUrl))
+                    {
+                        existingUser.imageUrl.DeleteFile();
+                    }
 
                     // Save the new image file
                     existingUser.imageUrl = await newProfileImage.SaveFile();
@@ -188,7 +192,6 @@ namespace NETMeetApp.Areas.Admin.Controllers
 
             return View(user);
         }
-
 
     }
 

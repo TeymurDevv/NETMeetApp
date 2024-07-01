@@ -8,6 +8,7 @@
 (function ($) {
 	'use strict';
 
+	
 
   // Fixed header
   $(window).on('scroll', function () {

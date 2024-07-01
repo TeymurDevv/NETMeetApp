@@ -8,7 +8,7 @@
         }
         public static bool CheckSize(this IFormFile file, int size)
         {
-            return file.Length / 1024 > size;
+            return file.Length <= size * 1024;
         }
         public static async Task<string> SaveFile(this IFormFile file)
         {
