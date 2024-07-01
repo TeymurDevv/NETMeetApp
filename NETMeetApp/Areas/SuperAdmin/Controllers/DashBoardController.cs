@@ -27,64 +27,62 @@ namespace NETMeetApp.Areas.SuperAdmin.Controllers
             return View(Admins);
         }
 
-        public IActionResult Create()
+        public async  Task<IActionResult> Create()
         {
+            var existUser = await _userManager.GetUserAsync(User);
+            ViewBag.User = existUser;
             return View();
         }
+
         [HttpPost]
         [AutoValidateAntiforgeryToken]
         public async Task<IActionResult> Create(AppUserAdminCreateVM user)
         {
-            if (ModelState.IsValid)
+            var existUser = await _userManager.GetUserAsync(User);
+            ViewBag.User = existUser;
+            if (!ModelState.IsValid) return View(user);
+
+            var file = user.ProfileImage;
+            if (file == null)
             {
-                var file = user.ProfileImage;
-                if (file == null)
-                {
-                    ModelState.AddModelError("ProfileImage", "Image cannot be null.");
-                    return View(user);
-                }
-                if (!file.CheckContentType())
-                {
-                    ModelState.AddModelError("ProfileImage", "Only image files are allowed.");
-                    return View(user);
-                }
-                if (!file.CheckSize(500))
-                {
-                    ModelState.AddModelError("ProfileImage", "The image size is too large. Maximum allowed size is 500KB.");
-                    return View(user);
-                }
+                ModelState.AddModelError("ProfileImage", "Image cannot be null.");
+                return View(user);
+            }
+            if (!file.CheckContentType())
+            {
+                ModelState.AddModelError("ProfileImage", "Only image files are allowed.");
+                return View(user);
+            }
+            if (!file.CheckSize(500))
+            {
+                ModelState.AddModelError("ProfileImage", "The image size is too large. Maximum allowed size is 500KB.");
+                return View(user);
+            }
 
+            var newUser = new AppUser
+            {
+                UserName = user.UserName,
+                Email = user.Email,
+                FullName = user.FullName,
+                UserType = UserType.Admin,
+                imageUrl = await file.SaveFile() // Save the new image file
+            };
 
-                var newUser = new AppUser
-                {
-                    UserType = UserType.Admin,
-                    UserName = user.UserName,
-                    Email = user.Email,
-                    FullName = user.FullName,
-                    imageUrl = await file.SaveFile(),
-                    Age = null,
-                    Grade = null
-
-                };
-                // Handle image upload
-
-                IdentityResult result = await _userManager.CreateAsync(newUser, user.Password);
-
-
-                if (result.Succeeded)
-                {
-                    await _userManager.AddToRoleAsync(newUser, "Admin");
-                    return RedirectToAction(nameof(Index));
-                }
-
+            var result = await _userManager.CreateAsync(newUser, user.Password);
+            if (!result.Succeeded)
+            {
                 foreach (var error in result.Errors)
                 {
                     ModelState.AddModelError(string.Empty, error.Description);
                 }
+                return View(user);
             }
 
-            return View(user);
+            await _userManager.AddToRoleAsync(newUser, "Admin");
+            TempData["Success"] = "User created successfully!";
+            return RedirectToAction(nameof(Index));
         }
+
         public async Task<IActionResult> Detail(string? id)
         {
             if (id == null) return BadRequest();
@@ -139,7 +137,7 @@ namespace NETMeetApp.Areas.SuperAdmin.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Update(string id, AppUserAdminUpdateVM user, IFormFile newProfileImage)
+        public async Task<IActionResult> Update(string id, AppUserAdminUpdateVM user )
         {
             if (ModelState.IsValid)
             {
@@ -148,7 +146,7 @@ namespace NETMeetApp.Areas.SuperAdmin.Controllers
                 {
                     return NotFound();
                 }
-
+                var newProfileImage=user.ProfileImage;
                 existedUser.UserName = user.UserName;
                 existedUser.Email = user.Email;
                 existedUser.FullName = user.FullName;
