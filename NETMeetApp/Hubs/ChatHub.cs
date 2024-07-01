@@ -4,9 +4,9 @@ namespace NETMeetApp.Hubs
 {
     public class ChatHub : Hub
     {
-        public async Task SendMessage(string userr, string message)
+        public async Task SendMessage(string userrr, string message)
         {
-            await Clients.All.SendAsync("ReceiveMessage", userr, message);
+            await Clients.All.SendAsync("ReceiveMessage", userrr, message);
         }
     }
 }
