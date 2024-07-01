@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using NETMeetApp.DAL;
 using NETMeetApp.Models;
 using NETMeetApp.ViewModels.Profile;
 
@@ -9,11 +11,12 @@ namespace NETMeetApp.Controllers
     {
         private readonly UserManager<AppUser> _userManager;
         private readonly SignInManager<AppUser> _signInManager;
-
-        public ProfileController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager)
+        private readonly NetMeetAppDbContext _context;
+        public ProfileController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, NetMeetAppDbContext context)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _context = context;
         }
 
         public async Task<IActionResult> Index()
@@ -103,6 +106,29 @@ namespace NETMeetApp.Controllers
             }
 
             return View(user);
+        }
+
+        public async Task<IActionResult> GroupHomeworks(string groupName)
+        {
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null) return RedirectToAction("Index", "Home");
+
+            if (string.IsNullOrEmpty(groupName))
+            {
+                return BadRequest();
+            }
+
+            var homeworks = _context.Homeworks
+                .Where(h => h.GroupName == groupName)
+                .ToList();
+
+            if (homeworks.Count == 0)
+            {
+                return NotFound();
+            }
+
+            ViewBag.GroupName = groupName;
+            return View(homeworks);
         }
     }
 }

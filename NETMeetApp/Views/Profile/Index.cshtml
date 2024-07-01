@@ -31,6 +31,15 @@
                         <i class="fa fa-envelope"></i> Send message
                     </a>
                 </div>
+                @if (Model.UserType == NETMeetApp.Enums.UserType.Student  && Model.GroupName != null)
+                {
+                    <div class="profile-message-btn center-block text-center mt-3">
+                        <a asp-action="GroupHomeworks" asp-controller="Profile" asp-route-groupName="@Model.GroupName" class="btn btn-info">
+                            <i class="fa fa-book"></i> View Group Homeworks
+                        </a>
+
+                    </div>
+                }
             </div>
         </div>
         <div class="col-lg-9 col-md-8 col-sm-8">

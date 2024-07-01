@@ -1,0 +1,78 @@
+﻿@model IEnumerable<NETMeetApp.Models.HomeWork>
+
+<div class="container-fluid">
+    <div class="row">
+        <main class="col-md-9 ml-sm-auto col-lg-12 px-md-4">
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                <h1 class="h2">Classwork</h1>
+            </div>
+            @foreach (var item in Model)
+            {
+                <div class="card mb-4 shadow-sm">
+                    <a asp-action="Detail" asp-route-id="@item.Id">
+                    <div class="card-header">
+                        @item.Title
+                    </div>
+                    </a>
+                    <div class="card-body">
+                        <p class="card-text">@item.Description</p>
+                        <p class="card-text">Group: @item.GroupName</p>
+                        <p class="card-text">Points: @item.Point</p>
+                    </div>
+                </div>
+            }
+        </main>
+    </div>
+</div>
+
+<style>
+    body {
+        font-family: 'Roboto', sans-serif;
+        background-color: #f8f9fa;
+    }
+
+    .navbar-brand {
+        font-size: 1.75rem;
+        font-weight: bold;
+    }
+
+    
+
+        .sidebar .nav-link {
+            color: #ffffff;
+        }
+
+            .sidebar .nav-link.active {
+                color: #007bff;
+                background-color: #ffffff;
+                border-radius: 0.25rem;
+                font-weight: bold;
+            }
+
+    .main-content {
+        padding-top: 4rem;
+    }
+
+    .card {
+        border: none;
+        border-radius: 0.75rem;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+    .card-header {
+        background-color: #007bff;
+        color: white;
+        font-weight: bold;
+    }
+
+    .card-body {
+        background-color: #ffffff;
+    }
+
+    .h2 {
+        color: #343a40;
+    }
+</style>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

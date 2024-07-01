@@ -10,5 +10,7 @@ namespace NETMeetApp.DAL
         public NetMeetAppDbContext(DbContextOptions options) : base(options)
         {
         }
+        public DbSet<HomeWork> Homeworks { get; set; }
+
     }
 }

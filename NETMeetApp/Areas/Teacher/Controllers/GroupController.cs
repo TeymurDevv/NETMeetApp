@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using NETMeetApp.DAL;
 using NETMeetApp.Enums;
 using NETMeetApp.Models;
 
@@ -11,10 +13,12 @@ namespace NETMeetApp.Areas.Teacher.Controllers
     public class GroupController : Controller
     {
         private readonly UserManager<AppUser> _userManager;
+        private readonly NetMeetAppDbContext _context;  // Add this to access the database
 
-        public GroupController(UserManager<AppUser> userManager)
+        public GroupController(UserManager<AppUser> userManager, NetMeetAppDbContext context)
         {
             _userManager = userManager;
+            _context = context;
         }
 
         public async Task<IActionResult> Index()
@@ -32,7 +36,7 @@ namespace NETMeetApp.Areas.Teacher.Controllers
             return View(groupNames);
         }
 
-        public async Task<IActionResult> Detail(string groupName)
+        public async Task<IActionResult> Detail(string? groupName)
         {
             var existUser = await _userManager.GetUserAsync(User);
             ViewBag.User = existUser;
@@ -54,6 +58,30 @@ namespace NETMeetApp.Areas.Teacher.Controllers
 
             ViewBag.GroupName = groupName;
             return View(students);
+        }
+
+        public async Task<IActionResult> DetailHomework(string? groupName)
+        {
+            var existUser = await _userManager.GetUserAsync(User);
+            ViewBag.User = existUser;
+
+            if (string.IsNullOrEmpty(groupName))
+            {
+                return BadRequest();
+            }
+
+            // Retrieve homeworks with the specified group name
+            var homeworks = _context.Homeworks
+                .Where(h => h.GroupName == groupName)
+                .ToList();
+
+            if (homeworks.Count == 0)
+            {
+                return NotFound();
+            }
+
+            ViewBag.GroupName = groupName;
+            return View(homeworks);
         }
     }
 }
