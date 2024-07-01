@@ -24,7 +24,7 @@ namespace NETMeetApp.Hubs
                 var user = _userManager.FindByNameAsync(Context.User.Identity.Name).Result;
                 user.Connectionid = Context.ConnectionId;
                 var result = _userManager.UpdateAsync(user).Result;
-                Clients.All.SendAsync("OnConnect", user.Id);
+                Clients.All.SendAsync("OnConnect", user);
             }
 
             return base.OnConnectedAsync();
