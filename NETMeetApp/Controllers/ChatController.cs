@@ -16,6 +16,7 @@ namespace NETMeetApp.Controllers
         public IActionResult ChatBox()
         {
             ViewBag.Users = _userManager.Users.ToList<AppUser>();
+            ViewBag.ExistUser = _userManager.GetUserAsync(User);
             return View();
         }
         public IActionResult VideoChat()

@@ -24,13 +24,21 @@ namespace NETMeetApp.Hubs
                 var user = _userManager.FindByNameAsync(Context.User.Identity.Name).Result;
                 user.Connectionid = Context.ConnectionId;
                 var result = _userManager.UpdateAsync(user).Result;
-                Clients.All.SendAsync("OnConnect", user);
+                Clients.Others.SendAsync("OnConnect", user);
             }
 
             return base.OnConnectedAsync();
         }
+
         public override Task OnDisconnectedAsync(Exception? exception)
         {
+            if (Context.User.Identity.IsAuthenticated)
+            {
+                var user = _userManager.FindByNameAsync(Context.User.Identity.Name).Result;
+                user.Connectionid = null;
+                var result = _userManager.UpdateAsync(user).Result;
+                Clients.Others.SendAsync("DisConnect", user.Id);
+            }
             return base.OnDisconnectedAsync(exception);
         }
     }
