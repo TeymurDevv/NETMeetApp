@@ -1,4 +1,6 @@
-﻿namespace NETMeetApp.Extensions
+﻿using NETMeetApp.Models;
+
+namespace NETMeetApp.Extensions
 {
     public static class Extension
     {

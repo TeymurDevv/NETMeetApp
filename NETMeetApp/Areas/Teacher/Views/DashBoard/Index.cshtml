@@ -1,0 +1,59 @@
+﻿@model IEnumerable<AppUser>
+
+<div class="container">
+    <button type="button" class="btn btn-success mb-3">
+        <a class="text-black text-decoration-none" asp-area="Admin" asp-controller="Student" asp-action="Create"> Create</a>
+    </button>
+
+    <div class="row">
+        <div class="col-md-12 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Student Table</h4>
+                    <p class="card-description">Add class <code>.table-striped</code></p>
+                    <div class="table-responsive">
+                        <table id="order-listing" class="table order-listing table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Full Name</th>
+                                    <th>Email</th>
+                                    <th>Country</th>
+                                    <th>Grade</th>
+                                    <th>Age</th>
+                                    <th>Biography</th>
+                                    <th>Profile Image</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var student in Model)
+                                {
+                                    <tr>
+                                        <td>@student.FullName</td>
+                                        <td>@student.Email</td>
+                                        <td>@student.Country</td>
+                                        <td>
+                                            <div class="progress">
+                                                <div class="progress-bar @(student.Grade>60?"bg-success":"bg-danger")" role="progressbar" style="width: @student.Grade%" aria-valuenow="@student.Grade" aria-valuemin="0" aria-valuemax="100"></div>
+                                            </div>
+                                        </td>
+                                        <td>@student.Age</td>
+                                        <td>@student.ShortBioGraphy</td>
+                                        <td>
+                                            <img src="~/admin/images/@student.imageUrl" alt="Profile Image" class="img-thumbnail" />
+                                        </td>
+                                        <td>
+                                            <a asp-area="Admin" asp-controller="Student" asp-action="Detail" asp-route-id="@student.Id" class="btn btn-info" style="    padding: 10px;">Details</a>
+                                            <a asp-area="Admin" asp-controller="Student" asp-action="Update" asp-route-id="@student.Id" class="btn btn-primary" style="    padding: 10px;">Update</a>
+                                            <a asp-area="Admin" asp-controller="Student" asp-action="Delete" asp-route-id="@student.Id" class="btn btn-danger" style="    padding: 10px;">Delete</a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
