@@ -3,7 +3,10 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using NETMeetApp.DAL;
+using NETMeetApp.Extensions;
 using NETMeetApp.Models;
+using NETMeetApp.ViewModels.Admin;
+using NETMeetApp.ViewModels.HomeWork;
 
 namespace NETMeetApp.Areas.Admin.Controllers
 {
@@ -30,6 +33,7 @@ namespace NETMeetApp.Areas.Admin.Controllers
 
         public async Task<IActionResult> Detail(int? id)
         {
+
             var existUser = await _userManager.GetUserAsync(User);
             ViewBag.User = existUser;
             if (id == null) return BadRequest(); 
@@ -38,7 +42,28 @@ namespace NETMeetApp.Areas.Admin.Controllers
             return View(homework);
 
         }
+        public async  Task<IActionResult> Create()
+        {
+            var existUser = await _userManager.GetUserAsync(User);
+            ViewBag.User = existUser;
+            return View();
+        }
+        [HttpPost]
+        [AutoValidateAntiforgeryToken]
+        public async Task<IActionResult> Create(HomeWorkCreateVM homeWorkCreateVM)
+        {
+            var existUser = await _userManager.GetUserAsync(User);
+            ViewBag.User = existUser;
+            if (!ModelState.IsValid) return View(homeWorkCreateVM);
         
+            HomeWork homeWork = new();
+            homeWork.Title= homeWorkCreateVM.Title; 
+            homeWork.Description= homeWorkCreateVM.Description;
+            homeWork.GroupName= homeWorkCreateVM.GroupName;
+       netMeetAppDbContext.Homeworks.Add(homeWork);
+            await netMeetAppDbContext.SaveChangesAsync();
+            return RedirectToAction(nameof(Index)); 
+        }
 
 
     }

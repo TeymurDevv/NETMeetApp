@@ -1,0 +1,72 @@
+﻿@model HomeWork
+
+<div class="container-fluid">
+    <div class="row">
+        <main class="col-md-12 ml-sm-auto col-lg-12 px-md-4">
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                <h1 class="h2">@Model.Title</h1>
+            </div>
+            <div class="card mb-4 shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">@Model.Title</h5>
+                    <p class="card-text">@Model.Point points</p>
+                    <h6>Task:</h6>
+                    <p class="card-text">@Model.Description</p>
+                    <p class="card-text">Group: @Model.GroupName</p>
+                    <div class="class-comments mt-4">
+                        <h6>Class comments</h6>
+                        <a href="#" class="btn btn-link">Add a class comment</a>
+                    </div>
+                    <div class="private-comments mt-4">
+                        <h6>Private comments</h6>
+                        <a href="#" class="btn btn-link">Add comment to @ViewBag.User?.FullName</a>
+                    </div>
+                    <div class="mt-4">
+                        <button class="btn btn-primary">Mark as done</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+
+<style>
+    body {
+        font-family: 'Roboto', sans-serif;
+        background-color: #f8f9fa;
+    }
+
+    .navbar-brand {
+        font-size: 1.75rem;
+        font-weight: bold;
+    }
+
+
+
+    .main-content {
+        padding-top: 4rem;
+    }
+
+    .card {
+        border: none;
+        border-radius: 0.75rem;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+    .card-header {
+        background-color: #007bff;
+        color: white;
+        font-weight: bold;
+    }
+
+    .card-body {
+        background-color: #ffffff;
+    }
+
+    .h2 {
+        color: #343a40;
+    }
+</style>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
