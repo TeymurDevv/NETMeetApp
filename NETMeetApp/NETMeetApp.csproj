@@ -37,6 +37,32 @@
     <None Include="wwwroot\admin\scss\components\.DS_Store" />
     <None Include="wwwroot\admin\scss\mixins\.DS_Store" />
     <None Include="wwwroot\admin\vendors\.DS_Store" />
+    <None Include="wwwroot\css\style.css.map" />
+    <None Include="wwwroot\images\images\Dribbble.svg" />
+    <None Include="wwwroot\images\images\Facebook.svg" />
+    <None Include="wwwroot\images\images\icon-2.svg" />
+    <None Include="wwwroot\images\images\icon-3.svg" />
+    <None Include="wwwroot\images\images\icon-4.svg" />
+    <None Include="wwwroot\images\images\icon-5.svg" />
+    <None Include="wwwroot\images\images\icon-6.svg" />
+    <None Include="wwwroot\images\images\icon-chevron-down.svg" />
+    <None Include="wwwroot\images\images\icon.svg" />
+    <None Include="wwwroot\images\images\Logo Mark %281%29.svg" />
+    <None Include="wwwroot\images\images\Logo-bw.svg" />
+    <None Include="wwwroot\images\images\Logo.svg" />
+    <None Include="wwwroot\images\images\menu-right-lined.svg" />
+    <None Include="wwwroot\images\images\Twitter.svg" />
+    <None Include="wwwroot\images\images\YouTube.svg" />
+    <None Include="wwwroot\plugins\bootstrap\bootstrap.min.js" />
+    <None Include="wwwroot\plugins\fontawesome\webfonts\fa-brands-400.svg" />
+    <None Include="wwwroot\plugins\fontawesome\webfonts\fa-brands-400.woff2" />
+    <None Include="wwwroot\plugins\fontawesome\webfonts\fa-regular-400.svg" />
+    <None Include="wwwroot\plugins\fontawesome\webfonts\fa-regular-400.woff2" />
+    <None Include="wwwroot\plugins\fontawesome\webfonts\fa-solid-900.svg" />
+    <None Include="wwwroot\plugins\fontawesome\webfonts\fa-solid-900.woff2" />
+    <None Include="wwwroot\plugins\icofont\fonts\icofont.svg" />
+    <None Include="wwwroot\plugins\icofont\fonts\icofont.woff2" />
+    <None Include="wwwroot\plugins\jquery\jquery.min.js" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<NETMeetApp.Models.HomeWork>
 
 <div class="container-fluid">
-   <button class="btn btn-primary" asp-action="Create">Create</button>
+    <button class="btn btn-primary "><a class="text-decoration-none text-white" asp-action="Create">Create</a></button>
     <div class="row">
         <main class="col-md-9 ml-sm-auto col-lg-12 px-md-4">
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
@@ -11,16 +11,29 @@
             {
                 <div class="card mb-4 shadow-sm">
                     <a asp-action="Detail" asp-route-id="@item.Id">
-                    <div class="card-header">
-                        @item.Title
-                    </div>
+                        <div class="card-header">
+                            @item.Title
+                        </div>
                     </a>
                     <div class="card-body">
                         <p class="card-text">@item.Description</p>
                         <p class="card-text">Group: @item.GroupName</p>
                         <p class="card-text">Points: @item.Point</p>
                     </div>
+
+                   <div class="d-flex align-items-center gap-3">
+                        <form asp-controller="HomeWork" asp-action="Detail" asp-route-id="@item.Id" class="d-inline">
+                            <button type="submit" class="btn btn-success  text-white">Detail</button>
+                        </form>
+                        <form asp-action="Delete" asp-route-id="@item.Id" method="post" class="d-inline">
+                            <button type="submit" class="btn btn-danger  text-white">Delete</button>
+                        </form>
+                        <form asp-action="Update" asp-route-id="@item.Id" method="post" class="d-inline">
+                            <button type="submit" class="btn btn-primary  text-white">Update</button>
+                        </form>
+                   </div>
                 </div>
+
             }
         </main>
     </div>
@@ -36,19 +49,6 @@
         font-size: 1.75rem;
         font-weight: bold;
     }
-
-    
-
-        .sidebar .nav-link {
-            color: #ffffff;
-        }
-
-            .sidebar .nav-link.active {
-                color: #007bff;
-                background-color: #ffffff;
-                border-radius: 0.25rem;
-                font-weight: bold;
-            }
 
     .main-content {
         padding-top: 4rem;

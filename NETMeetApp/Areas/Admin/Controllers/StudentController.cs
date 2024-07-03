@@ -184,7 +184,6 @@ namespace NETMeetApp.Areas.Admin.Controllers
                     TempData["Success"] = "User updated successfully!";
                     return RedirectToAction(nameof(Index));
                 }
-
                 foreach (var error in result.Errors)
                 {
                     ModelState.AddModelError(string.Empty, error.Description);
@@ -193,6 +192,7 @@ namespace NETMeetApp.Areas.Admin.Controllers
 
             return View(user);
         }
+
 
     }
 

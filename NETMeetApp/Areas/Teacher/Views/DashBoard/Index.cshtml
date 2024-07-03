@@ -46,6 +46,10 @@
                                             <a asp-area="Admin" asp-controller="Student" asp-action="Detail" asp-route-id="@student.Id" class="btn btn-info" style="    padding: 10px;">Details</a>
                                             <a asp-area="Admin" asp-controller="Student" asp-action="Update" asp-route-id="@student.Id" class="btn btn-primary" style="    padding: 10px;">Update</a>
                                             <a asp-area="Admin" asp-controller="Student" asp-action="Delete" asp-route-id="@student.Id" class="btn btn-danger" style="    padding: 10px;">Delete</a>
+                         
+                                            <form asp-area="Teacher" asp-controller="Group" asp-action="Ban" asp-route-id="@student.Id" method="post" style="display:inline;">
+                                                <button type="submit" class="btn btn-danger" style="padding: 10px;">Ban</button>
+                                            </form>
                                         </td>
                                     </tr>
                                 }

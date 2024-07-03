@@ -74,14 +74,59 @@ namespace NETMeetApp.Areas.Teacher.Controllers
             var homeworks = _context.Homeworks
                 .Where(h => h.GroupName == groupName)
                 .ToList();
+            if(homeworks is null)  return NotFound();
 
             if (homeworks.Count == 0)
+            {
+                return Content("there is no homework in this group");
+            }
+
+            ViewBag.GroupName = groupName;
+          
+            return View(homeworks);
+        }
+        [HttpPost]
+        [Authorize(Roles = "SuperAdmin,Admin")]
+        [ValidateAntiForgeryToken]
+        public IActionResult Ban()
+        {
+            return View();
+        }
+        public async Task<IActionResult> Ban(string id)
+        {
+            var existUser = await _userManager.GetUserAsync(User);
+            ViewBag.User = existUser;
+
+            if (id == null)
+            {
+                return BadRequest();
+            }
+
+            var user = await _userManager.FindByIdAsync(id);
+            if (user == null)
             {
                 return NotFound();
             }
 
-            ViewBag.GroupName = groupName;
-            return View(homeworks);
+            user.IsBanned = true; // Mark user as banned
+
+            var result = await _userManager.UpdateAsync(user);
+            if (!result.Succeeded)
+            {
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError(string.Empty, error.Description);
+                }
+                return RedirectToAction(nameof(Index));
+            }
+
+            TempData["Success"] = "User banned successfully!";
+
+            // Pass the userName to the view
+            ViewBag.BannedUserName = user.UserName;
+
+            return View("BanNotice", user); // Change the view name to your ban notice view name
         }
+
     }
 }

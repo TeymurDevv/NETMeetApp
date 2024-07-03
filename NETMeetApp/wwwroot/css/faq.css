@@ -1,0 +1,360 @@
+/* GLOABL STYLES */
+:root{
+    --color-bg: #F5F6FA;
+    --color-heading: #333333;
+    --color-text: #858A8F;
+    --color-btn: #0176FF;
+    --color-btn--hover: #0059bf;
+    --color-card: #fff;
+    --color-dropbox__title--active: #377DFF;
+    --color-box-shadow: lightgray;
+
+    --fs-heading: 3.75rem;
+    --fs-card__title: 1.75rem;
+    --fs-card__text: 1.125rem;
+    --fs-dropbox__title: 1.25rem;
+    --fs-text: 1.25rem;
+    --fs-footer: 1.5rem;
+
+    --ff-primary: 'Inter', sans-serif;
+
+    --padding-dropbox: 2rem;
+    --padding-nav: 2rem;
+    --padding-card: 1.875rem;
+    --padding-section: 6.75rem;
+
+    --margin-text: 1.25rem;
+
+    --border-radius: 8px;
+    --border-radius--card: 16px; 
+
+    --line-height: 1.5;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: var(--ff-primary);
+    line-height: var(--line-height);
+}
+
+img{
+    max-width: 100%;
+    display: inline-block;
+}
+
+section, footer{
+    padding: var(--padding-section) 0;
+}
+
+.container{
+    width: 90%;
+    margin: 0 auto;
+    position: relative;
+}
+
+.btn{
+    background-color: var(--color-btn);
+    color: #fff;
+    text-decoration: none;
+    padding: 1rem 2rem;
+    border-radius: var(--border-radius);
+    display: inline-block;
+}
+
+/* Nav Styles */
+
+.logo__container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo{
+    width: 40%;
+}
+
+nav{
+    padding: var(--padding-nav) 0;
+    background-color: var(--color-bg);
+    font-size: var(--fs-text);
+}
+
+.nav__list{
+    list-style-type: none;
+    font-size: var(--fs-text);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    max-height: 0;
+    overflow: hidden;
+    transition: all 0.3s ease-out;
+}
+
+.nav__item{
+    padding: 1rem;
+}
+
+.nav__link{
+    text-decoration: none;
+    color: var(--color-text); 
+    font-weight: 600;
+}
+
+.nav__link img{
+    margin-left: 0.35rem;
+}
+
+.hamburger{
+    width: 52px;
+}
+
+.btn__container{
+    text-align: center;
+    max-height: 0;
+    overflow: hidden;
+    transition: all 0.3s ease-out;
+}
+
+.menu--open + .nav__list{
+    max-height: 1000px;
+    transition: all 0.3s ease-in;
+}
+
+.menu--open + .nav__list + .btn__container{
+    margin-top: 1rem;
+    max-height: 200px;
+    transition: all 0.3s ease-in;
+}
+
+/* Main Styles */
+.hero__section{
+    background: url('../images/Background-3.png');
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-color: lightgray;
+}
+
+.hero__heading, .faq__heading{
+    font-size: 2rem;
+    text-align: center;
+    color: var(--color-heading);
+}
+
+.card{
+    padding: var(--padding-card);
+    background-color: var(--color-card);
+    font-size: var(--fs-card__text);
+    color: var(--color-text);
+    border-radius: var(--border-radius--card);
+    margin-top: 3rem;
+}
+
+.card__title{
+    margin-block: var(--margin-text);
+    font-size: var(--fs-card__title);
+    color: var(--color-heading);
+    border-radius: var(--border-radius);
+}
+
+.faq__section{
+    background-image: url('../images/images/Background-2.png');
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-color: lightgray;
+}
+
+.faq__text{
+    margin: var(--margin-text) auto;
+    color: var(--color-text);
+    font-size: var(--fs-text);
+    text-align: center;
+}
+
+.dropboxes{
+    margin-top: 5rem;
+}
+
+.dropbox{
+    margin: 2rem auto;
+    background-color: var(--color-card);
+    color: var(--color-text);
+    padding: var(--padding-dropbox);
+    border-radius: var(--border-radius);
+}
+
+.dropbox__title{
+    max-width: 90%;
+    color: var(--color-heading);
+    font-size: var(--fs-dropbox__title);
+}
+
+.dropbox__closed{
+    display: flex;
+    justify-content: space-between;
+}
+
+.dropbox__icon{
+    display: flex;
+}
+
+.dropbox__description{
+    max-height: 0;
+    overflow: hidden;
+    font-size: var(--fs-text);
+    transition: all 0.3s ease-in;
+}
+
+.dropbox__icon img{
+    transform: rotate(-90deg);
+    transition: all 0.3s ease-out;
+}
+
+.dropbox--open .dropbox__title{
+    color: var(--color-dropbox__title--active);;
+}
+
+.dropbox--open + .dropbox__description{
+    max-height: 1000px;
+    padding-top: var(--padding-dropbox);
+    transition: all 0.3s ease-in;
+} 
+
+.dropbox--open .dropbox__icon img{
+    transform: rotate(0deg);
+    transition: all 0.3s ease-in;
+}
+
+/* Footer Styles */
+
+footer{
+    color: var(--color-text);
+    font-size: var(--fs-text);
+}
+
+.footer__text{
+    margin-block: 1rem;
+}
+
+.footer__title{
+    color: var(--color-heading);
+}
+
+.footer__list{
+    list-style-type: none;
+}
+
+.footer__content + .footer__content{
+    margin-top: 1.25rem;
+}
+
+.footer__item{
+    margin-top: var(--margin-text)
+}
+
+.footer__link{
+    text-decoration: none;
+    color: var(--color-text);
+}
+
+.socials{
+    margin-top: 2rem;
+    display: flex;
+    gap: 10px;
+}
+
+.footer__copyright{
+    margin-top: var(--margin-text)
+}
+
+/* Media Queries */
+@media (min-width: 820px){
+    /* Global Styles */
+    .container{
+        width: 85%;
+        max-width: 1440px;
+        margin: 0 auto;
+        position: relative;
+    }
+
+    .btn:hover{
+        background-color: var(--color-btn--hover);
+    }
+
+    /* Nav styles */
+
+    .logo{
+        width: initial;
+    }
+
+    .hamburger{
+        display: none;
+    }
+
+    .nav__flex{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .nav__list{
+        flex-direction: row;
+        gap: 30px;
+        max-height: 1000px;
+        transition: none;
+    }
+
+    .nav__item{
+        padding: 0rem;
+    }
+
+    .btn__container{
+        text-align: center;
+        margin-top: 0rem;
+        max-height: 1000px;
+        transition: none;
+    }
+
+    /* Main Styles */
+
+    .hero__heading, .faq__heading{
+        font-size: var(--fs-heading);
+    }
+
+    .cards{
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        margin-top: 4.6875rem;
+        gap: 2.5625rem;
+    }
+
+    .card{
+        margin-top: 0;
+    }
+
+    .faq__text{
+        width: 60%;
+    }
+
+    .dropbox{
+        width: 70%;
+    }
+
+    /* Footer Styles */
+    .footer__content--main{
+        max-width: 25%;
+    }
+
+    .footer__flex{
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+    }
+
+    .footer__copyright{
+        margin-top: 5rem;
+    }
+
+}

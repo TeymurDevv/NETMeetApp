@@ -1,0 +1,106 @@
+﻿@{
+    Layout = null;
+}
+
+
+    <div class="container">
+        <div class="ban-notice">
+            <div class="header">
+                <h1>Student Ban Notice</h1>
+            </div>
+            <div class="content">
+                <p>Reason for Ban: Inappropriate behavior in the classroom, the student is banned</p>
+                <p>Please contact the administration if you have any questions or concerns.</p>
+            </div>
+            <div class="actions">
+                <button class="btn-contact">Contact Administration</button>
+                <form asp-action="index">
+                    <button class="btn-home" >Back to Home</button>
+               </form>
+
+            </div>
+        </div>
+    </div>
+
+<style>
+    body {
+        font-family: 'Arial', sans-serif;
+        background-color: #f5f7fa;
+        margin: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+
+    .container {
+        max-width: 600px;
+        width: 100%;
+        padding: 20px;
+        background-color: #ffffff;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+    }
+
+    .ban-notice {
+        text-align: center;
+    }
+
+    .header {
+        background-color: #d9534f;
+        color: #ffffff;
+        padding: 10px;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+    }
+
+        .header h1 {
+            margin: 0;
+        }
+
+    .content {
+        padding: 20px;
+    }
+
+        .content h2 {
+            color: #333333;
+            margin-bottom: 10px;
+        }
+
+        .content p {
+            color: #555555;
+            margin: 5px 0;
+        }
+
+    .actions {
+        display: flex;
+        justify-content: space-around;
+        padding: 20px;
+    }
+
+    .btn-contact, .btn-home {
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+
+    .btn-contact {
+        background-color: #5bc0de;
+        color: #ffffff;
+    }
+
+    .btn-home {
+        background-color: #5cb85c;
+        color: #ffffff;
+    }
+
+    .btn-contact:hover {
+        background-color: #31b0d5;
+    }
+
+    .btn-home:hover {
+        background-color: #4cae4c;
+    }
+</style>
