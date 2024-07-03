@@ -1,45 +1,57 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.SignalR;
 using NETMeetApp.Models;
+using System.Collections.Concurrent;
 
-namespace NETMeetApp.Hubs
+public class ChatHub : Hub
 {
-    public class ChatHub : Hub
+    private static readonly ConcurrentDictionary<string, string> UserConnections = new ConcurrentDictionary<string, string>();
+    private readonly UserManager<AppUser> _userManager;
+
+    public ChatHub(UserManager<AppUser> userManager)
     {
-        private readonly UserManager<AppUser> _userManager;
+        _userManager = userManager;
+    }
 
-        public ChatHub(UserManager<AppUser> userManager)
+    public override async Task OnConnectedAsync()
+    {
+        if (Context.User.Identity.IsAuthenticated)
         {
-            _userManager = userManager;
-        }
-
-        public async Task SendMessage(string user, string message)
-        {
-            await Clients.All.SendAsync("ReceiveMessage", user, message);
-        }
-        public override Task OnConnectedAsync()
-        {
-            if (Context.User.Identity.IsAuthenticated)
+            var user = await _userManager.FindByNameAsync(Context.User.Identity.Name);
+            if (user != null)
             {
-                var user = _userManager.FindByNameAsync(Context.User.Identity.Name).Result;
                 user.Connectionid = Context.ConnectionId;
-                var result = _userManager.UpdateAsync(user).Result;
-                Clients.Others.SendAsync("OnConnect", user);
+                await _userManager.UpdateAsync(user);
+                await Clients.Others.SendAsync("OnConnect", user);
             }
-
-            return base.OnConnectedAsync();
         }
 
-        public override Task OnDisconnectedAsync(Exception? exception)
+        await base.OnConnectedAsync();
+    }
+
+    public override async Task OnDisconnectedAsync(Exception? exception)
+    {
+        if (Context.User.Identity.IsAuthenticated)
         {
-            if (Context.User.Identity.IsAuthenticated)
+            var user = await _userManager.FindByNameAsync(Context.User.Identity.Name);
+            if (user != null)
             {
-                var user = _userManager.FindByNameAsync(Context.User.Identity.Name).Result;
                 user.Connectionid = null;
-                var result = _userManager.UpdateAsync(user).Result;
-                Clients.Others.SendAsync("DisConnect", user.Id);
+                await _userManager.UpdateAsync(user);
+                await Clients.Others.SendAsync("DisConnect", user.Id);
             }
-            return base.OnDisconnectedAsync(exception);
+        }
+
+        await base.OnDisconnectedAsync(exception);
+    }
+
+
+    public async Task SendMessageGeneral(string message)
+    {
+        var user = await _userManager.GetUserAsync(Context.User);
+        if (user != null)
+        {
+            await Clients.All.SendAsync("RecieveMessageGeneral", message, user);
         }
     }
 }
