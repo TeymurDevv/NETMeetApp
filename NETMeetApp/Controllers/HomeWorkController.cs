@@ -26,24 +26,32 @@ namespace NETMeetApp.Controllers
             if (homeWork == null) return NotFound();
             return View(homeWork);
         }
-        public async Task<IActionResult> UploadingFile(int? id,UploadFileVM uploadFileVM)
+        public IActionResult UploadingFile()
         {
-            if(id is null) return BadRequest();
-            if(!ModelState.IsValid) return View(uploadFileVM);
-            var file=uploadFileVM.formFile;
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> UploadingFile(int? id, UploadFileVM uploadFileVM)
+        {
+            if (id == null) return BadRequest();
+            if (!ModelState.IsValid) return View(uploadFileVM);
+
+            var file = uploadFileVM.formFile;
             if (file == null)
             {
-
-                ModelState.AddModelError("FilePath", "Image cannot be null.");
+                ModelState.AddModelError("FilePath", "File cannot be null.");
                 return View(uploadFileVM);
             }
-            HomeWork homeWork = new();
+
+            var homeWork = await _context.Homeworks.FindAsync(id);
+            if (homeWork == null) return NotFound();
+
             homeWork.FilePath = await file.SaveFile();
-            return View(homeWork);
+            _context.Update(homeWork);
+            await _context.SaveChangesAsync();
 
-
-
-
+            return RedirectToAction("Detail", new { id = homeWork.Id });
         }
     }
 }

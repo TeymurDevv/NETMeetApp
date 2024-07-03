@@ -1,0 +1,42 @@
+﻿@using NETMeetApp.ViewModels.HomeWork
+@model UploadFileVM
+
+
+<div class="container mt-5">
+    @if (TempData["Success"] != null)
+    {
+        <script>
+            Swal.fire({
+                icon: 'success',
+                title: 'Success!',
+                text: '@TempData["Success"]',
+                confirmButtonText: 'OK'
+            });
+        </script>
+    }
+    <div class="row">
+        <div class="col-md-12 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Create User</h4>
+                    <p class="card-description">Basic form layout</p>
+                    <form asp-action="UploadingFile" method="post" enctype="multipart/form-data">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="form-group">
+                            <label asp-for="formFile"></label>
+                            <input asp-for="formFile" class="form-control" placeholder="Username" required>
+                            <span asp-validation-for="formFile" class="text-danger"></span>
+                        </div>
+                    
+
+
+
+
+                        <button type="submit" class="btn btn-primary me-2">Submit</button>
+                        <a asp-action="Index" class="btn btn-light">Cancel</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

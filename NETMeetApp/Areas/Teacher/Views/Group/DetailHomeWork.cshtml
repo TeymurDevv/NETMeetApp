@@ -19,6 +19,39 @@
                         <p class="card-text">Group: @item.GroupName</p>
                         <p class="card-text">Points: @item.Point</p>
                     </div>
+
+                    @if (!string.IsNullOrEmpty(item.FilePath))
+                    {
+                        <div class="uploaded-file mt-3">
+                            <h4>Uploaded File:</h4>
+                            @if (item.FilePath.EndsWith(".jpg") || item.FilePath.EndsWith(".jpeg") || item.FilePath.EndsWith(".png") || item.FilePath.EndsWith(".gif"))
+                            {
+                                <img src="~/admin/images/@item.FilePath" alt="Profile Image" class="img-thumbnail" />
+                            }
+                            else if (item.FilePath.EndsWith(".pdf"))
+                            {
+                                <a href="~/admin/images/@item.FilePath" target="_blank" class="btn btn-outline-primary">
+                                    <i class="fas fa-file-pdf fa-2x"></i> View PDF
+                                </a>
+                            }
+                            else if (item.FilePath.EndsWith(".doc") || item.FilePath.EndsWith(".docx"))
+                            {
+                                <a href="~/admin/images/@item.FilePath" target="_blank" class="btn btn-outline-primary">
+                                    <i class="fas fa-file-word fa-2x"></i> View Word Document
+                                </a>
+                            }
+                            else
+                            {
+                                <a href="~/uploads/@item.FilePath" target="_blank" class="btn btn-outline-secondary">
+                                    <i class="fas fa-file-alt fa-2x"></i> View File
+                                </a>
+                            }
+                        </div>
+                    }
+                    else
+                    {
+                        <p>No file uploaded.</p>
+                    }
                 </div>
             }
         </main>
