@@ -62,7 +62,7 @@ namespace NETMeetApp.Controllers
         {
             if (!ModelState.IsValid) return View();
             var user = await _userManager.FindByNameAsync(loginVM.UserNameOrEmail);
-           
+
             if (user is null)
             {
                 user = await _userManager.FindByEmailAsync(loginVM.UserNameOrEmail);
@@ -72,7 +72,7 @@ namespace NETMeetApp.Controllers
                     return View(loginVM);
                 }
             }
-            if (user.IsBanned==true)
+            if (user.IsBanned == true)
             {
                 ModelState.AddModelError("", "Your account has been banned.");
                 return View(loginVM);
@@ -94,6 +94,10 @@ namespace NETMeetApp.Controllers
             await _signInManager.SignInAsync(user, loginVM.RememberMe);
 
             return RedirectToAction("Index", "Home");
+        }
+        public IActionResult ForgotPassword()
+        {
+            return View();
         }
     }
 }
