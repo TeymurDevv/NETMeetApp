@@ -53,6 +53,11 @@
     <None Include="wwwroot\images\images\menu-right-lined.svg" />
     <None Include="wwwroot\images\images\Twitter.svg" />
     <None Include="wwwroot\images\images\YouTube.svg" />
+    <None Include="wwwroot\js\app.js" />
+    <None Include="wwwroot\js\chat.js" />
+    <None Include="wwwroot\js\contact.js" />
+    <None Include="wwwroot\js\script.js" />
+    <None Include="wwwroot\js\text.js" />
     <None Include="wwwroot\plugins\bootstrap\bootstrap.min.js" />
     <None Include="wwwroot\plugins\fontawesome\webfonts\fa-brands-400.svg" />
     <None Include="wwwroot\plugins\fontawesome\webfonts\fa-brands-400.woff2" />
