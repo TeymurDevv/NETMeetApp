@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using NETMeetApp.Models;
 using NETMeetApp.ViewModels.Account;
+using System.Net;
+using System.Net.Mail;
 
 namespace NETMeetApp.Controllers
 {
@@ -98,6 +100,56 @@ namespace NETMeetApp.Controllers
         public IActionResult ForgotPassword()
         {
             return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> ForgotPassword(string email)
+        {
+            AppUser user = await _userManager.FindByEmailAsync(email);
+
+            if (user is null)
+            {
+                ModelState.AddModelError("Email", "Email is not available");
+                return View();
+            }
+
+            var token = await _userManager.GeneratePasswordResetTokenAsync(user);
+
+            var link = Url.Action(nameof(ResetPassword), "Account",
+                new { email = user.Email, token = token }, Request.Scheme, Request.Host.ToString());
+
+            MailMessage mailMessage = new();
+
+            mailMessage.From = new MailAddress("teymurns@code.edu.az", "Email From Bakalavr.az");
+            mailMessage.To.Add(new MailAddress(user.Email));
+            mailMessage.Subject = "Reset Password";
+
+            mailMessage.Body = $"<a href={link}>Please click here for reset password</a>";
+            mailMessage.IsBodyHtml = true;
+
+            SmtpClient smtpClient = new();
+            smtpClient.Host = "smtp.gmail.com";
+            smtpClient.Port = 587;
+            smtpClient.EnableSsl = true;
+
+            smtpClient.Credentials = new NetworkCredential("teymurns@code.edu.az", "lsgy jgon moyd kfwd");
+            smtpClient.Send(mailMessage);
+
+            return RedirectToAction("Index", "Home");
+        }
+        public IActionResult ResetPassword()
+        {
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> ResetPassword(string email, string token, ResetPasswordVM resetPasswordVM)
+        {
+            AppUser appUser = await _userManager.FindByEmailAsync(email);
+            if (!ModelState.IsValid) return View();
+
+            await _userManager.ResetPasswordAsync(appUser, token, resetPasswordVM.Password);
+            await _userManager.UpdateSecurityStampAsync(appUser);
+
+            return RedirectToAction("Login", "Account");
         }
     }
 }
