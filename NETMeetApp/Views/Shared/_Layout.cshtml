@@ -1,55 +1,44 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-
     <!-- ** Basic Page Needs ** -->
-    <meta charset="utf-8">
-    <title>Promodise - Startup Business Bootstrap Template</title>
+    <meta charset="utf-8" />
+    <title>Bakalavr.az</title>
 
     <!-- ** Mobile Specific Metas ** -->
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="description" content="Business Bootstrap Template">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-    <meta name="author" content="Themefisher">
-    <meta name="generator" content="Themefisher Promodise Template v1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="description" content="Bakalavr.az" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+    <meta name="author" content="Bakalavr.az" />
+    <meta name="generator" content="Bakalavr.az" />
 
     <!-- bootstrap.min css -->
-    <link rel="stylesheet" href="~/plugins/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="plugins/bootstrap/bootstrap.min.css" />
     <!-- fontawesome css -->
-    <link rel="stylesheet" href="~/plugins/fontawesome/css/all.css">
+    <link rel="stylesheet" href="plugins/fontawesome/css/all.css" />
     <!-- Icofont -->
-    <link rel="stylesheet" href="~/plugins/icofont/icofont.css" />
+    <link rel="stylesheet" href="plugins/icofont/icofont.css" />
+    <!-- AOS Animation -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
 
-    <!-- Icofont -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet" />
     <!-- Main Stylesheet -->
-    <link rel="stylesheet" href="~/css/style.css">
+    <link rel="stylesheet" href="css/style.css" />
 
-
-
-
-    @RenderSection("PageSpecificStyles", required: false)
-    @RenderSection("PageSpecificStyles2", required: false)
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+          integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+          crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <!--Favicon-->
-    <link rel="icon" href="~/images/favicon.png" type="image/x-icon">
-
+    <link rel="icon" href="images/favicon.png" type="image/x-icon" />
 </head>
 <body data-spy="scroll" data-target="#mainNav">
-     <style>
-        .net {
-            font-weight: bold;
-            color: white;
-        }
-      
-    </style>
-    <nav class="navbar navbar-expand-lg fixed-top trans-navigation ">
+    <nav class="navbar navbar-expand-lg fixed-top trans-navigation" data-aos="fade-down">
         <div class="container">
             <a class="navbar-brand" href="index.html">
-                <span class="net">NETMeetingApp</span>
+                Bakalavr.az
             </a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainNav" aria-controls="mainNav"
-                    aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainNav"
+                    aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon">
                     <i class="fa fa-bars"></i>
                 </span>
@@ -112,85 +101,67 @@
         <div class="container">
             <div class="row justify-content-around">
                 <div class="col-lg-4">
-                    <div class="footer-widget footer-link">
-                        <h4>We concern about you<br> to grow business rapidly.</h4>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore ipsam hic non sunt recusandae atque unde saepe nihil earum voluptatibus aliquid optio suscipit nobis quia vel quod, iure quae.</p>
+                    <div class="footer-widget footer-link" data-aos="fade-up">
+                        <h4>
+                            Our goal is to enhance<br />
+                            virtual education
+                        </h4>
+                        <p>
+                            We strive to create an engaging and interactive learning environment that bridges the gap
+                            between students and educators. By leveraging cutting-edge technology, we aim to make online
+                            education more accessible, effective, and enjoyable for everyone involved.
+                        </p>
                     </div>
                 </div>
                 <div class="col-lg-2 col-md-4 col-6">
-                    <div class="footer-widget footer-link">
+                    <div class="footer-widget footer-link" data-aos="fade-up" data-aos-delay="100">
                         <h4>About</h4>
                         <ul>
                             <li><a href="about.html">About</a></li>
-                            <li><a href="service.html">Service</a></li>
                             <li><a href="pricing.html">Pricing</a></li>
-                            <li><a href="#!">Team</a></li>
-                            <li><a href="#!">Testimonials</a></li>
+                            <li><a href="about.html">Team</a></li>
                             <li><a href="blog.html">Blog</a></li>
                         </ul>
                     </div>
                 </div>
 
                 <div class="col-lg-2 col-md-4 col-6">
-                    <div class="footer-widget footer-link">
+                    <div class="footer-widget footer-link" data-aos="fade-up" data-aos-delay="200">
                         <h4>Quick Links</h4>
                         <ul>
                             <li><a href="#!">How it Works</a></li>
                             <li><a href="#!">Support</a></li>
-                            <li><a href="#!">Privacy Policy</a></li>
-                            <li><a href="#!">Report Bug</a></li>
-                            <li><a href="#!">License</a></li>
-                            <li><a href="#!">Terms & Condition</a></li>
+                            <li><a href="terms.html">Terms & Condition</a></li>
+                            <li><a href="faq.html">FAQ</a></li>
                         </ul>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-4 col-sm-12">
-                    <div class="footer-widget footer-text">
+                    <div class="footer-widget footer-text" data-aos="fade-up" data-aos-delay="300">
                         <h4>Our location</h4>
-                        <p class="mail"><span>Mail:</span> promdise@gmail.com</p>
-                        <p><span>Phone :</span>+202-277-3894</p>
-                        <p><span>Location:</span> 455 West Orchard Street Kings Mountain, NC 28086,NOC building</p>
+                        <p class="mail"><span>Mail:</span>bakalavr.help@gmail.com</p>
+                        <p><span>Phone :</span>+994 995 45 05 05</p>
+                        <p>
+                            <span>Location:</span>241 Abbas Mirza Sharifzadeh St
+                        </p>
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <div class="footer-copy">
-                        Copyright &copy; 2021, Designed &amp; Developed by <a href="https://themefisher.com/">Themefisher</a>
+                    <div class="footer-copy" data-aos="fade-up" data-aos-delay="400">
+                        Copyright &copy; 2024, Designed &amp; Developed by
+                        <a>Elvin Ismayil</a>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
-    <!--  FOOTER AREA END  -->
+    </section>    <!--  FOOTER AREA END  -->
     <!--
     Essential Scripts
     =====================================-->
-    <!-- Main jQuery -->
-    <script src="~/plugins/jquery/jquery.min.js"></script>
-    <!-- Bootstrap js -->
-    <script src="~/plugins/bootstrap/bootstrap.min.js"></script>
 
     <!-- Google Map -->
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCcABaamniA6OL5YvYSpB3pFMNrXwXnLwU"></script>
-    <script src="~/plugins/google-map/map.js"></script>
-    <script src="~/admin/vendors/base/vendor.bundle.base.js"></script>
-    <!-- endinject -->
-    <!-- Plugin js for this page-->
-    <script src="~/admin/vendors/chart.js/Chart.min.js"></script>
-    <!-- End plugin js for this page-->
-    <!-- inject:js -->
-    <script src="~/admin/js/off-canvas.js"></script>
-    <script src="~/admin/js/hoverable-collapse.js"></script>
-    <script src="~/admin/js/template.js"></script>
-    <!-- endinject -->
-    <!-- Custom js for this page-->
-    <script src="~/js/script.js"></script>
-    <!-- main script -->
-    <script src="~/admin/js/script.js"></script>
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <!--Start of Tawk.to Script-->
     <script type="text/javascript">
         var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
@@ -203,6 +174,7 @@
             s0.parentNode.insertBefore(s1, s0);
         })();
     </script>
+    <!-- Main jQuery -->
     <script src="plugins/jquery/jquery.min.js"></script>
     <!-- Bootstrap js -->
     <script src="plugins/bootstrap/bootstrap.min.js"></script>
