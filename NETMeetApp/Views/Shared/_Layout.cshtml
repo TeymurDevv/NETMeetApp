@@ -13,16 +13,18 @@
     <meta name="generator" content="Bakalavr.az" />
 
     <!-- bootstrap.min css -->
-    <link rel="stylesheet" href="plugins/bootstrap/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/plugins/bootstrap/bootstrap.min.css" />
     <!-- fontawesome css -->
-    <link rel="stylesheet" href="plugins/fontawesome/css/all.css" />
+    <link rel="stylesheet" href="~/plugins/fontawesome/css/all.css" />
     <!-- Icofont -->
-    <link rel="stylesheet" href="plugins/icofont/icofont.css" />
+    <link rel="stylesheet" href="~/plugins/icofont/icofont.css" />
     <!-- AOS Animation -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
 
     <!-- Main Stylesheet -->
-    <link rel="stylesheet" href="css/style.css" />
+    @RenderSection("PageSpecificStyles", required: false)
+    @RenderSection("PageSpecificStyles2", required: false)
+    <link rel="stylesheet" href="~/css/style.css" />
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
           integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
@@ -175,20 +177,20 @@
         })();
     </script>
     <!-- Main jQuery -->
-    <script src="plugins/jquery/jquery.min.js"></script>
+    <script src="~/plugins/jquery/jquery.min.js"></script>
     <!-- Bootstrap js -->
-    <script src="plugins/bootstrap/bootstrap.min.js"></script>
+    <script src="~/plugins/bootstrap/bootstrap.min.js"></script>
     <!-- AOS Animation -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     <!-- Typed.js -->
     <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
     <!-- Google Map -->
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCcABaamniA6OL5YvYSpB3pFMNrXwXnLwU"></script>
-    <script src="js/text.js"></script>
-    <script src="plugins/google-map/map.js"></script>
+    <script src="~/js/text.js"></script>
+    <script src="~/plugins/google-map/map.js"></script>
 
     <!-- main script -->
-    <script src="js/script.js"></script>
+    <script src="~/js/script.js"></script>
 
     <script>
         AOS.init();
