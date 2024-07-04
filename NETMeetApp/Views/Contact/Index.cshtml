@@ -1,0 +1,119 @@
+﻿    <!--MAIN BANNER AREA START -->
+<div class="page-banner-area page-contact" id="page-banner">
+    <div class="overlay dark-overlay"></div>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 m-auto text-center col-sm-12 col-md-12">
+                <div class="banner-content content-padding slide-in-left">
+                    <h1 class="text-white">Let's Connect with us</h1>
+                    <p>
+                        In case you need any support or if you have inquiries let us know!
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--MAIN HEADER AREA END -->
+<!--  Contact START  -->
+<section class="section-padding">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-sm-12 col-md-12">
+                <div class="mb-5 slide-in-right">
+                    <h2 class="mb-2">Get in touch</h2>
+                    <p>
+                        We'd love to hear from you! Whether you have questions about our
+                        platform, need assistance, or want to discuss your next project,
+                        we're here to help.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="container mt-5">
+            <div class="row">
+                <div class="col-lg-6">
+                    <h2>Contact Us</h2>
+                    <br />
+                    <form id="contact-form">
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text"
+                                   class="form-control"
+                                   id="name"
+                                   name="name"
+                                   required />
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email"
+                                   class="form-control"
+                                   id="email"
+                                   name="email"
+                                   required />
+                        </div>
+                        <div class="form-group">
+                            <label for="subject">Subject</label>
+                            <input type="text"
+                                   class="form-control"
+                                   id="subject"
+                                   name="subject"
+                                   required />
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea class="form-control"
+                                      id="message"
+                                      name="message"
+                                      rows="4"
+                                      required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">
+                            Send Message
+                        </button>
+                    </form>
+                </div>
+                <div class="col-lg-3 my-auto mx-auto mx-2 slide-in-left">
+                    <h3>Office Address</h3>
+                    <p style="font-size: 24px" class="mb-3">
+                        241 Abbas Mirza Sharifzadeh St
+                    </p>
+                    <h3>Contact Info</h3>
+                    <p style="font-size: 24px" class="mb-3">+994 995 45 05 05</p>
+                    <h3>Contact Mail</h3>
+                    <p style="font-size: 24px" class="mb-3">
+                        teymursuleymanli2008@gmail.com
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <br />
+
+        <!-- Google Map -->
+        <div class="map-container slide-in-right">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3031.9499369257897!2d49.8008194!3d40.3992577!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40307d2d4a8ae5d3%3A0x7037bfc3b8d3d4b3!2s40%C2%B023'57.3%22N%2049%C2%B048'03.0%22E!5e0!3m2!1sen!2sus!4v1620853707751!5m2!1sen!2sus"
+                    style="border: 0"
+                    allowfullscreen=""
+                    loading="lazy"></iframe>
+        </div>
+    </div>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script src="js/contact.js"></script>
+
+<!-- Main jQuery -->
+<script src="plugins/jquery/jquery.min.js"></script>
+<!-- Bootstrap js -->
+<script src="plugins/bootstrap/bootstrap.min.js"></script>
+<!-- Main script -->
+<script src="js/script.js"></script>
+
+<script>
+    $(document).scroll(function () {
+        var $nav = $(".navbar");
+        $nav.toggleClass("scrolled", $(this).scrollTop() > $nav.height());
+    });
+</script>
