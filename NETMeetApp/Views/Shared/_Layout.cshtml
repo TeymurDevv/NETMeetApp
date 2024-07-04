@@ -55,13 +55,10 @@
                         <a class="nav-link smoth-scroll" asp-action="Index" asp-controller="About">About</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link smoth-scroll" asp-action="Index" asp-controller="Service">Service</a>
-                    </li>
-                    <li class="nav-item">
                         <a class="nav-link smoth-scroll" asp-action="Index" asp-controller="Pricing">Pricing</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link smoth-scroll" asp-action="Index" asp-controller="Blog">Blog</a>
+                        <a class="nav-link smoth-scroll" asp-action="Index" asp-controller="Faq">FAQ</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link smoth-scroll" asp-action="Index" asp-controller="Contact">Contact</a>
@@ -119,10 +116,9 @@
                     <div class="footer-widget footer-link" data-aos="fade-up" data-aos-delay="100">
                         <h4>About</h4>
                         <ul>
-                            <li><a href="about.html">About</a></li>
-                            <li><a href="pricing.html">Pricing</a></li>
-                            <li><a href="about.html">Team</a></li>
-                            <li><a href="blog.html">Blog</a></li>
+                            <li><a asp-action="Index" asp-controller="About">About</a></li>
+                            <li><a asp-action="Index" asp-controller="Pricing">Pricing</a></li>
+                            <li><a asp-action="Index" asp-controller="About">Team</a></li>
                         </ul>
                     </div>
                 </div>
@@ -131,10 +127,9 @@
                     <div class="footer-widget footer-link" data-aos="fade-up" data-aos-delay="200">
                         <h4>Quick Links</h4>
                         <ul>
-                            <li><a href="#!">How it Works</a></li>
-                            <li><a href="#!">Support</a></li>
+                            <li><a asp-action="Index" asp-controller="Contact">Support</a></li>
                             <li><a href="terms.html">Terms & Condition</a></li>
-                            <li><a href="faq.html">FAQ</a></li>
+                            <li><a asp-action="Index" asp-controller="Faq">FAQ</a></li>
                         </ul>
                     </div>
                 </div>
