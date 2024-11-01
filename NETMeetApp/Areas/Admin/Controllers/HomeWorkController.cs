@@ -82,6 +82,7 @@ namespace NETMeetApp.Areas.Admin.Controllers
         {
             return View();
         }
+        [HttpPost]
         public async Task<IActionResult> Update(int id, HomeWorkUpdateVM vm)
         {
             // Get the current user
